@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hero Lab 5 — монтажный стол · ламповый кинотеатр</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Roboto+Mono:wght@400;500;700&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Manrope',sans-serif;background:#0d0d0d;color:#f2f2f2}
+a{color:inherit}
+
+/* ── панель ── */
+.lab-bar{position:fixed;top:0;left:0;right:0;z-index:100;background:#111;color:#fff;display:flex;align-items:center;gap:6px;padding:10px 18px;flex-wrap:wrap;border-bottom:1px solid #222}
+.lab-bar b{font-size:13px;margin-right:8px;letter-spacing:.04em;font-family:'Roboto Mono',monospace}
+.lab-bar button{font-family:'Manrope';font-weight:700;font-size:13px;background:none;border:1px solid #555;color:#ccc;padding:7px 14px;cursor:pointer}
+.lab-bar button.on{background:#ffb45c;color:#111;border-color:#ffb45c}
+.lab-bar a.lnk{margin-left:auto;font-family:'Roboto Mono',monospace;font-size:11.5px;color:#888;text-decoration:none;border-bottom:1px dotted #555;padding-bottom:2px}
+.lab-bar a.lnk+a.lnk{margin-left:12px}
+.lab-bar a.lnk:hover{color:#ffb45c;border-color:#ffb45c}
+.variant{display:none;min-height:100vh;position:relative;overflow:hidden}
+.variant.on{display:block}
+
+/* стаггер */
+.st{opacity:0;transform:translateY(16px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
+.variant.on .st{opacity:1;transform:none}
+.variant.on .d2{transition-delay:.1s}
+.variant.on .d3{transition-delay:.2s}
+
+/* ═══════ A · МОНТАЖНЫЙ СТОЛ ═══════ */
+#vA{background:#e6dcc4 url(assets/paper.jpg);background-size:1100px;background-blend-mode:multiply;color:#2b2118}
+#vA::after{content:"";position:absolute;inset:0;pointer-events:none;box-shadow:inset 0 0 24vmin rgba(59,40,20,.35)}
+#vA .in{position:relative;min-height:100vh;padding:110px 56px 80px;z-index:1}
+#vA .name{position:relative;z-index:2;font-weight:800;font-size:clamp(52px,8.6vw,124px);line-height:.9;letter-spacing:-.05em;color:#241b12;text-shadow:0 1px 0 rgba(255,252,240,.6);user-select:none}
+#vA .role{margin-top:16px;font-family:'Roboto Mono',monospace;font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;color:#6d5c47}
+#vA .cta{position:absolute;right:64px;top:130px;background:#e33d2e;color:#fff;font-weight:800;font-size:14.5px;padding:13px 22px;transform:rotate(3deg);box-shadow:3px 5px 0 rgba(0,0,0,.25);text-decoration:none;z-index:30}
+#vA .cta:hover{transform:rotate(0) scale(1.04)}
+
+/* полароиды с живыми клипами */
+#vA .pol{position:absolute;width:240px;background:#fdfdf8;padding:9px 9px 38px;box-shadow:0 12px 30px rgba(40,25,10,.35);cursor:grab;touch-action:none;user-select:none}
+#vA .pol:active{cursor:grabbing}
+#vA .pol::before{content:"";position:absolute;top:-12px;left:50%;transform:translateX(-50%) rotate(-2deg);width:92px;height:24px;background:rgba(228,214,150,.8);box-shadow:0 1px 3px rgba(0,0,0,.18)}
+#vA .pol video{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;background:#111;pointer-events:none}
+#vA .pol .cap{position:absolute;left:0;right:0;bottom:7px;text-align:center;font-family:'Caveat',cursive;font-weight:600;font-size:19px;color:#333;pointer-events:none}
+
+/* стикеры-метрики */
+#vA .note{position:absolute;width:150px;padding:16px 14px;background:#ffe66b;box-shadow:2px 5px 12px rgba(40,25,10,.3);font-family:'Caveat',cursive;font-weight:700;font-size:23px;line-height:1.05;color:#4a3b12;cursor:grab;touch-action:none;user-select:none}
+#vA .note:active{cursor:grabbing}
+#vA .note small{display:block;font-size:16px;font-weight:600;margin-top:4px;color:#7a6320}
+#vA .note.pink{background:#ffb3c7;color:#5c1a2c}
+#vA .note.pink small{color:#8f4059}
+
+/* figma-курсоры */
+#vA .cur{position:absolute;z-index:40;pointer-events:none;filter:drop-shadow(0 3px 6px rgba(0,0,0,.3))}
+#vA .cur svg{width:20px;height:20px}
+#vA .cur span{display:inline-block;margin-left:12px;margin-top:-4px;font-size:12px;font-weight:700;color:#fff;padding:4px 10px;border-radius:4px;white-space:nowrap}
+#vA .cur.c1 span{background:#e0417e}
+#vA .cur.c2 span{background:#2f6bff}
+#vA .cur.c3 span{background:#0aa678}
+
+/* бегущая строка */
+#vA .tape{position:absolute;left:-4%;right:-4%;bottom:42px;background:#221a10;color:#ffe66b;transform:rotate(-1.2deg);overflow:hidden;white-space:nowrap;z-index:20;box-shadow:0 6px 22px rgba(40,25,10,.4)}
+#vA .tape .row{display:inline-block;padding:11px 0;font-family:'Roboto Mono',monospace;font-size:13px;letter-spacing:.14em;text-transform:uppercase;animation:tape 26s linear infinite}
+@keyframes tape{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ═══════ B · ЛАМПОВЫЙ КИНОТЕАТР (ракурс с правого края зала) ═══════ */
+#vB{background:linear-gradient(180deg,#120908 0%,#1a0d0c 30%,#100707 66%,#0b0504 100%);filter:contrast(1.15) saturate(.84)}
+
+/* бра на стенах */
+#vB .sconce{position:absolute;width:10px;height:26px;border-radius:5px;background:linear-gradient(180deg,#fff3dd,#c97a3d);z-index:2;box-shadow:0 0 10px 2px rgba(255,235,200,.8)}
+#vB .sconce::after{content:"";position:absolute;inset:-46px -60px;background:radial-gradient(closest-side,rgba(255,170,90,.3),transparent 70%);animation:breathe 7s ease-in-out infinite}
+#vB .sconce.s1{left:3%;top:34%}
+#vB .sconce.s2{right:2.5%;top:56%;animation-delay:2s}
+@keyframes breathe{0%,100%{opacity:.75}50%{opacity:1}}
+
+/* потолок: точечные светильники, выжженные ядра */
+#vB .ceiling{position:absolute;inset:0 0 auto 0;height:36%;z-index:2;pointer-events:none;background:
+ radial-gradient(5px 5px at 12% 30%,#fffdf6 0 1.5px,rgba(255,215,150,.4) 45%,transparent 75%),
+ radial-gradient(4px 4px at 26% 18%,#fffdf6 0 1.3px,rgba(255,215,150,.35) 45%,transparent 75%),
+ radial-gradient(6px 6px at 44% 34%,#fffdf6 0 1.8px,rgba(255,215,150,.4) 45%,transparent 75%),
+ radial-gradient(4px 4px at 57% 14%,#fffdf6 0 1.2px,rgba(255,215,150,.3) 45%,transparent 75%),
+ radial-gradient(7px 7px at 71% 40%,#fffdf6 0 2px,rgba(255,215,150,.45) 45%,transparent 75%),
+ radial-gradient(5px 5px at 84% 22%,#fffdf6 0 1.5px,rgba(255,215,150,.35) 45%,transparent 75%),
+ radial-gradient(8px 8px at 94% 52%,#fffdf6 0 2.4px,rgba(255,215,150,.5) 45%,transparent 75%),
+ radial-gradient(3px 3px at 35% 8%,#fffdf6 0 1px,rgba(255,215,150,.3) 45%,transparent 75%)}
+
+/* правая стена: диагональные световые полоски */
+#vB .rwall{position:absolute;right:0;top:10%;width:20%;height:52%;z-index:2;pointer-events:none;opacity:.5;background:
+ linear-gradient(112deg,transparent 30.5%,rgba(255,226,170,.65) 31.4%,#fff4de 31.8%,rgba(255,226,170,.65) 32.2%,transparent 33%),
+ linear-gradient(112deg,transparent 46.5%,rgba(255,226,170,.5) 47.4%,#fff4de 47.8%,rgba(255,226,170,.5) 48.2%,transparent 49%),
+ linear-gradient(112deg,transparent 63.5%,rgba(255,226,170,.6) 64.4%,#fff4de 64.8%,rgba(255,226,170,.6) 65.2%,transparent 66%),
+ linear-gradient(112deg,transparent 80.5%,rgba(255,226,170,.4) 81.4%,#fff4de 81.8%,rgba(255,226,170,.4) 82.2%,transparent 83%)}
+
+/* проход слева: дорожка красных LED */
+#vB .leds{position:absolute;left:-2%;bottom:12%;width:34%;height:8px;z-index:5;transform:rotate(-17deg);transform-origin:left bottom;pointer-events:none;opacity:.8;background:radial-gradient(circle at 4px 4px,#ff5c46 0 1.6px,rgba(255,70,50,.45) 3px,transparent 4.5px) 0 0/30px 8px repeat-x;filter:blur(.4px)}
+#vB .leds.l2{bottom:5%;width:44%;transform:rotate(-13deg);opacity:.55}
+
+/* ambilight: блюренное видео за экраном (повторяет ракурс экрана) */
+#vB .amb{position:absolute;left:2%;top:8%;width:min(58vw,900px);aspect-ratio:21/9;transform:rotateY(16deg) scale(1.5);transform-origin:0 50%;filter:blur(74px) saturate(1.35) brightness(.95);opacity:.5;z-index:1;transition:opacity 1s}
+#vB.credits-on .amb{opacity:.1}
+#vB .amb video{width:100%;height:100%;object-fit:cover}
+
+/* луч проектора: сзади-справа сверху к экрану слева */
+#vB .beam{position:absolute;left:12%;top:0;width:64vw;height:56vh;z-index:3;pointer-events:none;background:linear-gradient(196deg,rgba(255,236,200,.3),rgba(255,214,160,.07) 55%,transparent);clip-path:polygon(74% 0,84% 0,44% 100%,2% 100%);filter:blur(8px);mix-blend-mode:screen;animation:flicker 11s ease-in-out infinite}
+@keyframes flicker{0%,100%{opacity:.85}42%{opacity:1}44%{opacity:.7}46%{opacity:.95}70%{opacity:.8}}
+#vB .dust{position:absolute;left:14%;top:0;width:52vw;height:52vh;z-index:3;pointer-events:none}
+#vB .dust i{position:absolute;display:block;border-radius:50%;background:#ffe9c8;animation:mote linear infinite}
+@keyframes mote{from{transform:translate(0,0)}to{transform:translate(-46px,54vh)}}
+
+/* экран: слева, в перспективе */
+#vB .stage{position:absolute;left:4%;top:9%;width:min(54vw,840px);z-index:4;perspective:1500px}
+#vB .halo{position:absolute;inset:-7%;transform:rotateY(16deg) rotateX(1.2deg);transform-origin:0 50%;background:radial-gradient(closest-side,rgba(255,246,230,.5),rgba(255,140,80,.22) 62%,transparent);filter:blur(26px);z-index:0;transition:opacity 1s}
+#vB.credits-on .halo{opacity:.25}
+#vB .screenWrap{position:relative;z-index:1;aspect-ratio:21/9;transform:rotateY(16deg) rotateX(1.2deg);transform-origin:0 50%;background:#000;border:3px solid #241410;border-radius:3px;box-shadow:0 0 0 1px rgba(255,190,120,.16),0 34px 90px rgba(0,0,0,.8);overflow:hidden}
+#vB .screenWrap video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+#vB .haze{position:absolute;inset:0;background:radial-gradient(90% 90% at 50% 45%,transparent 55%,rgba(24,12,8,.26) 100%);pointer-events:none}
+#vB .dim{position:absolute;inset:0;background:#000;opacity:0;transition:opacity .4s;pointer-events:none}
+#vB .screenWrap.dark .dim{opacity:1}
+
+/* marquee-табличка кейсов на правой стене */
+#vB .marq{position:absolute;right:3.5%;top:17%;width:min(25vw,330px);z-index:5;perspective:900px;cursor:pointer;user-select:none}
+#vB .marq .box{transform:rotateY(-9deg);transform-origin:100% 50%;background:#0a0705;border-radius:6px;padding:9px;box-shadow:0 14px 44px rgba(0,0,0,.65),0 0 70px rgba(255,222,170,.22)}
+#vB .marq .field{position:relative;background:linear-gradient(180deg,#fdf6e2,#eddcba);border-radius:3px;box-shadow:inset 0 0 30px rgba(120,80,30,.4),0 0 30px rgba(255,236,190,.55)}
+#vB .marq .row{padding:8px 26px;text-align:center;text-transform:uppercase;color:#1a1109}
+#vB .marq .row+.row{border-top:2px solid rgba(35,22,10,.22)}
+#vB .marq .brand{font-family:'Roboto Mono',monospace;font-weight:700;font-size:9px;letter-spacing:.3em;color:#3a2a16;padding:7px 8px 6px}
+#vB .marq .title{font-weight:800;font-size:clamp(15px,1.55vw,21px);letter-spacing:.1em;line-height:1.2;min-height:2.2em;display:flex;align-items:center;justify-content:center;padding:11px 26px}
+#vB .marq .metric{font-family:'Roboto Mono',monospace;font-weight:700;font-size:10.5px;letter-spacing:.12em;min-height:2.4em;display:flex;align-items:center;justify-content:center}
+#vB .marq .title span,#vB .marq .metric span{display:inline-block;white-space:pre;transition:opacity .22s,transform .22s}
+#vB .marq .out span{opacity:0;transform:translateY(-7px)}
+#vB .marq .arr{position:absolute;top:50%;transform:translateY(-50%);width:22px;height:30px;border:none;background:none;cursor:pointer;font-size:17px;line-height:1;color:#4a3016;opacity:.65}
+#vB .marq .arr:hover{opacity:1}
+#vB .marq .arr.prev{left:2px}
+#vB .marq .arr.next{right:2px}
+
+/* передний план: размытые спинки и головы */
+#vB .fore{position:absolute;left:-2%;right:-2%;bottom:-3%;z-index:6;filter:blur(5px);pointer-events:none}
+#vB .fore svg{display:block;width:100%;height:auto}
+
+/* плёночный градинг: выжженные света, crushed тени */
+#vB .grade{position:absolute;inset:0;z-index:8;pointer-events:none;background:
+ linear-gradient(185deg,rgba(255,244,220,.09),transparent 32%),
+ radial-gradient(130% 105% at 26% 30%,transparent 48%,rgba(7,3,2,.8) 100%)}
+#vB .grade2{position:absolute;inset:0;z-index:8;pointer-events:none;background:linear-gradient(180deg,rgba(70,34,14,.5),transparent 45%,rgba(46,20,8,.55) 100%);mix-blend-mode:multiply;opacity:.55}
+
+/* титры */
+#vB .credits{position:absolute;inset:0;background:#050404;display:none;overflow:hidden}
+#vB.credits-on .credits{display:block}
+#vB .credits .roll{position:absolute;left:0;right:0;top:100%;text-align:center;animation:roll 8.5s linear forwards}
+#vB.credits-on .credits .roll{animation-play-state:running}
+@keyframes roll{from{transform:translateY(0)}to{transform:translateY(-210%)}}
+#vB .credits .lab{font-family:'Roboto Mono',monospace;font-size:10px;letter-spacing:.34em;color:#8d857c;text-transform:uppercase;margin-bottom:14px}
+#vB .credits p{font-family:'Roboto Mono',monospace;font-size:clamp(12px,1.25vw,17px);letter-spacing:.12em;color:#e8e2d8;margin:12px 0}
+#vB .credits p b{font-weight:700;color:#ffcf9e}
+
+/* зал: кресла и зрители */
+#vB .hall{position:absolute;left:0;right:0;bottom:0;z-index:5;pointer-events:none}
+#vB .hall svg{display:block;width:100%;height:auto}
+#vB .p2{opacity:0}
+#vB .swap .p1{opacity:0}
+#vB .swap .p2{opacity:1}
+#vB .pose{transition:opacity .5s}
+#vB .sway{animation:sway 8s ease-in-out infinite alternate;transform-origin:50% 100%}
+#vB .sway.slow{animation-duration:11s;animation-delay:3s}
+@keyframes sway{from{transform:rotate(-.7deg)}to{transform:rotate(.7deg)}}
+
+/* туман */
+#vB .fog{position:absolute;inset:0;z-index:6;pointer-events:none;overflow:hidden}
+#vB .fog i{position:absolute;display:block;width:60vw;height:30vh;border-radius:50%;background:radial-gradient(closest-side,rgba(255,190,130,.07),transparent 70%);filter:blur(30px);animation:drift 52s ease-in-out infinite alternate}
+#vB .fog i:nth-child(2){left:40%;top:46%;width:50vw;animation-duration:64s;animation-delay:-20s}
+@keyframes drift{from{transform:translateX(-6vw)}to{transform:translateX(7vw)}}
+
+/* бумага + зерно */
+#vB .paper{position:absolute;inset:0;z-index:7;pointer-events:none;background:url(assets/paper.jpg) center/cover;mix-blend-mode:soft-light;opacity:.5}
+#vB .grain{position:absolute;inset:0;z-index:7;pointer-events:none;opacity:.05;mix-blend-mode:screen;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+/* CTA */
+#vB .ui{position:absolute;right:3.5%;bottom:26px;z-index:8}
+#vB .ui a.go{font-family:'Manrope';font-weight:800;font-size:12px;color:#1c0f0a;background:#ffb45c;border-radius:3px;padding:9px 16px;text-decoration:none;box-shadow:0 0 24px rgba(255,180,92,.35)}
+
+@media (prefers-reduced-motion:reduce){
+  #vB .sway,#vB .beam,#vB .fog i,#vB .dust i,#vB .sconce::after{animation:none !important}
+  #vA .tape .row{animation:none}
+}
+@media(max-width:860px){
+  #vB .stage,#vB .amb{width:76vw}
+  #vB .marq{width:38vw;top:auto;bottom:24%}
+  #vA .pol{width:180px}
+  #vA .cta{top:auto;bottom:120px}
+}
+</style>
+</head>
+<body>
+
+<div class="lab-bar">
+  <b>HERO LAB 5</b>
+  <button data-v="A" class="on">A · монтажный стол</button>
+  <button data-v="B">B · ламповый кинотеатр</button>
+  <a class="lnk" href="hero-lab4.html">← lab 4</a>
+  <a class="lnk" href="hero-lab3.html">← lab 3</a>
+</div>
+
+<!-- ═══ A · монтажный стол ═══ -->
+<section class="variant on" id="vA">
+  <div class="in">
+    <h1 class="name st">серафим<br>панюшкин</h1>
+    <div class="role st d2">сценарий · режиссура · продюсирование</div>
+    <a class="cta st d2" href="#">давайте делать вместе</a>
+
+    <div class="pol st d2" style="left:52%;top:20%;transform:rotate(-4deg)" data-drag>
+      <video src="assets/clip_reel.mp4" muted loop playsinline autoplay preload="metadata"></video>
+      <div class="cap">шоурил · 02:00</div>
+    </div>
+    <div class="pol st d2" style="left:71%;top:34%;transform:rotate(3deg)" data-drag>
+      <video src="assets/clip_cerca.mp4" muted loop playsinline autoplay preload="metadata"></video>
+      <div class="cap">cerca trova · +250 000</div>
+    </div>
+    <div class="pol st d3" style="left:12%;top:52%;transform:rotate(2.5deg)" data-drag>
+      <video src="assets/clip_sun.mp4" muted loop playsinline autoplay preload="metadata"></video>
+      <div class="cap">sunscrypt · 830 000 за квартал</div>
+    </div>
+    <div class="pol st d3" style="left:38%;top:57%;transform:rotate(-2deg)" data-drag>
+      <video src="assets/clip_doc.mp4" muted loop playsinline autoplay preload="metadata"></video>
+      <div class="cap">ai-документалки</div>
+    </div>
+    <div class="pol st d3" style="left:63%;top:62%;transform:rotate(4.5deg)" data-drag>
+      <video src="assets/perf_preview.mp4" muted loop playsinline autoplay preload="metadata"></video>
+      <div class="cap">перфоманс 360°</div>
+    </div>
+
+    <div class="note st d3" style="left:33%;top:30%;transform:rotate(-6deg)" data-drag>350+ сценариев<small>20+ каналов</small></div>
+    <div class="note pink st d3" style="left:86%;top:27%;transform:rotate(5deg)" data-drag>70–78%<small>удержание на 0:30</small></div>
+    <div class="note st d3" style="left:5%;top:26%;transform:rotate(4deg)" data-drag>4 канала<small>с нуля</small></div>
+
+    <div class="cur c1" id="cur1"><svg viewBox="0 0 24 24" fill="#e0417e"><path d="M4 2l16 8-7 2-3 7z"/></svg><span>сценарист</span></div>
+    <div class="cur c2" id="cur2"><svg viewBox="0 0 24 24" fill="#2f6bff"><path d="M4 2l16 8-7 2-3 7z"/></svg><span>режиссёр</span></div>
+    <div class="cur c3" id="cur3"><svg viewBox="0 0 24 24" fill="#0aa678"><path d="M4 2l16 8-7 2-3 7z"/></svg><span>продюсер</span></div>
+
+    <div class="tape st d3"><div class="row" id="tapeRow"></div></div>
+  </div>
+</section>
+
+<!-- ═══ B · ламповый кинотеатр ═══ -->
+<section class="variant" id="vB">
+  <div class="ceiling"></div>
+  <div class="rwall"></div>
+  <span class="sconce s1"></span><span class="sconce s2"></span>
+  <div class="amb"><video id="ambV" muted playsinline preload="auto"></video></div>
+  <div class="beam"></div>
+  <div class="dust" id="dust"></div>
+  <div class="leds"></div><div class="leds l2"></div>
+
+  <div class="stage">
+    <div class="halo"></div>
+    <div class="screenWrap st d2" id="screenWrap">
+      <video id="mainV" muted playsinline preload="auto"></video>
+      <div class="credits"><div class="roll">
+        <div class="lab">конец сеанса</div>
+        <p>сценарий — <b>серафим панюшкин</b></p>
+        <p>режиссура — <b>серафим панюшкин</b></p>
+        <p>продюсер — <b>тоже он</b></p>
+        <p style="margin-top:22px;font-size:11px;color:#8d857c">снято при участии 20+ каналов и 350+ сценариев</p>
+      </div></div>
+      <div class="haze"></div>
+      <div class="dim"></div>
+    </div>
+  </div>
+
+  <div class="marq st d3" id="marq">
+    <div class="box">
+      <div class="field">
+        <div class="row brand">панюшкин представляет</div>
+        <div class="row title" id="mqTitle"></div>
+        <div class="row metric" id="mqMetric"></div>
+        <button class="arr prev" id="mqPrev" aria-label="предыдущий">‹</button>
+        <button class="arr next" id="mqNext" aria-label="следующий">›</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="hall st d3">
+    <svg viewBox="0 0 1600 430" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="rim" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#ff9d5c" stop-opacity=".38"/>
+          <stop offset=".55" stop-color="#ff9d5c" stop-opacity="0"/>
+        </linearGradient>
+      </defs>
+      <!-- задний ряд: спинки -->
+      <g fill="#2c0f12" style="filter:blur(1.4px)">
+        <rect x="-20" y="180" width="1640" height="80" rx="6"/>
+        <rect x="-20" y="176" width="1640" height="10" rx="5" fill="url(#rim)"/>
+      </g>
+      <!-- зрители заднего ряда -->
+      <g fill="#140708" style="filter:blur(1px)">
+        <circle cx="180" cy="168" r="34"/>
+        <path d="M180 134a34 34 0 0 1 30 18c-8-26-52-26-60 0a34 34 0 0 1 30-18z" fill="url(#rim)"/>
+        <g class="pose p1" id="bA1"><circle cx="560" cy="166" r="36"/><path d="M545 132c14-9 32-6 42 6l-6 8c-10-10-24-12-36-4z" fill="url(#rim)"/></g>
+        <g class="pose p2" id="bA2"><circle cx="574" cy="170" r="36"/><path d="M559 136c14-9 32-6 42 6l-6 8c-10-10-24-12-36-4z" fill="url(#rim)"/></g>
+        <circle cx="1020" cy="170" r="32"/>
+        <ellipse cx="1020" cy="140" rx="20" ry="12"/>
+        <circle cx="1400" cy="165" r="35"/>
+        <path d="M1400 130a35 35 0 0 1 26 12l-5 7a30 30 0 0 0-21-9z" fill="url(#rim)"/>
+      </g>
+      <!-- передний ряд: спинки -->
+      <g fill="#240b0e">
+        <rect x="-20" y="300" width="1640" height="140" rx="8"/>
+        <rect x="-20" y="295" width="1640" height="12" rx="6" fill="url(#rim)"/>
+        <rect x="120" y="280" width="14" height="40" rx="6"/>
+        <rect x="470" y="280" width="14" height="40" rx="6"/>
+        <rect x="820" y="280" width="14" height="40" rx="6"/>
+        <rect x="1170" y="280" width="14" height="40" rx="6"/>
+        <rect x="1520" y="280" width="14" height="40" rx="6"/>
+      </g>
+      <!-- зрители переднего ряда -->
+      <g fill="#0e0505">
+        <!-- пара: голова на плече -->
+        <g class="sway">
+          <path d="M250 320c0-44 34-72 66-72s64 28 64 72z"/>
+          <circle cx="286" cy="238" r="42"/>
+          <path d="M286 196a42 42 0 0 1 36 20c-10-32-64-32-74 2a42 42 0 0 1 38-22z" fill="url(#rim)"/>
+          <circle cx="344" cy="262" r="34" transform="rotate(-14 344 262)"/>
+          <ellipse cx="352" cy="234" rx="22" ry="14" transform="rotate(-14 352 234)"/>
+        </g>
+        <!-- зритель с пучком: наклоняется -->
+        <g class="pose p1" id="fB1">
+          <path d="M600 322c0-40 30-66 60-66s58 26 58 66z"/>
+          <circle cx="659" cy="238" r="40"/>
+          <circle cx="659" cy="192" r="15"/>
+          <path d="M659 198a40 40 0 0 1 34 19c-9-30-60-30-69 1a40 40 0 0 1 35-20z" fill="url(#rim)"/>
+        </g>
+        <g class="pose p2" id="fB2">
+          <path d="M600 322c0-40 30-66 60-66s58 26 58 66z"/>
+          <circle cx="672" cy="244" r="40"/>
+          <circle cx="683" cy="200" r="15"/>
+          <path d="M672 204a40 40 0 0 1 34 19c-9-30-60-30-69 1a40 40 0 0 1 35-20z" fill="url(#rim)"/>
+        </g>
+        <!-- кудрявый зритель -->
+        <g class="sway slow">
+          <path d="M940 324c0-42 32-70 63-70s61 28 61 70z"/>
+          <circle cx="1003" cy="240" r="41"/>
+          <circle cx="972" cy="215" r="14"/><circle cx="994" cy="203" r="15"/><circle cx="1018" cy="204" r="14"/><circle cx="1035" cy="218" r="13"/>
+          <path d="M1003 199a41 41 0 0 1 35 20c-9-31-62-31-71 1a41 41 0 0 1 36-21z" fill="url(#rim)"/>
+        </g>
+        <!-- зритель с попкорном: поднимает руку -->
+        <g class="pose p1" id="fC1">
+          <path d="M1280 324c0-40 30-66 60-66s58 26 58 66z"/>
+          <circle cx="1339" cy="240" r="40"/>
+          <path d="M1339 200a40 40 0 0 1 34 19c-9-30-60-30-69 1a40 40 0 0 1 35-20z" fill="url(#rim)"/>
+          <rect x="1392" y="286" width="30" height="34" rx="4"/>
+        </g>
+        <g class="pose p2" id="fC2">
+          <path d="M1280 324c0-40 30-66 60-66s58 26 58 66z"/>
+          <circle cx="1339" cy="240" r="40"/>
+          <path d="M1339 200a40 40 0 0 1 34 19c-9-30-60-30-69 1a40 40 0 0 1 35-20z" fill="url(#rim)"/>
+          <rect x="1392" y="286" width="30" height="34" rx="4"/>
+          <path d="M1384 292l-14-34 10-4 14 34z"/>
+          <circle cx="1376" cy="252" r="9"/>
+        </g>
+        <!-- зритель в кепке -->
+        <g>
+          <path d="M60 326c0-38 28-62 56-62s54 24 54 62z"/>
+          <circle cx="115" cy="248" r="38"/>
+          <path d="M78 240c2-26 22-40 40-40s34 12 38 34l-80 8z"/>
+          <rect x="66" y="230" width="60" height="10" rx="5"/>
+        </g>
+      </g>
+    </svg>
+  </div>
+
+  <div class="fore"><svg viewBox="0 0 1600 260" xmlns="http://www.w3.org/2000/svg">
+    <g fill="#060302">
+      <path d="M-20 260V150c60-34 190-52 320-52 120 0 240 16 320 52v110z"/>
+      <circle cx="300" cy="86" r="66"/>
+      <path d="M900 260V170c80-40 220-58 360-58 130 0 260 18 360 58v90z"/>
+      <circle cx="1260" cy="98" r="74"/>
+      <ellipse cx="1256" cy="52" rx="34" ry="20"/>
+    </g>
+  </svg></div>
+
+  <div class="fog"><i></i><i></i></div>
+  <div class="grade"></div>
+  <div class="grade2"></div>
+  <div class="paper"></div>
+  <div class="grain"></div>
+
+  <div class="ui st d3">
+    <a class="go" href="#">давайте делать вместе</a>
+  </div>
+</section>
+
+<script>
+/* ── общий переключатель ── */
+document.querySelectorAll(".lab-bar button").forEach(b=>{
+  b.addEventListener("click",()=>{
+    document.querySelectorAll(".lab-bar button").forEach(x=>x.classList.toggle("on",x===b));
+    document.querySelectorAll(".variant").forEach(v=>{
+      const on=v.id==="v"+b.dataset.v;
+      v.classList.remove("on");
+      if(on){void v.offsetWidth;v.classList.add("on");}
+    });
+    if(b.dataset.v==="B") cinema.kick();
+    resumeAll();
+  });
+});
+
+/* видео глушатся браузером в фоне — будим */
+function resumeAll(){
+  document.querySelectorAll("video").forEach(v=>{
+    if(v.dataset.hold==="1") return;
+    if(v.paused && v.closest(".variant").classList.contains("on")) v.play().catch(()=>{});
+  });
+}
+["visibilitychange","focus","pointermove","pointerdown"].forEach(ev=>
+  addEventListener(ev,resumeAll,{passive:true}));
+
+/* ═══ A: drag ═══ */
+let zTop=50;
+document.querySelectorAll("[data-drag]").forEach(el=>{
+  el.addEventListener("pointerdown",e=>{
+    if(e.button!==0)return;
+    const r=el.getBoundingClientRect(),host=el.parentElement.getBoundingClientRect();
+    const dx=e.clientX-r.left, dy=e.clientY-r.top;
+    el.style.zIndex=++zTop;
+    el.setPointerCapture(e.pointerId);
+    const move=ev=>{
+      el.style.left=((ev.clientX-host.left-dx)/host.width*100)+"%";
+      el.style.top=((ev.clientY-host.top-dy)/host.height*100)+"%";
+    };
+    const up=()=>{el.removeEventListener("pointermove",move);el.removeEventListener("pointerup",up);};
+    el.addEventListener("pointermove",move);
+    el.addEventListener("pointerup",up);
+  });
+});
+
+/* A: бегущая строка */
+const FACTS="+250 000 подписчиков за 12 мес ✶ 830 000 просмотров за квартал ✶ охваты ×11 ✶ лиды ×4 ✶ 4 канала с нуля ✶ 350+ сценариев ✶ 20+ каналов ✶ удержание 70–78% на 0:30 ✶ ";
+document.getElementById("tapeRow").textContent=FACTS+FACTS;
+
+/* A: дрейф figma-курсоров */
+const CURS=[["cur1",.18,.38],["cur2",.62,.2],["cur3",.4,.72]].map(([id,x,y])=>({el:document.getElementById(id),x,y,tx:x,ty:y}));
+function curTick(){
+  CURS.forEach(c=>{
+    if(Math.hypot(c.tx-c.x,c.ty-c.y)<.01){c.tx=.06+Math.random()*.85;c.ty=.14+Math.random()*.7;}
+    c.x+=(c.tx-c.x)*.006;c.y+=(c.ty-c.y)*.006;
+    c.el.style.left=(c.x*100)+"%";c.el.style.top=(c.y*100)+"%";
+  });
+  requestAnimationFrame(curTick);
+}
+if(!matchMedia("(prefers-reduced-motion: reduce)").matches) curTick();
+
+/* ═══ B: кинотеатр ═══ */
+const REEL=[
+ {t:"шоурил",m:"350+ сценариев · 20+ каналов",src:"assets/clip_reel.mp4"},
+ {t:"cerca trova",m:"+250 000 подписчиков",src:"assets/clip_cerca.mp4"},
+ {t:"sunscrypt",m:"830 000 за квартал",src:"assets/clip_sun.mp4"},
+ {t:"каналы с нуля",m:"4 запуска с нуля",src:"assets/clip_maido.mp4"},
+ {t:"lines",m:"охваты ×11 · лиды ×4",src:"assets/clip_lines.mp4"},
+ {t:"ai-ролики",m:"полный ai-пайплайн",src:"assets/clip_ai.mp4"},
+ {t:"документалки",m:"ai-сериал об инсулине",src:"assets/clip_doc.mp4"},
+ {t:"перфоманс 360°",m:"по скандинавским мифам",src:"assets/perf_preview.mp4"},
+];
+const cinema=(()=>{
+  const vB=document.getElementById("vB");
+  const main=document.getElementById("mainV"), amb=document.getElementById("ambV");
+  const wrap=document.getElementById("screenWrap");
+  const mqT=document.getElementById("mqTitle"), mqM=document.getElementById("mqMetric");
+  const poses=[["bA1","bA2"],["fB1","fB2"],["fC1","fC2"]];
+  let i=-1, creditTimer=null;
+
+  /* перещёлкивание букв на табличке */
+  function fill(el,text){
+    el.innerHTML="";
+    [...text].forEach((ch,n)=>{
+      const s=document.createElement("span");
+      s.textContent=ch;
+      s.style.transitionDelay=(n*16)+"ms";
+      el.appendChild(s);
+    });
+  }
+  function setMarq(title,metric){
+    [mqT,mqM].forEach(el=>el.classList.add("out"));
+    setTimeout(()=>{
+      fill(mqT,title);fill(mqM,metric);
+      [mqT,mqM].forEach(el=>{
+        el.classList.add("out");void el.offsetWidth;
+        el.classList.remove("out");
+      });
+    },300);
+  }
+
+  function shufflePoses(){
+    poses.forEach(pair=>{
+      if(Math.random()<.55) return;
+      const g1=document.getElementById(pair[0]),g2=document.getElementById(pair[1]);
+      const on=g1.style.opacity!=="0";
+      g1.style.opacity=on?"0":"1";
+      g2.style.opacity=on?"1":"0";
+    });
+  }
+  function show(k){
+    if(creditTimer){clearTimeout(creditTimer);creditTimer=null}
+    vB.classList.remove("credits-on");
+    const roll=vB.querySelector(".credits .roll");
+    roll.style.animation="none";void roll.offsetWidth;roll.style.animation="";
+    i=k;
+    setMarq(REEL[k].t,REEL[k].m);
+    wrap.classList.add("dark");
+    main.dataset.hold="0";amb.dataset.hold="0";
+    setTimeout(()=>{
+      main.src=REEL[k].src; amb.src=REEL[k].src;
+      const go=()=>{ if(i!==k) return;
+        wrap.classList.remove("dark");
+        main.play().catch(()=>{}); amb.play().catch(()=>{});
+        shufflePoses();
+      };
+      if(main.readyState>=2) go(); else main.addEventListener("canplay",go,{once:true});
+    },420);
+  }
+  function credits(){
+    setMarq("конец сеанса","давайте делать вместе");
+    main.pause();amb.pause();
+    main.dataset.hold="1";amb.dataset.hold="1";
+    vB.classList.add("credits-on");
+    const roll=vB.querySelector(".credits .roll");
+    roll.style.animation="none";void roll.offsetWidth;roll.style.animation="";
+    creditTimer=setTimeout(()=>show(0),9000);
+  }
+  main.addEventListener("ended",()=>{ i+1<REEL.length ? show(i+1) : credits(); });
+
+  const step=d=>show(((i<0?0:i)+d+REEL.length)%REEL.length);
+  document.getElementById("mqPrev").addEventListener("click",e=>{e.stopPropagation();step(-1);});
+  document.getElementById("mqNext").addEventListener("click",e=>{e.stopPropagation();step(1);});
+  document.getElementById("marq").addEventListener("click",()=>step(1));
+
+  let started=false;
+  return {kick(){ if(!started){started=true;show(0);} else resumeAll(); }};
+})();
+</script>
+</body>
+</html>

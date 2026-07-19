@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hero Lab 4 — буквы играют · кино 21:9</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Manrope',sans-serif;background:#0d0d0d;color:#f2f2f2}
+a{color:inherit}
+
+/* ── цветовые схемы ── */
+body.c-yellow{--acc:#ffe600;--plate-bg:#ffe600;--plate-ink:#111;--plate-brd:transparent;--glow:rgba(255,230,0,.45)}
+body.c-blue  {--acc:#4a63ff;--plate-bg:#1d2fc0;--plate-ink:#fff;--plate-brd:transparent;--glow:rgba(54,78,255,.5)}
+body.c-pink  {--acc:#ff4fa8;--plate-bg:#ff4fa8;--plate-ink:#180612;--plate-brd:transparent;--glow:rgba(255,79,168,.5)}
+body.c-line  {--acc:#ffffff;--plate-bg:#0a0a0a;--plate-ink:#fff;--plate-brd:#fff;--glow:rgba(255,255,255,.3)}
+
+/* ── панель ── */
+.lab-bar{position:fixed;top:0;left:0;right:0;z-index:100;background:#111;color:#fff;display:flex;align-items:center;gap:6px;padding:10px 18px;flex-wrap:wrap;border-bottom:1px solid #222}
+.lab-bar b{font-size:13px;margin-right:8px;letter-spacing:.04em;font-family:'Roboto Mono',monospace}
+.lab-bar .grp{display:flex;align-items:center;gap:6px;margin-right:16px}
+.lab-bar .grp i{font-style:normal;font-family:'Roboto Mono',monospace;font-size:10.5px;color:#777;letter-spacing:.08em;text-transform:uppercase;margin-right:2px}
+.lab-bar button{font-family:'Manrope';font-weight:700;font-size:13px;background:none;border:1px solid #555;color:#ccc;padding:7px 14px;cursor:pointer}
+.lab-bar button.on{background:#fff;color:#111;border-color:#fff}
+.lab-bar .sw{width:30px;height:30px;padding:0;border-radius:50%;border:2px solid #555;position:relative}
+.lab-bar .sw.on{border-color:#fff;transform:scale(1.12)}
+.lab-bar .sw.y{background:#ffe600}
+.lab-bar .sw.b{background:#1d2fc0}
+.lab-bar .sw.p{background:#ff4fa8}
+.lab-bar .sw.l{background:#0a0a0a;box-shadow:inset 0 0 0 2px #fff}
+.lab-bar a.lnk{margin-left:auto;font-family:'Roboto Mono',monospace;font-size:11.5px;color:#888;text-decoration:none;border-bottom:1px dotted #555;padding-bottom:2px}
+.lab-bar a.lnk:hover{color:var(--acc,#ffe600);border-color:var(--acc,#ffe600)}
+.lab-bar a.lnk+a.lnk{margin-left:12px}
+
+/* ── сцена ── */
+.hero{position:relative;min-height:100vh;overflow:hidden;background:#101010;background-image:repeating-linear-gradient(45deg,transparent 0 34px,rgba(255,255,255,.035) 34px 35px)}
+body.L-bg .hero{background:#000;background-image:none}
+
+/* кино-слой на весь экран (лейаут A) */
+.cine{position:absolute;inset:0;z-index:0;display:none;background:#000}
+body.L-bg .cine{display:block}
+.cine .band{position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);aspect-ratio:21/9;overflow:hidden}
+.cine .band img,.cine .band video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .7s ease}
+.cine .band img.on,.cine .band video.on{opacity:1}
+.cine .veil{position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.78) 0%,rgba(0,0,0,.5) 52%,rgba(0,0,0,.28) 100%)}
+.cine::after{content:"";position:absolute;inset:0;background:rgba(0,0,0,.42);transition:background .5s}
+body.peek .cine::after{background:rgba(0,0,0,.08)}
+
+.in{position:relative;z-index:2;min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:100px 56px 60px;max-width:1340px;margin:0 auto}
+
+/* имя: буквы играют */
+.name{font-weight:800;font-size:clamp(64px,12.5vw,180px);line-height:.88;letter-spacing:-.05em;user-select:none;text-shadow:0 4px 40px rgba(0,0,0,.45)}
+.name span{display:inline-block;transition:transform .18s,color .18s}
+.name span:nth-child(2n){transform:rotate(2.2deg) translateY(2px)}
+.name span:nth-child(3n){transform:rotate(-2.4deg)}
+.name span:nth-child(5n){transform:rotate(1.4deg) translateY(-3px)}
+.name span:hover{animation:jig .35s ease-in-out infinite;color:var(--acc)}
+@keyframes jig{0%,100%{transform:rotate(-4deg) translateY(-2px)}50%{transform:rotate(4deg) translateY(2px)}}
+
+/* я — [роль] */
+.iam{margin-top:38px;font-weight:700;font-size:clamp(22px,2.6vw,34px);letter-spacing:-.02em}
+.iam .w{position:relative;padding:2px 10px;color:var(--plate-ink);white-space:nowrap}
+.iam .w::before{content:"";position:absolute;inset:-2px -6px;background:var(--plate-bg);border:2px solid var(--plate-brd);border-radius:3px;transform:rotate(-1.2deg);z-index:-1;box-shadow:0 0 34px var(--glow)}
+
+/* теги: имя ⇄ метрика */
+.tags{margin-top:56px;display:flex;gap:14px 26px;flex-wrap:wrap;max-width:820px}
+.tags .tag{display:inline-grid;font-family:'Roboto Mono',monospace;font-size:13px;letter-spacing:.06em;color:#bdbdbd;cursor:pointer;border-bottom:1px dotted #555;padding-bottom:3px}
+.tags .tag span{grid-area:1/1;white-space:nowrap;transition:opacity .25s}
+.tags .tag .m{opacity:0;color:var(--acc)}
+.tags .tag:nth-child(2n){transform:rotate(1.6deg)}
+.tags .tag:nth-child(3n){transform:rotate(-1.8deg)}
+.tags .tag:hover{border-color:var(--acc);animation:jig .4s ease-in-out infinite}
+.tags .tag:hover .n{opacity:0}
+.tags .tag:hover .m{opacity:1}
+
+/* кино-экран (лейаут B) */
+.cin-scr{position:absolute;right:48px;bottom:56px;width:min(490px,37vw);z-index:3;display:none;background:#000;box-shadow:0 24px 70px rgba(0,0,0,.65)}
+body.L-scr .cin-scr{display:block}
+body.L-scr .name{font-size:clamp(56px,9.6vw,142px)}
+body.L-scr .in{justify-content:flex-start;padding-top:150px}
+body.L-scr .tags{max-width:min(560px,calc(100% - min(490px,37vw) - 30px))}
+.cin-scr .box{position:relative;aspect-ratio:16/9;background:#000;overflow:hidden}
+.cin-scr .band{position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);aspect-ratio:21/9;overflow:hidden}
+.cin-scr .band img,.cin-scr .band video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .7s ease}
+.cin-scr .band img.on,.cin-scr .band video.on{opacity:1}
+.cin-scr .meta{display:flex;justify-content:space-between;align-items:center;padding:9px 12px;font-family:'Roboto Mono',monospace;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:#8f8f8f;background:#000}
+.cin-scr .meta b{color:var(--acc);font-weight:500}
+@media(max-width:980px){.cin-scr{position:static;width:100%;margin-top:44px}}
+
+/* стаггер */
+.st{opacity:0;transform:translateY(18px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
+body.ready .st{opacity:1;transform:none}
+body.ready .d2{transition-delay:.08s}
+body.ready .d3{transition-delay:.16s}
+body.ready .d4{transition-delay:.26s}
+</style>
+</head>
+<body class="L-bg c-yellow">
+
+<div class="lab-bar">
+  <b>HERO LAB 4</b>
+  <div class="grp"><i>лейаут</i>
+    <button data-l="L-bg" class="on">фон-кино</button>
+    <button data-l="L-scr">экран-кино</button>
+  </div>
+  <div class="grp"><i>цвет</i>
+    <button class="sw y on" data-c="c-yellow" title="жёлтый"></button>
+    <button class="sw b" data-c="c-blue" title="тёмно-синий"></button>
+    <button class="sw p" data-c="c-pink" title="розовый"></button>
+    <button class="sw l" data-c="c-line" title="чёрный / белая обводка"></button>
+  </div>
+  <a class="lnk" href="hero-lab5.html">lab 5 →</a>
+  <a class="lnk" href="hero-lab3.html" style="margin-left:12px">← lab 3</a>
+  <a class="lnk" href="hero-lab2.html">← lab 2</a>
+</div>
+
+<section class="hero">
+  <div class="cine"><div class="band" id="scr-bg"></div><div class="veil"></div></div>
+  <div class="in">
+    <h1 class="name st" id="name">серафим<br>панюшкин</h1>
+    <div class="iam st d2">я — <span class="w" id="word">сценарист</span></div>
+    <div class="tags st d3" id="tags">
+      <span class="tag" data-p="0"><span class="n">cerca trova</span><span class="m">+250 000 подписчиков</span></span>
+      <span class="tag" data-p="1"><span class="n">sunscrypt</span><span class="m">830 000 за квартал</span></span>
+      <span class="tag" data-p="2"><span class="n">каналы с нуля</span><span class="m">4 запуска с нуля</span></span>
+      <span class="tag" data-p="3"><span class="n">lines</span><span class="m">охваты ×11</span></span>
+      <span class="tag" data-p="4"><span class="n">ai-ролики</span><span class="m">полный пайплайн</span></span>
+      <span class="tag" data-p="5"><span class="n">документалки</span><span class="m">ai-сериал</span></span>
+      <span class="tag" data-p="7"><span class="n">перфоманс 360°</span><span class="m">по сканд. мифам</span></span>
+    </div>
+  </div>
+  <div class="cin-scr st d4">
+    <div class="box"><div class="band" id="scr-fr"></div></div>
+    <div class="meta"><b id="fr-label">шоурил</b><span>21:9 · rec</span></div>
+  </div>
+</section>
+
+<script>
+const P=[
+ {t:"cerca trova",video:"assets/clip_cerca.mp4",slides:["assets/yt_lwoH0SGTgNM.jpg","assets/sl_cerca_1.jpg","assets/yt_o6j1BzyPFiM.jpg","assets/sl_cerca_2.jpg"]},
+ {t:"sunscrypt",video:"assets/clip_sun.mp4",slides:["assets/yt_sungz.jpg","assets/sl_sungz_2.jpg","assets/yt_sungl.jpg","assets/sl_sungl_2.jpg"]},
+ {t:"каналы с нуля",video:"assets/clip_maido.mp4",slides:["assets/ch_zuev.jpg","assets/ch_maidobura.jpg","assets/ch_avclinic.jpg"]},
+ {t:"lines",video:"assets/clip_lines.mp4",slides:["assets/yt_nIWbMEtdJRk.jpg","assets/ig_lines1.jpg","assets/yt_JUcc7KZxS8k.jpg","assets/ig_lines2.jpg"]},
+ {t:"ai-ролики",video:"assets/clip_ai.mp4",slides:["assets/sl_nav1_2.jpg","assets/sl_nav2_2.jpg","assets/sl_nav3_2.jpg","assets/sl_fliska3_2.jpg"]},
+ {t:"документалки",video:"assets/clip_doc.mp4",slides:["assets/yt_I4nHuMFgYlg.jpg","assets/sl_pyr_2.jpg","assets/sl_silver_2.jpg","assets/sl_peptides_2.jpg"]},
+ {t:"шоурил",video:"assets/clip_reel.mp4",slides:["assets/yd_showreel.jpg","assets/sl_reel_1.jpg","assets/sl_reel_2.jpg","assets/sl_reel_3.jpg"]},
+ {t:"перфоманс 360°",video:"assets/perf_preview.mp4",slides:["assets/perf_cover.jpg"]},
+];
+const DEFAULT=P[6];
+
+const RESUMES=[];
+function makeScreen(host){
+  const a=document.createElement("img"),b=document.createElement("img");
+  const v=document.createElement("video");v.muted=true;v.loop=true;v.playsInline=true;v.preload="auto";
+  host.appendChild(a);host.appendChild(b);host.appendChild(v);
+  let timer=null,active=0,cur=null;
+  RESUMES.push(()=>{if(cur&&cur.video&&v.paused)v.play().catch(()=>{})});
+  function slidesOf(p){
+    if(timer){clearInterval(timer);timer=null}
+    let i=0;active=0;
+    a.src=p.slides[0];a.classList.add("on");b.classList.remove("on");
+    if(p.slides.length>1) timer=setInterval(()=>{
+      i=(i+1)%p.slides.length;
+      const els=[a,b],n=1-active;
+      els[n].src=p.slides[i];els[n].classList.add("on");els[active].classList.remove("on");active=n;
+    },1600);
+  }
+  v.addEventListener("error",()=>{if(cur){v.classList.remove("on");slidesOf(cur)}});
+  function show(p){
+    cur=p;
+    if(timer){clearInterval(timer);timer=null}
+    if(p.video){
+      a.classList.remove("on");b.classList.remove("on");
+      if(v.getAttribute("src")!==p.video){v.src=p.video}
+      v.classList.add("on");
+      const pl=()=>{if(cur===p)v.play().catch(()=>{})};
+      if(v.readyState>=2)pl();else v.addEventListener("canplay",pl,{once:true});
+      return;
+    }
+    v.classList.remove("on");v.pause();
+    slidesOf(p);
+  }
+  return show;
+}
+
+const showBg=makeScreen(document.getElementById("scr-bg"));
+const showFr=makeScreen(document.getElementById("scr-fr"));
+showBg(DEFAULT);showFr(DEFAULT);
+const frLabel=document.getElementById("fr-label");
+
+/* буквы-спаны */
+const nameEl=document.getElementById("name");
+nameEl.innerHTML=nameEl.innerHTML.split("<br>").map(line=>
+  [...line].map(ch=>ch===" "?" ":`<span>${ch}</span>`).join("")
+).join("<br>");
+
+/* ротация роли */
+const WORDS=["сценарист","режиссёр","продюсер"];
+let wi=0;
+setInterval(()=>{wi=(wi+1)%WORDS.length;document.getElementById("word").textContent=WORDS[wi];},2200);
+
+/* ховеры тегов */
+let curP=DEFAULT;
+function apply(p){
+  curP=p;
+  showBg(p);showFr(p);
+  frLabel.textContent=p===DEFAULT?"шоурил":p.t;
+}
+document.querySelectorAll(".tag").forEach(el=>{
+  el.addEventListener("mouseenter",()=>{
+    document.body.classList.add("peek");
+    apply(P[+el.dataset.p]);
+  });
+  el.addEventListener("mouseleave",()=>{
+    document.body.classList.remove("peek");
+    apply(DEFAULT);
+  });
+});
+
+/* переключатели */
+document.querySelectorAll("[data-l]").forEach(b=>{
+  b.addEventListener("click",()=>{
+    document.querySelectorAll("[data-l]").forEach(x=>x.classList.toggle("on",x===b));
+    document.body.classList.remove("L-bg","L-scr");
+    document.body.classList.add(b.dataset.l);
+    apply(curP); // перезапуск видео на ставшем видимым экране
+  });
+});
+document.querySelectorAll("[data-c]").forEach(b=>{
+  b.addEventListener("click",()=>{
+    document.querySelectorAll("[data-c]").forEach(x=>x.classList.toggle("on",x===b));
+    document.body.classList.remove("c-yellow","c-blue","c-pink","c-line");
+    document.body.classList.add(b.dataset.c);
+  });
+});
+
+/* если браузер приглушил muted-видео (фоновая вкладка) — возобновляем при возвращении */
+["visibilitychange","focus","pointermove","pointerdown"].forEach(ev=>
+  addEventListener(ev,()=>RESUMES.forEach(r=>r()),{passive:true}));
+
+requestAnimationFrame(()=>requestAnimationFrame(()=>document.body.classList.add("ready")));
+</script>
+</body>
+</html>

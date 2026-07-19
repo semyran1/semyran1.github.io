@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hero Lab — варианты первого экрана</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#111;--gray:#8a8a8a;--bg:#fff;
+  --c1:#ff3b1f;--c2:#c99700;--c3:#2f6bff;--c4:#00b34a;--c5:#e935c1;--c6:#ff9100;--c7:#00bcd4;--c8:#7c4dff;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:'Manrope',sans-serif;font-size:16px}
+.mono{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.05em;color:var(--gray)}
+
+/* переключатель */
+.lab-bar{position:fixed;top:0;left:0;right:0;z-index:100;background:#111;color:#fff;display:flex;align-items:center;gap:6px;padding:10px 18px;flex-wrap:wrap}
+.lab-bar b{font-size:13px;margin-right:10px;letter-spacing:.04em}
+.lab-bar button{font-family:'Manrope';font-weight:700;font-size:13px;background:none;border:1px solid #555;color:#ccc;padding:7px 14px;cursor:pointer}
+.lab-bar button.on{background:#fff;color:#111;border-color:#fff}
+.variant{display:none;min-height:100vh;padding:86px 40px 40px}
+.variant.on{display:block}
+.wrap{max-width:1240px;margin:0 auto}
+
+/* общие элементы */
+.screen{position:relative;border:1px solid var(--ink);padding:7px;background:#fff}
+.screen .ph{position:relative;aspect-ratio:16/9;overflow:hidden;background:#141414}
+.screen img,.screen video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.screen img{opacity:0;transition:opacity .5s ease}
+.screen img.on{opacity:1}
+.screen video{opacity:0;z-index:3}
+.screen video.on{opacity:1}
+.hud{position:absolute;inset:0;z-index:4;pointer-events:none;font-family:'JetBrains Mono',monospace;font-size:11px;color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.7)}
+.hud .rec{position:absolute;top:10px;left:12px;font-weight:700;letter-spacing:.08em}
+.hud .rec i{display:inline-block;width:9px;height:9px;border-radius:50%;background:#ff2b2b;margin-right:6px;animation:blink 1.1s steps(1) infinite}
+@keyframes blink{50%{opacity:.15}}
+.hud .tc{position:absolute;top:10px;right:12px}
+.hud .label{position:absolute;left:14px;bottom:12px;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:lowercase}
+.cta{display:inline-block;text-decoration:none;background:var(--ink);color:#fff;font-weight:800;font-size:15px;padding:12px 24px}
+.name{font-weight:800;line-height:1.05}
+
+/* v1 монтажная линейка */
+.v1-grid{display:grid;grid-template-columns:1.25fr 1fr;gap:44px;align-items:start}
+.v1-left .name{font-size:clamp(28px,3.4vw,44px);margin:22px 0 6px}
+.v1-left .role{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--gray);letter-spacing:.05em;margin-bottom:18px}
+.tl-head{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--gray);letter-spacing:.1em;text-transform:uppercase;display:flex;justify-content:space-between;border-bottom:1px solid #ddd;padding-bottom:8px;margin-bottom:10px}
+.track{position:relative;display:flex;align-items:center;gap:12px;border:1px solid #e2e2e0;background:#fafaf8;padding:11px 14px;margin-bottom:8px;cursor:pointer;transition:.15s;overflow:hidden}
+.track .tno{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--gray);width:26px}
+.track .tt{font-weight:800;font-size:15px}
+.track .tm{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--gray);margin-left:auto}
+.track .ph-line{position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--tc);opacity:0;transition:left 2.6s linear}
+.track:hover{border-color:var(--tc);background:#fff}
+.track:hover .tt{color:var(--tc)}
+.track:hover .ph-line{opacity:1;left:calc(100% - 2px)}
+
+/* v2 раскадровка */
+.v2-head{display:flex;justify-content:space-between;align-items:baseline;border-bottom:2px solid var(--ink);padding-bottom:12px;margin-bottom:22px}
+.v2-head .name{font-size:clamp(26px,3vw,40px)}
+.v2-grid{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:auto;gap:16px}
+.sb-cell{position:relative;cursor:pointer}
+.sb-cell .frame-box{position:relative;aspect-ratio:16/9;overflow:hidden;border:1.5px solid var(--ink);background:#141414}
+.sb-cell.big{grid-column:span 2;grid-row:span 2}
+.sb-cell img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .5s}
+.sb-cell img.on{opacity:1}
+.sb-cell video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;z-index:2}
+.sb-cell video.on{opacity:1}
+.sb-cap{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:#444;margin-top:7px;display:flex;justify-content:space-between}
+.sb-cell:hover .frame-box{outline:2px solid var(--tc);outline-offset:2px}
+.sb-cap b{color:var(--tc)}
+
+/* v3 облако тегов */
+.v3-stage{display:grid;grid-template-columns:1fr minmax(420px,44%) 1fr;gap:30px;align-items:center;min-height:74vh}
+.v3-col{display:flex;flex-direction:column;gap:26px}
+.v3-col.right{text-align:right;align-items:flex-end}
+.tag{font-weight:800;line-height:1.1;cursor:pointer;color:var(--ink);transition:color .15s;animation:bob 5.6s ease-in-out infinite}
+.tag:nth-child(2n){animation-delay:-1.7s}.tag:nth-child(3n){animation-delay:-3.4s}
+.tag small{display:block;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:400;color:var(--gray);letter-spacing:.04em}
+.tag:hover{color:var(--tc)}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+.v3-center .name{text-align:center;font-size:clamp(22px,2.4vw,32px);margin-top:16px}
+.v3-center .role{text-align:center;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--gray);letter-spacing:.06em;margin-top:4px}
+
+/* v4 монитор с нитками */
+.v4-stage{position:relative;min-height:82vh}
+.v4-screen{position:absolute;left:50%;top:46%;transform:translate(-50%,-50%);width:min(56%,660px)}
+.v4-screen .title{position:absolute;left:18px;bottom:16px;z-index:5;color:#fff;text-shadow:0 2px 10px rgba(0,0,0,.75)}
+.v4-screen .title .name{font-size:clamp(22px,2.6vw,34px)}
+.v4-screen .title .role{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.08em;opacity:.9}
+.v4-tag{position:absolute;font-weight:800;cursor:pointer;transition:color .15s;background:#fff;padding:2px 6px}
+.v4-tag:hover{color:var(--tc)}
+#v4-lines{position:absolute;inset:0;pointer-events:none}
+#v4-lines line{stroke:#d0d0cc;stroke-width:1}
+#v4-lines line.hot{stroke:var(--hot);stroke-width:1.5}
+
+/* v5 постер */
+.v5-name{font-size:clamp(60px,9vw,130px);text-transform:uppercase;letter-spacing:-.01em}
+.v5-frame{position:absolute;right:6%;top:90px;width:min(34%,420px);transform:rotate(4deg);z-index:5}
+.v5-ticker{border-top:2px solid var(--ink);border-bottom:2px solid var(--ink);overflow:hidden;margin-top:34px}
+.v5-ticker-in{display:flex;white-space:nowrap;animation:mq 20s linear infinite;padding:12px 0}
+.v5-ticker:hover .v5-ticker-in{animation-play-state:paused}
+.v5-ticker span{font-weight:800;font-size:22px;padding:0 18px;cursor:pointer}
+.v5-ticker span:hover{color:var(--tc)}
+@keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.v5-sub{margin-top:22px;color:var(--gray);max-width:560px}
+
+/* v6 афиша */
+.v6{text-align:center}
+.v6 .name{font-size:clamp(44px,6.4vw,92px);text-transform:uppercase}
+.v6 .role{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--gray);letter-spacing:.2em;text-transform:uppercase;margin:8px 0 26px}
+.v6-screen{max-width:1100px;margin:0 auto}
+.v6-tags{position:absolute;left:0;right:0;bottom:14px;z-index:5;display:flex;justify-content:center;gap:26px;flex-wrap:wrap}
+.v6-tags span{color:#fff;font-weight:700;font-size:13.5px;cursor:pointer;text-shadow:0 1px 6px rgba(0,0,0,.8);border-bottom:2px solid transparent;padding-bottom:2px}
+.v6-tags span:hover,.v6-tags span.on{border-color:var(--tc);color:#fff}
+</style>
+</head>
+<body>
+
+<div class="lab-bar">
+  <b>HERO LAB</b>
+  <button data-v="1" class="on">1 · монтажная линейка</button>
+  <button data-v="2">2 · раскадровка</button>
+  <button data-v="3">3 · облако тегов</button>
+  <button data-v="4">4 · монитор с нитками</button>
+  <button data-v="5">5 · постер</button>
+  <button data-v="6">6 · афиша</button>
+</div>
+
+<div class="variant on" id="v1"><div class="wrap">
+  <div class="v1-grid">
+    <div class="v1-left">
+      <div class="screen"><div class="ph" id="v1-ph"></div>
+        <div class="hud"><span class="rec"><i></i>REC</span><span class="tc tc-run">00:00:00:00</span><span class="label" id="v1-label">showreel</span></div>
+      </div>
+      <div class="name">Серафим Панюшкин</div>
+      <div class="role">сценарист · режиссёр · продюсер · полный ai-пайплайн</div>
+      <a class="cta" href="#">Давайте делать вместе!</a>
+    </div>
+    <div>
+      <div class="tl-head"><span>timeline · проекты</span><span>наведите на дорожку</span></div>
+      <div id="v1-tracks"></div>
+      <div class="mono" style="margin-top:14px">350+ сценариев — 20+ каналов — 70–78% удержание на 0:30 — 10M+ просмотров</div>
+    </div>
+  </div>
+</div></div>
+
+<div class="variant" id="v2"><div class="wrap">
+  <div class="v2-head">
+    <div><div class="name">Серафим Панюшкин</div><div class="mono">storyboard · сценарист · режиссёр · продюсер</div></div>
+    <a class="cta" href="#">Давайте делать вместе!</a>
+  </div>
+  <div class="v2-grid" id="v2-grid"></div>
+</div></div>
+
+<div class="variant" id="v3"><div class="wrap">
+  <div class="v3-stage">
+    <div class="v3-col" id="v3-left"></div>
+    <div class="v3-center">
+      <div class="screen"><div class="ph" id="v3-ph"></div>
+        <div class="hud"><span class="rec"><i></i>REC</span><span class="tc tc-run">00:00:00:00</span><span class="label" id="v3-label">showreel</span></div>
+      </div>
+      <div class="name">Серафим Панюшкин</div>
+      <div class="role">сценарист · режиссёр · продюсер</div>
+      <div style="text-align:center;margin-top:14px"><a class="cta" href="#">Давайте делать вместе!</a></div>
+    </div>
+    <div class="v3-col right" id="v3-right"></div>
+  </div>
+</div></div>
+
+<div class="variant" id="v4">
+  <div class="v4-stage" id="v4-stage">
+    <svg id="v4-lines"></svg>
+    <div class="v4-screen">
+      <div class="screen"><div class="ph" id="v4-ph"></div>
+        <div class="hud"><span class="rec"><i></i>REC</span><span class="tc tc-run">00:00:00:00</span></div>
+      </div>
+      <div class="title"><div class="name">Серафим Панюшкин</div><div class="role">сценарист · режиссёр · продюсер</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="variant" id="v5"><div class="wrap" style="position:relative">
+  <div class="mono" style="margin-bottom:10px">сценарист · режиссёр · продюсер · полный ai-пайплайн</div>
+  <div class="name v5-name">СЕРАФИМ<br>ПАНЮШКИН</div>
+  <div class="v5-frame">
+    <div class="screen"><div class="ph" id="v5-ph"></div></div>
+  </div>
+  <div class="v5-ticker"><div class="v5-ticker-in" id="v5-ticker"></div></div>
+  <p class="v5-sub">Видео, которое держит зрителя: 350+ сценариев, 20+ каналов, удержание 70–78% на 30-й секунде. Наведите на проект в строке — кадр справа оживёт.</p>
+  <a class="cta" href="#" style="margin-top:16px">Давайте делать вместе!</a>
+</div></div>
+
+<div class="variant" id="v6"><div class="wrap v6">
+  <div class="name">Серафим Панюшкин</div>
+  <div class="role">сценарист · режиссёр · продюсер · ai-пайплайн</div>
+  <div class="v6-screen">
+    <div class="screen"><div class="ph" id="v6-ph"></div>
+      <div class="hud"><span class="rec"><i></i>REC</span><span class="tc tc-run">00:00:00:00</span></div>
+      <div class="v6-tags" id="v6-tags"></div>
+    </div>
+  </div>
+  <div style="margin-top:24px"><a class="cta" href="#">Давайте делать вместе!</a></div>
+</div></div>
+
+<script>
+const P=[
+ {k:"cerca",t:"cerca trova",m:"+250 000 подписчиков",c:"var(--c1)",slides:["assets/yt_lwoH0SGTgNM.jpg","assets/sl_cerca_1.jpg","assets/yt_o6j1BzyPFiM.jpg","assets/sl_cerca_2.jpg","assets/yt_WDQHzcnzVD8.jpg"]},
+ {k:"sun",t:"sunscrypt",m:"830K за квартал",c:"var(--c2)",slides:["assets/yt_sungz.jpg","assets/sl_sungz_2.jpg","assets/yt_sungl.jpg","assets/sl_sungl_2.jpg"]},
+ {k:"zero",t:"каналы с нуля",m:"131 000 просмотров",c:"var(--c3)",slides:["assets/ch_zuev.jpg","assets/ch_maidobura.jpg","assets/ch_avclinic.jpg"]},
+ {k:"lines",t:"lines",m:"лиды ×4",c:"var(--c4)",slides:["assets/yt_nIWbMEtdJRk.jpg","assets/ig_lines1.jpg","assets/yt_JUcc7KZxS8k.jpg","assets/ig_lines2.jpg"]},
+ {k:"ai",t:"ai-ролики",m:"ai-пайплайн",c:"var(--c5)",slides:["assets/sl_nav1_2.jpg","assets/sl_nav2_2.jpg","assets/sl_nav3_2.jpg","assets/sl_fliska1_2.jpg","assets/sl_fliska3_2.jpg"]},
+ {k:"docs",t:"документалки",m:"история · медицина",c:"var(--c6)",slides:["assets/yt_I4nHuMFgYlg.jpg","assets/sl_pyr_2.jpg","assets/sl_silver_2.jpg","assets/sl_peptides_2.jpg"]},
+ {k:"reel",t:"шоурил",m:"2 минуты обо мне",c:"var(--c7)",slides:["assets/yd_showreel.jpg","assets/sl_reel_1.jpg","assets/sl_reel_2.jpg","assets/sl_reel_3.jpg"]},
+ {k:"perf",t:"перфоманс 360°",m:"скандинавские мифы",c:"var(--c8)",video:"assets/perf_preview.mp4",slides:["assets/perf_cover.jpg"]},
+];
+const DEFAULT=P[6];
+
+function makeScreen(ph){
+  const a=document.createElement("img"),b=document.createElement("img");
+  const v=document.createElement("video");v.muted=true;v.loop=true;v.playsInline=true;v.preload="none";v.src="assets/perf_preview.mp4";
+  ph.appendChild(a);ph.appendChild(b);ph.appendChild(v);
+  let timer=null,active=0;
+  function show(p){
+    if(timer){clearInterval(timer);timer=null}
+    v.classList.remove("on");v.pause();
+    if(p.video){v.classList.add("on");v.play().catch(()=>{});a.classList.remove("on");b.classList.remove("on");return}
+    let i=0;active=0;
+    a.src=p.slides[0];a.classList.add("on");b.classList.remove("on");
+    if(p.slides.length>1) timer=setInterval(()=>{
+      i=(i+1)%p.slides.length;
+      const els=[a,b],n=1-active;
+      els[n].src=p.slides[i];els[n].classList.add("on");els[active].classList.remove("on");active=n;
+    },900);
+  }
+  show(DEFAULT);
+  return show;
+}
+
+/* таймкоды */
+(function(){const t0=Date.now();setInterval(()=>{const ms=Date.now()-t0,p=n=>String(n).padStart(2,"0");
+const s=`${p(Math.floor(ms/36e5))}:${p(Math.floor(ms/6e4)%60)}:${p(Math.floor(ms/1e3)%60)}:${p(Math.floor(ms/40)%25)}`;
+document.querySelectorAll(".tc-run").forEach(e=>e.textContent=s);},120)})();
+
+/* v1 */
+const v1show=makeScreen(document.getElementById("v1-ph"));
+const v1label=document.getElementById("v1-label");
+document.getElementById("v1-tracks").innerHTML=P.map((p,i)=>`
+ <div class="track" style="--tc:${p.c}" data-i="${i}">
+   <span class="tno">${i<4?"V"+(i+1):"A"+(i-3)}</span>
+   <span class="tt">${p.t}</span><span class="tm">${p.m}</span>
+   <span class="ph-line"></span>
+ </div>`).join("");
+document.querySelectorAll("#v1-tracks .track").forEach(el=>{
+  el.addEventListener("mouseenter",()=>{const p=P[+el.dataset.i];v1show(p);v1label.textContent=p.t});
+  el.addEventListener("mouseleave",()=>{v1show(DEFAULT);v1label.textContent="showreel"});
+});
+
+/* v2 раскадровка: большая ячейка = я, остальные проекты */
+const v2=document.getElementById("v2-grid");
+v2.innerHTML=`<div class="sb-cell big" style="--tc:#111"><div class="frame-box"><img class="on" src="assets/photo_3.jpg" style="object-position:50% 24%"></div><div class="sb-cap"><span><b>сц.00</b> — это я</span><span>int. студия</span></div></div>`+
+P.map((p,i)=>`<div class="sb-cell" style="--tc:${p.c}" data-i="${i}"><div class="frame-box"></div><div class="sb-cap"><span><b>сц.0${i+1}</b> — ${p.t}</span><span>${p.m}</span></div></div>`).join("");
+document.querySelectorAll("#v2-grid .sb-cell[data-i]").forEach(el=>{
+  const p=P[+el.dataset.i],box=el.querySelector(".frame-box");
+  const a=document.createElement("img");a.src=p.slides[0];a.classList.add("on");box.appendChild(a);
+  const b=document.createElement("img");box.appendChild(b);
+  let timer=null,act=0;
+  if(p.video){const v=document.createElement("video");v.muted=v.loop=v.playsInline=true;v.preload="none";v.src=p.video;box.appendChild(v);
+    el.addEventListener("mouseenter",()=>{v.classList.add("on");v.play().catch(()=>{})});
+    el.addEventListener("mouseleave",()=>{v.classList.remove("on");v.pause()});return;}
+  el.addEventListener("mouseenter",()=>{let i=0;act=0;timer=setInterval(()=>{i=(i+1)%p.slides.length;const els=[a,b],n=1-act;els[n].src=p.slides[i];els[n].classList.add("on");els[act].classList.remove("on");act=n;},700)});
+  el.addEventListener("mouseleave",()=>{clearInterval(timer);a.src=p.slides[0];a.classList.add("on");b.classList.remove("on");act=0});
+});
+
+/* v3 облако вокруг экрана */
+const v3show=makeScreen(document.getElementById("v3-ph"));
+const v3label=document.getElementById("v3-label");
+const sizes=[34,24,20,28,30,22,26,20];
+function tagHTML(p,i){return `<div class="tag" style="--tc:${p.c};font-size:${sizes[i]}px" data-i="${i}">${p.t}<small>${p.m}</small></div>`}
+document.getElementById("v3-left").innerHTML=P.slice(0,4).map((p,i)=>tagHTML(p,i)).join("");
+document.getElementById("v3-right").innerHTML=P.slice(4).map((p,i)=>tagHTML(p,i+4)).join("");
+document.querySelectorAll("#v3 .tag").forEach(el=>{
+  el.addEventListener("mouseenter",()=>{const p=P[+el.dataset.i];v3show(p);v3label.textContent=p.t});
+  el.addEventListener("mouseleave",()=>{v3show(DEFAULT);v3label.textContent="showreel"});
+});
+
+/* v4 монитор с нитками */
+const v4show=makeScreen(document.getElementById("v4-ph"));
+const stage=document.getElementById("v4-stage");
+const POS=[{x:8,y:12},{x:78,y:9},{x:6,y:44},{x:84,y:38},{x:10,y:78},{x:80,y:72},{x:26,y:92},{x:64,y:94}];
+POS.forEach((pos,i)=>{
+  const p=P[i],el=document.createElement("div");
+  el.className="v4-tag";el.style.cssText=`left:${pos.x}%;top:${pos.y}%;--tc:${p.c};font-size:${sizes[i]-4}px`;
+  el.textContent=p.t;el.dataset.i=i;stage.appendChild(el);
+});
+function drawLines(hotI){
+  const svg=document.getElementById("v4-lines"),r=stage.getBoundingClientRect();
+  svg.setAttribute("viewBox",`0 0 ${r.width} ${r.height}`);
+  const scr=stage.querySelector(".v4-screen").getBoundingClientRect();
+  const cx=scr.left-r.left+scr.width/2, cy=scr.top-r.top+scr.height/2;
+  svg.innerHTML=[...stage.querySelectorAll(".v4-tag")].map(el=>{
+    const b=el.getBoundingClientRect(),x=b.left-r.left+b.width/2,y=b.top-r.top+b.height/2;
+    const hot=+el.dataset.i===hotI?` class="hot" style="--hot:${P[hotI].c}"`:"";
+    return `<line x1="${x}" y1="${y}" x2="${cx}" y2="${cy}"${hot}/>`;
+  }).join("");
+}
+stage.querySelectorAll(".v4-tag").forEach(el=>{
+  el.addEventListener("mouseenter",()=>{v4show(P[+el.dataset.i]);drawLines(+el.dataset.i)});
+  el.addEventListener("mouseleave",()=>{v4show(DEFAULT);drawLines(-1)});
+});
+
+/* v5 постер */
+const v5show=makeScreen(document.getElementById("v5-ph"));
+const tick=P.concat(P).map((p,i)=>`<span style="--tc:${p.c}" data-i="${i%P.length}">→ ${p.t}</span>`).join("");
+document.getElementById("v5-ticker").innerHTML=tick;
+document.querySelectorAll("#v5-ticker span").forEach(el=>{
+  el.addEventListener("mouseenter",()=>v5show(P[+el.dataset.i]));
+  el.addEventListener("mouseleave",()=>v5show(DEFAULT));
+});
+
+/* v6 афиша */
+const v6show=makeScreen(document.getElementById("v6-ph"));
+document.getElementById("v6-tags").innerHTML=P.map((p,i)=>`<span style="--tc:${p.c}" data-i="${i}">${p.t}</span>`).join("");
+document.querySelectorAll("#v6-tags span").forEach(el=>{
+  el.addEventListener("mouseenter",()=>{v6show(P[+el.dataset.i]);el.classList.add("on")});
+  el.addEventListener("mouseleave",()=>{v6show(DEFAULT);el.classList.remove("on")});
+});
+
+/* переключатель */
+document.querySelectorAll(".lab-bar button").forEach(b=>{
+  b.addEventListener("click",()=>{
+    document.querySelectorAll(".lab-bar button").forEach(x=>x.classList.toggle("on",x===b));
+    document.querySelectorAll(".variant").forEach(v=>v.classList.toggle("on",v.id==="v"+b.dataset.v));
+    if(b.dataset.v==="4") setTimeout(()=>drawLines(-1),60);
+  });
+});
+</script>
+</body>
+</html>

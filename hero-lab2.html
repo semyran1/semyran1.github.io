@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hero Lab 2 — адаптации референсов</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,300;1,400&family=Inter+Tight:wght@300;400;500&family=Inter:wght@400;500;600&family=Oswald:wght@400;500;700&family=Roboto+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;background:#fff;color:#111}
+
+/* панель */
+.lab-bar{position:fixed;top:0;left:0;right:0;z-index:100;background:#111;color:#fff;display:flex;align-items:center;gap:6px;padding:10px 18px;flex-wrap:wrap}
+.lab-bar b{font-size:13px;margin-right:10px;letter-spacing:.04em;font-family:'Roboto Mono',monospace}
+.lab-bar button{font-family:'Inter';font-weight:600;font-size:13px;background:none;border:1px solid #555;color:#ccc;padding:7px 14px;cursor:pointer}
+.lab-bar button.on{background:#fff;color:#111;border-color:#fff}
+.variant{display:none;min-height:100vh;position:relative}
+.variant.on{display:block}
+
+/* общий экран-слайдшоу */
+.scr{position:relative;overflow:hidden}
+.scr img,.scr video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .7s ease}
+.scr img.on,.scr video.on{opacity:1}
+
+/* стаггер-вход */
+.st{opacity:0;transform:translateY(18px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
+.variant.on .st{opacity:1;transform:none}
+.variant.on .st:nth-child(2),.variant.on .d2{transition-delay:.08s}
+.variant.on .d3{transition-delay:.16s}
+.variant.on .d4{transition-delay:.26s}
+
+/* ======== Реф 1 · 11x: полноэкранный кадр + serif-титры ======== */
+#r1{background:#000;color:#fff}
+#r1 .bg{position:absolute;inset:0}
+#r1 .bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.25) 0%,rgba(0,0,0,.12) 45%,rgba(0,0,0,.62) 100%)}
+#r1 .in{position:relative;z-index:2;min-height:100vh;display:flex;flex-direction:column;padding:84px 56px 44px;max-width:1400px;margin:0 auto}
+#r1 .brand{font-family:'Playfair Display',serif;font-weight:600;font-size:19px;letter-spacing:-.02em}
+#r1 .title{margin-top:auto;font-family:'Playfair Display',serif;font-weight:700;font-size:clamp(56px,8.6vw,124px);line-height:.92;letter-spacing:-.045em;max-width:12ch}
+#r1 .sub{margin-top:22px;font-size:16px;letter-spacing:-.02em;color:#e8e4df;max-width:520px;line-height:1.45}
+#r1 .row{margin-top:34px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+#r1 .cta{background:#fff;color:#000;border-radius:999px;padding:12px 26px;font-weight:500;font-size:15px;text-decoration:none;letter-spacing:-.02em}
+#r1 .tag{border:1px solid rgba(255,255,255,.38);border-radius:999px;padding:9px 18px;font-size:13.5px;letter-spacing:-.01em;color:#f2efe9;cursor:pointer;transition:.2s;background:rgba(0,0,0,.12)}
+#r1 .tag:hover{background:#fff;color:#000;border-color:#fff}
+
+/* ======== Реф 2 · Creative Giants: кремовый editorial ======== */
+#r2{background:#fffef7;color:#000}
+#r2 .in{min-height:100vh;display:flex;flex-direction:column;padding:78px 48px 0;max-width:1440px;margin:0 auto}
+#r2 .top{display:flex;justify-content:space-between;align-items:flex-start;font-family:'Inter Tight';font-weight:400;font-size:12.5px;letter-spacing:.02em;text-transform:uppercase;color:#000}
+#r2 .menu{border:1px solid #000;border-radius:1440px;padding:9px 22px;text-decoration:none;color:#000}
+#r2 .title{margin-top:30px;font-family:'Inter Tight',sans-serif;font-weight:300;font-size:clamp(64px,10.8vw,158px);line-height:.95;letter-spacing:-.04em;text-transform:uppercase;white-space:nowrap}
+#r2 .band{margin:26px -48px 0;flex:1;min-height:44vh;position:relative}
+#r2 .caption{position:absolute;left:48px;bottom:34px;z-index:3;color:#fff}
+#r2 .caption .loc{font-size:12px;letter-spacing:.06em;text-transform:uppercase;opacity:.85;margin-bottom:10px}
+#r2 .caption .line{font-family:'Inter Tight';font-weight:300;font-size:clamp(26px,3vw,40px);line-height:1.15;letter-spacing:-.02em;max-width:15ch}
+#r2 .tags{position:absolute;right:48px;bottom:34px;z-index:3;display:flex;flex-direction:column;gap:8px;text-align:right}
+#r2 .tags span{color:#fff;font-size:14px;font-weight:400;letter-spacing:-.01em;cursor:pointer;opacity:.75;transition:.2s}
+#r2 .tags span:hover{opacity:1;text-decoration:underline;text-underline-offset:4px}
+
+/* ======== Реф 3 · Ciridae: void chamber + ember ======== */
+#r3{background:#0b0b0b;color:#f0efec}
+#r3 .glow{position:absolute;inset:0;overflow:hidden}
+#r3 .glow img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.5;filter:blur(2px) brightness(.62) saturate(1.15)}
+#r3 .glow::after{content:"";position:absolute;inset:0;background:radial-gradient(60% 55% at 50% 52%,transparent 30%,rgba(11,11,11,.88) 100%)}
+#r3 .in{position:relative;z-index:2;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px 40px 40px;text-align:center;font-family:'Oswald',sans-serif;text-transform:uppercase}
+#r3 .pillbar{position:absolute;top:76px;left:40px;right:40px;display:flex;justify-content:space-between}
+#r3 .pill{border:1px solid rgba(240,239,236,.35);border-radius:1440px;padding:9px 24px;font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:.14em;color:#f0efec;text-decoration:none;text-transform:uppercase;transition:.2s}
+#r3 .pill:hover{border-color:#cc6437;color:#cc6437}
+#r3 .mark{width:52px;height:52px;margin-bottom:26px}
+#r3 .mark svg{width:100%;height:100%;stroke:#f0efec}
+#r3 .name{font-weight:400;font-size:clamp(34px,4.6vw,58px);letter-spacing:-.02em;line-height:1.05}
+#r3 .rule{width:120px;height:1px;background:#cc6437;margin:22px auto}
+#r3 .role{font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:.28em;color:#9a9a94}
+#r3 .side{position:absolute;top:50%;transform:translateY(-50%);font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:.2em;color:#b9b8b2;writing-mode:horizontal-tb}
+#r3 .side.l{left:40px;text-align:left}
+#r3 .side.r{right:40px;text-align:right}
+#r3 .tags{position:absolute;bottom:44px;left:0;right:0;display:flex;justify-content:center;gap:30px;flex-wrap:wrap}
+#r3 .tags span{font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:.16em;color:#8f8e88;cursor:pointer;border-bottom:1px solid transparent;padding-bottom:4px;transition:.2s;text-transform:uppercase}
+#r3 .tags span:hover{color:#cc6437;border-color:#cc6437}
+
+/* ======== Реф 4 · dope.security: небо + serif italic ======== */
+#r4{background:#090909;color:#f7f9fa}
+#r4 .sky{position:absolute;inset:0;background:
+ radial-gradient(90% 62% at 78% 6%,#3d2a66 0%,transparent 55%),
+ radial-gradient(70% 50% at 16% 22%,#20345c 0%,transparent 58%),
+ radial-gradient(55% 42% at 60% 60%,#5b3a86 0%,transparent 62%),
+ linear-gradient(180deg,#141227 0%,#090909 88%)}
+#r4 .sky::after{content:"";position:absolute;inset:0;background:radial-gradient(42% 30% at 30% 42%,rgba(255,170,120,.14),transparent 70%)}
+#r4 .in{position:relative;z-index:2;min-height:100vh;display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:center;max-width:1300px;margin:0 auto;padding:100px 48px 60px}
+#r4 .lab{font-family:'Roboto Mono',monospace;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:#f0f0f0;opacity:.7;margin-bottom:22px}
+#r4 .title{font-family:'Inter Tight',sans-serif;font-weight:400;font-size:clamp(44px,5.6vw,78px);line-height:1.02;letter-spacing:-.03em}
+#r4 .title em{font-family:'Playfair Display',serif;font-style:italic;font-weight:300;letter-spacing:-.03em}
+#r4 .sub{margin-top:24px;font-size:16px;color:#c9c5d2;max-width:420px;line-height:1.5}
+#r4 .cta{display:inline-block;margin-top:32px;border:1px solid rgba(247,249,250,.5);border-radius:1584px;padding:12px 28px;color:#f7f9fa;text-decoration:none;font-size:14.5px;transition:.2s}
+#r4 .cta:hover{background:#f7f9fa;color:#090909}
+#r4 .glass{border:1px solid rgba(247,249,250,.22);border-radius:19px;background:rgba(20,18,39,.35);backdrop-filter:blur(10px);padding:14px;position:relative}
+#r4 .glass .scr{aspect-ratio:16/10;border-radius:10px}
+#r4 .glass .meta{display:flex;justify-content:space-between;padding:12px 4px 2px;font-family:'Roboto Mono',monospace;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:#9a94ac}
+#r4 .glass .dot{position:absolute;top:-5px;right:-5px;width:10px;height:10px;border-radius:50%;background:#af50ff;box-shadow:0 0 18px 4px rgba(175,80,255,.55)}
+#r4 .tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:26px}
+#r4 .tags span{border:1px solid rgba(247,249,250,.25);border-radius:1584px;padding:7px 15px;font-size:12.5px;color:#d8d4e2;cursor:pointer;transition:.2s}
+#r4 .tags span:hover{border-color:#e1bdff;color:#e1bdff}
+
+/* ======== Реф 5 · Dayos: плакат на тёплом сером ======== */
+#r5{background:#e5e5e5;color:#000}
+#r5 .in{min-height:100vh;display:grid;grid-template-columns:1.2fr .8fr;gap:60px;align-items:center;max-width:1300px;margin:0 auto;padding:110px 48px 60px}
+#r5 .title{font-family:'Oswald',sans-serif;font-weight:700;font-size:clamp(56px,7.6vw,116px);line-height:.92;letter-spacing:-.02em;text-transform:uppercase}
+#r5 .sub{margin-top:30px;font-size:16px;font-weight:500;color:#2f2f2f;max-width:400px;line-height:1.5}
+#r5 .mint{display:inline-block;background:#d1ffca;border-radius:64px;padding:6px 16px;font-size:13px;font-weight:500;margin-bottom:18px}
+#r5 .cta{display:inline-block;margin-top:28px;background:#000;color:#fff;border-radius:8px;padding:13px 26px;font-weight:500;font-size:15px;text-decoration:none}
+#r5 .card{background:#fff;border-radius:32px;padding:16px;position:relative}
+#r5 .card .scr{aspect-ratio:4/3;border-radius:20px}
+#r5 .card .meta{display:flex;justify-content:space-between;align-items:center;padding:14px 8px 4px;font-size:13px;font-weight:500;color:#444}
+#r5 .card .meta b{font-family:'Oswald';font-weight:700;text-transform:uppercase;font-size:15px}
+#r5 .tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:24px}
+#r5 .tags span{background:#f3f3f3;border-radius:64px;padding:8px 16px;font-size:13px;font-weight:500;cursor:pointer;transition:.15s}
+#r5 .tags span:hover{background:#000;color:#fff}
+@media(max-width:900px){#r4 .in,#r5 .in{grid-template-columns:1fr;gap:34px}#r2 .title{white-space:normal}}
+</style>
+</head>
+<body>
+
+<div class="lab-bar">
+  <b>HERO LAB 2 · референсы</b>
+  <button data-v="1" class="on">1 · 11x</button>
+  <button data-v="2">2 · creative giants</button>
+  <button data-v="3">3 · ciridae</button>
+  <button data-v="4">4 · dope</button>
+  <button data-v="5">5 · dayos</button>
+  <a href="hero-lab3.html" style="margin-left:auto;font-family:'Roboto Mono',monospace;font-size:11.5px;color:#888;text-decoration:none;border-bottom:1px dotted #555;padding-bottom:2px">lab 3 →</a>
+</div>
+
+<!-- 1 · 11x -->
+<section class="variant on" id="r1">
+  <div class="bg scr" id="r1-scr"></div>
+  <div class="in">
+    <div class="brand st">Серафим Панюшкин</div>
+    <h1 class="title st d2">Видео, которое держит зрителя.</h1>
+    <p class="sub st d3">Сценарист, режиссёр и продюсер: 350+ сценариев, 20+ каналов, удержание 70–78% на 30-й секунде. Полный AI-пайплайн — от идеи до рендера.</p>
+    <div class="row st d4">
+      <a class="cta" href="#">Давайте делать вместе</a>
+      <span class="tag" data-p="0">cerca trova</span>
+      <span class="tag" data-p="1">sunscrypt</span>
+      <span class="tag" data-p="3">lines</span>
+      <span class="tag" data-p="4">ai-ролики</span>
+      <span class="tag" data-p="5">документалки</span>
+      <span class="tag" data-p="7">перфоманс 360°</span>
+    </div>
+  </div>
+</section>
+
+<!-- 2 · creative giants -->
+<section class="variant" id="r2">
+  <div class="in">
+    <div class="top st"><span>Сценарист · Режиссёр<br>// Полный AI-пайплайн</span><a class="menu" href="#">Меню</a></div>
+    <h1 class="title st d2">Панюшкин</h1>
+    <div class="band scr st d3" id="r2-scr">
+      <div class="caption">
+        <div class="loc">Санкт-Петербург, Россия</div>
+        <div class="line">Сценарий, режиссура и искусство возможного.</div>
+      </div>
+      <div class="tags">
+        <span data-p="0">cerca trova</span>
+        <span data-p="1">sunscrypt</span>
+        <span data-p="3">lines</span>
+        <span data-p="4">ai-ролики</span>
+        <span data-p="7">перфоманс 360°</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3 · ciridae -->
+<section class="variant" id="r3">
+  <div class="glow"><img src="assets/perf_cover.jpg" alt=""></div>
+  <div class="in">
+    <div class="pillbar st"><a class="pill" href="#">Связаться</a><a class="pill" href="#">Меню</a></div>
+    <div class="mark st d2"><svg viewBox="0 0 24 24" fill="none" stroke-width="1"><path d="M12 2l2 7 7 2-7 2-2 7-2-7-7-2 7-2z"/></svg></div>
+    <h1 class="name st d2">Серафим Панюшкин</h1>
+    <div class="rule st d3"></div>
+    <div class="role st d3">сценарий · режиссура · продюсирование</div>
+    <div class="side l st d4">пишу то, что<br>удерживает</div>
+    <div class="side r st d4">снимаю то, что<br>запоминается</div>
+    <div class="tags st d4">
+      <span data-p="0">cerca trova</span>
+      <span data-p="1">sunscrypt</span>
+      <span data-p="3">lines</span>
+      <span data-p="4">ai</span>
+      <span data-p="5">доки</span>
+      <span data-p="7">360°</span>
+    </div>
+  </div>
+</section>
+
+<!-- 4 · dope -->
+<section class="variant" id="r4">
+  <div class="sky"></div>
+  <div class="in">
+    <div>
+      <div class="lab st">Портфолио // 2026</div>
+      <h1 class="title st d2">Ваш <em>новый</em> сценарист и режиссёр <em>уже здесь</em></h1>
+      <p class="sub st d3">350+ сценариев и 20+ каналов. Удержание 70–78% на 30-й секунде — без пересъёмок и лишних смет.</p>
+      <a class="cta st d4" href="#">Смотреть работы</a>
+    </div>
+    <div>
+      <div class="glass st d3">
+        <span class="dot"></span>
+        <div class="scr" id="r4-scr"></div>
+        <div class="meta"><span id="r4-label">showreel</span><span>rec · 02:00</span></div>
+      </div>
+      <div class="tags st d4">
+        <span data-p="0">cerca trova</span>
+        <span data-p="1">sunscrypt</span>
+        <span data-p="3">lines</span>
+        <span data-p="4">ai-ролики</span>
+        <span data-p="7">360°</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5 · dayos -->
+<section class="variant" id="r5">
+  <div class="in">
+    <div>
+      <div class="mint st">открыт к проектам</div>
+      <h1 class="title st d2">Видео,<br>которое<br>держит<br>зрителя.</h1>
+      <p class="sub st d3">Не агентство и не «фрилансер на подхвате». Сценарист-режиссёр с полным AI-пайплайном: 350+ сценариев, 20+ каналов, удержание 70–78% на 0:30.</p>
+      <a class="cta st d4" href="#">Давайте делать вместе</a>
+    </div>
+    <div>
+      <div class="card st d3">
+        <div class="scr" id="r5-scr"></div>
+        <div class="meta"><b id="r5-label">showreel</b><span>наведите на проект ↓</span></div>
+      </div>
+      <div class="tags st d4">
+        <span data-p="0">cerca trova</span>
+        <span data-p="1">sunscrypt</span>
+        <span data-p="3">lines</span>
+        <span data-p="4">ai-ролики</span>
+        <span data-p="5">документалки</span>
+        <span data-p="7">перфоманс</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+const P=[
+ {t:"cerca trova",slides:["assets/yt_lwoH0SGTgNM.jpg","assets/sl_cerca_1.jpg","assets/yt_o6j1BzyPFiM.jpg","assets/sl_cerca_2.jpg"]},
+ {t:"sunscrypt",slides:["assets/yt_sungz.jpg","assets/sl_sungz_2.jpg","assets/yt_sungl.jpg","assets/sl_sungl_2.jpg"]},
+ {t:"каналы с нуля",slides:["assets/ch_zuev.jpg","assets/ch_maidobura.jpg","assets/ch_avclinic.jpg"]},
+ {t:"lines",slides:["assets/yt_nIWbMEtdJRk.jpg","assets/ig_lines1.jpg","assets/yt_JUcc7KZxS8k.jpg","assets/ig_lines2.jpg"]},
+ {t:"ai-ролики",slides:["assets/sl_nav1_2.jpg","assets/sl_nav2_2.jpg","assets/sl_nav3_2.jpg","assets/sl_fliska3_2.jpg"]},
+ {t:"документалки",slides:["assets/yt_I4nHuMFgYlg.jpg","assets/sl_pyr_2.jpg","assets/sl_silver_2.jpg","assets/sl_peptides_2.jpg"]},
+ {t:"шоурил",slides:["assets/yd_showreel.jpg","assets/sl_reel_1.jpg","assets/sl_reel_2.jpg","assets/sl_reel_3.jpg"]},
+ {t:"перфоманс 360°",video:"assets/perf_preview.mp4",slides:["assets/perf_cover.jpg"]},
+];
+const DEFAULT=P[6];
+
+function makeScreen(host,defaultP){
+  const a=document.createElement("img"),b=document.createElement("img");
+  const v=document.createElement("video");v.muted=true;v.loop=true;v.playsInline=true;v.preload="none";v.src="assets/perf_preview.mp4";
+  host.appendChild(a);host.appendChild(b);host.appendChild(v);
+  let timer=null,active=0;
+  function show(p){
+    if(timer){clearInterval(timer);timer=null}
+    v.classList.remove("on");v.pause();
+    if(p.video){v.classList.add("on");v.play().catch(()=>{});a.classList.remove("on");b.classList.remove("on");return}
+    let i=0;active=0;
+    a.src=p.slides[0];a.classList.add("on");b.classList.remove("on");
+    if(p.slides.length>1) timer=setInterval(()=>{
+      i=(i+1)%p.slides.length;
+      const els=[a,b],n=1-active;
+      els[n].src=p.slides[i];els[n].classList.add("on");els[active].classList.remove("on");active=n;
+    },1600);
+  }
+  show(defaultP||DEFAULT);
+  return show;
+}
+
+/* экраны каждого варианта */
+const shows={
+ r1:makeScreen(document.getElementById("r1-scr"),P[0]),
+ r2:makeScreen(document.getElementById("r2-scr"),P[6]),
+ r4:makeScreen(document.getElementById("r4-scr"),P[6]),
+ r5:makeScreen(document.getElementById("r5-scr"),P[6]),
+};
+const labels={r4:document.getElementById("r4-label"),r5:document.getElementById("r5-label")};
+
+document.querySelectorAll(".variant [data-p]").forEach(el=>{
+  const vid=el.closest(".variant").id;
+  el.addEventListener("mouseenter",()=>{
+    const p=P[+el.dataset.p];
+    if(shows[vid])shows[vid](p);
+    if(labels[vid])labels[vid].textContent=p.t;
+    if(vid==="r3"){const g=document.querySelector("#r3 .glow img");g.src=p.slides[0];}
+  });
+  el.addEventListener("mouseleave",()=>{
+    const d=vid==="r1"?P[0]:DEFAULT;
+    if(shows[vid])shows[vid](d);
+    if(labels[vid])labels[vid].textContent="showreel";
+    if(vid==="r3"){document.querySelector("#r3 .glow img").src="assets/perf_cover.jpg";}
+  });
+});
+
+/* переключатель */
+document.querySelectorAll(".lab-bar button").forEach(b=>{
+  b.addEventListener("click",()=>{
+    document.querySelectorAll(".lab-bar button").forEach(x=>x.classList.toggle("on",x===b));
+    document.querySelectorAll(".variant").forEach(v=>{
+      const on=v.id==="r"+b.dataset.v;
+      v.classList.remove("on");
+      if(on){void v.offsetWidth;v.classList.add("on");}
+    });
+  });
+});
+</script>
+</body>
+</html>
