@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hero Lab 3 — панк-визитки</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Rubik+Mono+One&family=Caveat:wght@600;700&family=Oswald:wght@500;700&family=Playfair+Display:ital,wght@1,400;1,600&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Manrope',sans-serif;background:#000;color:#eee}
+a{color:inherit}
+
+/* панель */
+.lab-bar{position:fixed;top:0;left:0;right:0;z-index:100;background:#111;color:#fff;display:flex;align-items:center;gap:6px;padding:10px 18px;flex-wrap:wrap}
+.lab-bar b{font-size:13px;margin-right:10px;letter-spacing:.04em;font-family:'Roboto Mono',monospace}
+.lab-bar button{font-family:'Manrope';font-weight:700;font-size:13px;background:none;border:1px solid #555;color:#ccc;padding:7px 14px;cursor:pointer}
+.lab-bar button.on{background:#ffe600;color:#111;border-color:#ffe600}
+.lab-bar a.lnk{margin-left:auto;font-family:'Roboto Mono',monospace;font-size:11.5px;color:#888;text-decoration:none;border-bottom:1px dotted #555;padding-bottom:2px}
+.lab-bar a.lnk:hover{color:#ffe600;border-color:#ffe600}
+.variant{display:none;min-height:100vh;position:relative;overflow:hidden}
+.variant.on{display:block}
+
+/* общий экран-слайдшоу */
+.scr{position:relative;overflow:hidden}
+.scr img,.scr video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .7s ease}
+.scr img.on,.scr video.on{opacity:1}
+
+/* стаггер-вход */
+.st{opacity:0;transform:translateY(18px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
+.variant.on .st{opacity:1;transform:none}
+.variant.on .d2{transition-delay:.08s}
+.variant.on .d3{transition-delay:.16s}
+.variant.on .d4{transition-delay:.26s}
+
+/* ======== 1 · MSCHF: терминальный индекс дропов ======== */
+#v1{background:#050505;color:#d7d7d7;font-family:'Roboto Mono',monospace}
+#v1 .bg{position:absolute;inset:0;opacity:0;transition:opacity .5s}
+#v1.peek .bg{opacity:1}
+#v1 .bg::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(5,5,5,.92) 0%,rgba(5,5,5,.55) 55%,rgba(5,5,5,.25) 100%)}
+#v1 .in{position:relative;z-index:2;min-height:100vh;display:flex;flex-direction:column;padding:86px 48px 40px;max-width:1250px;margin:0 auto}
+#v1 .top{display:flex;justify-content:space-between;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#9a9a9a}
+#v1 .top .warn{color:#ffe600;animation:blink 1.2s steps(2) infinite}
+@keyframes blink{50%{opacity:.25}}
+#v1 .list{margin-top:44px;display:flex;flex-direction:column}
+#v1 .row{display:flex;align-items:baseline;gap:16px;padding:7px 0;cursor:pointer;text-decoration:none;color:#d7d7d7}
+#v1 .row .n{font-size:11px;color:#666;width:26px;flex:none}
+#v1 .row .t{font-size:clamp(20px,3.1vw,38px);font-weight:500;text-transform:uppercase;letter-spacing:.01em;white-space:nowrap}
+#v1 .row .dots{flex:1;border-bottom:1px dotted #3a3a3a;transform:translateY(-7px)}
+#v1 .row .m{font-size:12.5px;letter-spacing:.08em;color:#8f8f8f;text-transform:uppercase;white-space:nowrap}
+#v1 .row:hover .t{color:#ffe600}
+#v1 .row:hover .m{color:#fff}
+#v1 .row:hover .dots{border-color:#ffe600}
+#v1 .cur{margin-top:14px;font-size:22px;color:#ffe600;animation:blink 1s steps(2) infinite}
+#v1 .foot{margin-top:auto;padding-top:30px;font-size:11.5px;letter-spacing:.1em;color:#666;text-transform:uppercase}
+#v1 .foot a{color:#ffe600;text-decoration:none}
+
+/* ======== 2 · tholman: типографика, которая играет ======== */
+#v2{background:#101010;color:#f2f2f2;background-image:repeating-linear-gradient(45deg,transparent 0 34px,rgba(255,255,255,.035) 34px 35px)}
+#v2 .in{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:100px 56px 60px;max-width:1300px;margin:0 auto;position:relative;z-index:2}
+#v2 .name{font-weight:800;font-size:clamp(64px,12.5vw,180px);line-height:.88;letter-spacing:-.05em;user-select:none}
+#v2 .name span{display:inline-block;transition:transform .18s}
+#v2 .name span:nth-child(2n){transform:rotate(2.2deg) translateY(2px)}
+#v2 .name span:nth-child(3n){transform:rotate(-2.4deg)}
+#v2 .name span:nth-child(5n){transform:rotate(1.4deg) translateY(-3px)}
+#v2 .name span:hover{animation:jig .35s ease-in-out infinite;color:#ffe600}
+@keyframes jig{0%,100%{transform:rotate(-4deg) translateY(-2px)}50%{transform:rotate(4deg) translateY(2px)}}
+#v2 .iam{margin-top:38px;font-weight:700;font-size:clamp(22px,2.6vw,34px);letter-spacing:-.02em}
+#v2 .iam .w{position:relative;padding:2px 10px;color:#111;white-space:nowrap}
+#v2 .iam .w::before{content:"";position:absolute;inset:-2px -6px;background:#ffe600;border-radius:3px;transform:rotate(-1.2deg);z-index:-1;box-shadow:0 0 34px rgba(255,230,0,.45)}
+#v2 .tags{margin-top:56px;display:flex;gap:14px 26px;flex-wrap:wrap;max-width:760px}
+#v2 .tags span{font-family:'Roboto Mono',monospace;font-size:13px;letter-spacing:.06em;color:#bdbdbd;cursor:pointer;display:inline-block;border-bottom:1px dotted #555;padding-bottom:3px}
+#v2 .tags span:nth-child(2n){transform:rotate(1.6deg)}
+#v2 .tags span:nth-child(3n){transform:rotate(-1.8deg)}
+#v2 .tags span:hover{color:#ffe600;border-color:#ffe600;animation:jig .4s ease-in-out infinite}
+#v2 .pol{position:absolute;right:56px;bottom:64px;width:min(300px,26vw);background:#fdfdf8;padding:10px 10px 34px;transform:rotate(-4deg);box-shadow:0 18px 50px rgba(0,0,0,.55);transition:transform .3s}
+#v2 .pol:hover{transform:rotate(-1deg) scale(1.03)}
+#v2 .pol .scr{aspect-ratio:4/3}
+#v2 .pol .cap{position:absolute;left:0;right:0;bottom:7px;text-align:center;font-family:'Caveat',cursive;font-weight:600;font-size:19px;color:#333}
+@media(max-width:900px){#v2 .pol{position:static;margin-top:40px;transform:rotate(-2deg)}}
+
+/* ======== 3 · Adham Dannaway: дуальность ======== */
+#v3.on{display:flex}
+#v3 .half{flex:1;transition:flex .55s cubic-bezier(.2,.7,.2,1);display:flex;flex-direction:column;justify-content:center;padding:110px 48px 70px;position:relative;min-width:0}
+#v3 .half:hover{flex:1.45}
+#v3 .paper{background:#f5f2ec;color:#161616}
+#v3 .dark{background:#0c0c0e;color:#f0f0f0}
+#v3 .lab{font-family:'Roboto Mono',monospace;font-size:11.5px;letter-spacing:.3em;text-transform:uppercase;color:#8a8a82;margin-bottom:20px}
+#v3 h2{font-weight:800;font-size:clamp(24px,2.6vw,48px);letter-spacing:-.04em;line-height:1.05;margin-bottom:22px;max-width:min(300px,80%)}
+#v3 .dark{align-items:flex-end;text-align:right}
+#v3 .dark .scr{max-width:min(430px,80%)}
+#v3 .paper h2 em{font-family:'Playfair Display',serif;font-style:italic;font-weight:600;letter-spacing:-.02em}
+#v3 .script{font-family:'Roboto Mono',monospace;font-size:12.5px;line-height:1.9;color:#4a4a44;max-width:360px}
+#v3 .script b{color:#161616;font-weight:700}
+#v3 .dark .scr{aspect-ratio:16/9;max-width:430px;border-radius:4px;box-shadow:0 20px 60px rgba(0,0,0,.6)}
+#v3 .stat{margin-top:26px;font-family:'Roboto Mono',monospace;font-size:12px;letter-spacing:.06em;line-height:2;color:#8b8b85}
+#v3 .stat b{font-size:15px;letter-spacing:0}
+#v3 .paper .stat b{color:#161616}
+#v3 .dark .stat b{color:#fff}
+#v3 .dark .tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:20px;max-width:430px}
+#v3 .dark .tags span{font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:.08em;border:1px solid #3a3a3e;padding:6px 12px;color:#c9c9c9;cursor:pointer;transition:.2s;text-transform:uppercase}
+#v3 .dark .tags span:hover{border-color:#ffe600;color:#ffe600}
+#v3 .seam{position:absolute;left:50%;top:0;bottom:0;width:1px;background:linear-gradient(180deg,transparent,#888 20%,#888 80%,transparent);z-index:3;pointer-events:none}
+#v3 .face{position:absolute;left:50%;top:72%;transform:translate(-50%,-50%);width:min(130px,13vw);z-index:4;pointer-events:none}
+#v3 .face .ph{position:relative;aspect-ratio:3/4;overflow:hidden;border-radius:4px;box-shadow:0 24px 70px rgba(0,0,0,.5)}
+#v3 .face img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+#v3 .face img.l{clip-path:inset(0 50% 0 0);filter:grayscale(1) contrast(1.05) brightness(1.06) sepia(.18)}
+#v3 .face img.r{clip-path:inset(0 0 0 50%)}
+#v3 .plate{margin-top:14px;text-align:center}
+#v3 .plate .nm{font-weight:800;font-size:19px;letter-spacing:-.03em;color:#fff;text-shadow:0 2px 14px rgba(0,0,0,.7)}
+#v3 .plate a{pointer-events:auto;display:inline-block;margin-top:10px;background:#ffe600;color:#111;font-weight:800;font-size:13px;padding:9px 18px;border-radius:3px;text-decoration:none;transform:rotate(-1.6deg)}
+@media(max-width:900px){#v3{flex-direction:column}#v3 .face{display:none}#v3 .seam{display:none}}
+
+/* ======== 4 · David Rudnick: космос артефактов ======== */
+#v4{background:#000;color:#cfcfc7}
+#v4 .name{position:absolute;top:76px;left:44px;z-index:5;font-family:'Roboto Mono',monospace;font-size:13px;letter-spacing:.18em;text-transform:uppercase}
+#v4 .name em{font-style:normal;color:#ffe600}
+#v4 .glyphs{position:absolute;top:76px;right:44px;z-index:5;font-family:'Roboto Mono',monospace;font-size:15px;letter-spacing:.6em;color:#777}
+#v4 .field{position:absolute;inset:0}
+#v4 .art{position:absolute;display:block;box-shadow:0 24px 80px rgba(0,0,0,.9);cursor:pointer;transition:transform .3s,box-shadow .3s;animation:float var(--fd,7s) ease-in-out var(--fdel,0s) infinite alternate}
+#v4 .art img{display:block;width:100%;height:100%;object-fit:cover;filter:brightness(.88) saturate(1.05)}
+#v4 .art:hover{transform:scale(1.07) !important;box-shadow:0 0 0 1px #ffe600,0 30px 90px rgba(0,0,0,.9);z-index:6;animation-play-state:paused}
+@keyframes float{from{margin-top:-9px}to{margin-top:9px}}
+#v4 .cap{position:absolute;left:0;right:0;bottom:46px;text-align:center;z-index:5;font-family:'Roboto Mono',monospace;font-size:12.5px;letter-spacing:.2em;text-transform:uppercase;color:#8f8f88;pointer-events:none}
+#v4 .cap b{color:#ffe600;font-weight:500}
+
+/* ======== 5 · zine: бумага, скотч и штампы ======== */
+#v5{background:#ece5da;color:#1c1a16;background-image:radial-gradient(rgba(0,0,0,.05) 1px,transparent 1px);background-size:5px 5px}
+#v5 .in{min-height:100vh;max-width:1250px;margin:0 auto;padding:110px 48px 70px;position:relative}
+#v5 .hand{font-family:'Caveat',cursive;font-weight:700;font-size:clamp(24px,2.6vw,34px);color:#333;transform:rotate(-1.6deg);display:inline-block}
+#v5 .ransom{margin-top:14px;line-height:1.06;user-select:none}
+#v5 .ransom span{display:inline-block;padding:2px 12px 4px;margin:3px 2px;font-size:clamp(44px,7.6vw,104px);box-shadow:3px 5px 0 rgba(0,0,0,.22);cursor:default;transition:transform .18s}
+#v5 .ransom span:hover{transform:rotate(0) scale(1.06) !important}
+#v5 .ransom .a{font-family:'Rubik Mono One';background:#1c1a16;color:#ece5da;transform:rotate(-2.4deg)}
+#v5 .ransom .b{font-family:'Playfair Display';font-style:italic;font-weight:600;background:#fff;transform:rotate(1.8deg)}
+#v5 .ransom .c{font-family:'Oswald';font-weight:700;text-transform:uppercase;background:#e33d2e;color:#fff;transform:rotate(-1.2deg)}
+#v5 .ransom .d{font-family:'Manrope';font-weight:800;background:#ffe600;transform:rotate(2.6deg)}
+#v5 .tagline{margin-top:30px;font-family:'Caveat',cursive;font-weight:600;font-size:clamp(26px,3vw,40px);color:#222;position:relative;display:inline-block;transform:rotate(-.8deg)}
+#v5 .tagline svg{position:absolute;left:0;right:0;bottom:-12px;width:100%;height:16px}
+#v5 .stamp{position:absolute;top:130px;right:52px;border:4px double #c22; color:#c22;font-family:'Roboto Mono',monospace;font-weight:700;font-size:15px;letter-spacing:.22em;text-transform:uppercase;padding:12px 20px;transform:rotate(8deg);border-radius:6px;opacity:.85;mix-blend-mode:multiply}
+#v5 .desk{margin-top:64px;display:flex;gap:44px;flex-wrap:wrap;align-items:flex-start}
+#v5 .pol{width:min(255px,42vw);background:#fdfdf8;padding:9px 9px 40px;box-shadow:0 14px 36px rgba(0,0,0,.28);position:relative;text-decoration:none;color:#1c1a16;transition:transform .3s}
+#v5 .pol .scr{aspect-ratio:4/3}
+#v5 .pol::before{content:"";position:absolute;top:-13px;left:50%;transform:translateX(-50%) rotate(-2deg);width:96px;height:26px;background:rgba(230,220,160,.75);box-shadow:0 1px 3px rgba(0,0,0,.18)}
+#v5 .pol .cap{position:absolute;left:0;right:0;bottom:8px;text-align:center;font-family:'Caveat',cursive;font-weight:600;font-size:20px;color:#333}
+#v5 .pol:nth-child(1){transform:rotate(-3.4deg)}
+#v5 .pol:nth-child(2){transform:rotate(2.2deg);margin-top:26px}
+#v5 .pol:nth-child(3){transform:rotate(-1.6deg);margin-top:8px}
+#v5 .pol:nth-child(4){transform:rotate(3.2deg);margin-top:32px}
+#v5 .pol:hover{transform:rotate(0) scale(1.04);z-index:5}
+#v5 .foot{margin-top:56px;font-family:'Roboto Mono',monospace;font-size:11.5px;letter-spacing:.12em;color:#77726a;text-transform:uppercase}
+</style>
+</head>
+<body>
+
+<div class="lab-bar">
+  <b>HERO LAB 3 · панк-визитки</b>
+  <button data-v="1" class="on">1 · титры дропов</button>
+  <button data-v="2">2 · буквы играют</button>
+  <button data-v="3">3 · дуальность</button>
+  <button data-v="4">4 · артефакты</button>
+  <button data-v="5">5 · зин</button>
+  <a class="lnk" href="hero-lab4.html">lab 4 →</a>
+  <a class="lnk" href="hero-lab2.html" style="margin-left:12px">← lab 2</a>
+  <a class="lnk" href="hero-lab.html" style="margin-left:12px">← lab 1</a>
+</div>
+
+<!-- 1 · MSCHF: терминальный индекс -->
+<section class="variant on" id="v1">
+  <div class="bg scr" id="v1-scr"></div>
+  <div class="in">
+    <div class="top st">
+      <span>СЕРАФИМ ПАНЮШКИН — СЦЕНАРИСТ / РЕЖИССЁР / ПРОДЮСЕР</span>
+      <span class="warn">⚠ ОТКРЫТ К ПРОЕКТАМ</span>
+    </div>
+    <div class="list st d2">
+      <a class="row" data-p="0"><span class="n">#01</span><span class="t">Cerca Trova</span><span class="dots"></span><span class="m">+250 000 подписчиков</span></a>
+      <a class="row" data-p="1"><span class="n">#02</span><span class="t">Sunscrypt</span><span class="dots"></span><span class="m">830 000 за квартал</span></a>
+      <a class="row" data-p="2"><span class="n">#03</span><span class="t">Каналы с нуля</span><span class="dots"></span><span class="m">4 запуска</span></a>
+      <a class="row" data-p="3"><span class="n">#04</span><span class="t">Lines</span><span class="dots"></span><span class="m">охваты ×11</span></a>
+      <a class="row" data-p="4"><span class="n">#05</span><span class="t">AI-ролики</span><span class="dots"></span><span class="m">полный пайплайн</span></a>
+      <a class="row" data-p="5"><span class="n">#06</span><span class="t">Документалки</span><span class="dots"></span><span class="m">AI-сериал</span></a>
+      <a class="row" data-p="6"><span class="n">#07</span><span class="t">Шоурил</span><span class="dots"></span><span class="m">02:00</span></a>
+      <a class="row" data-p="7"><span class="n">#08</span><span class="t">Перфоманс 360°</span><span class="dots"></span><span class="m">video</span></a>
+    </div>
+    <div class="cur st d3">█</div>
+    <div class="foot st d4">350+ сценариев · 20+ каналов · удержание 70–78% на 0:30 — <a href="#">связаться↗</a></div>
+  </div>
+</section>
+
+<!-- 2 · tholman: буквы играют -->
+<section class="variant" id="v2">
+  <div class="in">
+    <h1 class="name st" id="v2-name">серафим<br>панюшкин</h1>
+    <div class="iam st d2">я — <span class="w" id="v2-word">сценарист</span></div>
+    <div class="tags st d3">
+      <span data-p="0">cerca trova · +250K</span>
+      <span data-p="1">sunscrypt · 830K</span>
+      <span data-p="2">4 канала с нуля</span>
+      <span data-p="3">lines · ×11</span>
+      <span data-p="4">ai-ролики</span>
+      <span data-p="5">документалки</span>
+      <span data-p="7">перфоманс 360°</span>
+    </div>
+    <div class="pol st d4">
+      <div class="scr" id="v2-scr"></div>
+      <div class="cap" id="v2-label">шоурил</div>
+    </div>
+  </div>
+</section>
+
+<!-- 3 · дуальность -->
+<section class="variant" id="v3">
+  <div class="half paper">
+    <div class="lab st">сценарист</div>
+    <h2 class="st d2">слова, которые <em>держат</em></h2>
+    <div class="script st d3">
+      ИНТ. ЭКРАН ЗРИТЕЛЯ — 0:03<br>
+      <b>Хук уже сработал.</b> Зритель остаётся.<br><br>
+      0:30 — удержание <b>70–78%</b>.<br>
+      Сквозная идея тянет до титров.
+    </div>
+    <div class="stat st d4"><b>350+</b> сценариев · <b>20+</b> каналов<br>длинные форматы 30–60 мин</div>
+  </div>
+  <div class="seam"></div>
+  <div class="face">
+    <div class="ph">
+      <img class="l" src="assets/photo_6.jpg" alt="">
+      <img class="r" src="assets/photo_6.jpg" alt="">
+    </div>
+    <div class="plate">
+      <div class="nm">серафим панюшкин</div>
+      <a href="#">давайте делать вместе</a>
+    </div>
+  </div>
+  <div class="half dark">
+    <div class="lab st">режиссёр</div>
+    <h2 class="st d2">кадры, которые запоминаются</h2>
+    <div class="scr st d3" id="v3-scr"></div>
+    <div class="tags st d4">
+      <span data-p="0">cerca trova</span>
+      <span data-p="1">sunscrypt</span>
+      <span data-p="3">lines</span>
+      <span data-p="4">ai</span>
+      <span data-p="7">360°</span>
+    </div>
+    <div class="stat st d4"><b>150+</b> съёмок · полный AI-пайплайн<br>от идеи до рендера</div>
+  </div>
+</section>
+
+<!-- 4 · артефакты -->
+<section class="variant" id="v4">
+  <div class="name st">Серафим Панюшкин <em>✶</em> сценарий · режиссура</div>
+  <div class="glyphs st">✶ ◊ ✶</div>
+  <div class="field" id="v4-field"></div>
+  <div class="cap st d3" id="v4-cap">наведите на артефакт</div>
+</section>
+
+<!-- 5 · зин -->
+<section class="variant" id="v5">
+  <div class="in">
+    <span class="hand st">серафим ✶ сценарист · режиссёр · продюсер</span>
+    <h1 class="ransom st d2" aria-label="панюшкин">
+      <span class="a">па</span><span class="b">ню</span><span class="c">ш</span><span class="d">кин</span>
+    </h1>
+    <div class="tagline st d3">видео, которое держит зрителя
+      <svg viewBox="0 0 300 16" preserveAspectRatio="none"><path d="M2 10 Q 40 2 75 9 T 150 8 T 225 10 T 298 6" fill="none" stroke="#e33d2e" stroke-width="3.2" stroke-linecap="round"/></svg>
+    </div>
+    <div class="stamp st d3">открыт к проектам</div>
+    <div class="desk st d4">
+      <a class="pol" data-slides="0"><div class="scr"></div><div class="cap">cerca trova · +250K</div></a>
+      <a class="pol" data-slides="1"><div class="scr"></div><div class="cap">sunscrypt · 830K за квартал</div></a>
+      <a class="pol" data-slides="4"><div class="scr"></div><div class="cap">ai-ролики · весь пайплайн</div></a>
+      <a class="pol" data-slides="3"><div class="scr"></div><div class="cap">lines · охваты ×11</div></a>
+    </div>
+    <div class="foot st d4">в. 1.7 — собрано вручную · 350+ сценариев · 20+ каналов · удержание 70–78%</div>
+  </div>
+</section>
+
+<script>
+const P=[
+ {t:"cerca trova",slides:["assets/yt_lwoH0SGTgNM.jpg","assets/sl_cerca_1.jpg","assets/yt_o6j1BzyPFiM.jpg","assets/sl_cerca_2.jpg"]},
+ {t:"sunscrypt",slides:["assets/yt_sungz.jpg","assets/sl_sungz_2.jpg","assets/yt_sungl.jpg","assets/sl_sungl_2.jpg"]},
+ {t:"каналы с нуля",slides:["assets/ch_zuev.jpg","assets/ch_maidobura.jpg","assets/ch_avclinic.jpg"]},
+ {t:"lines",slides:["assets/yt_nIWbMEtdJRk.jpg","assets/ig_lines1.jpg","assets/yt_JUcc7KZxS8k.jpg","assets/ig_lines2.jpg"]},
+ {t:"ai-ролики",slides:["assets/sl_nav1_2.jpg","assets/sl_nav2_2.jpg","assets/sl_nav3_2.jpg","assets/sl_fliska3_2.jpg"]},
+ {t:"документалки",slides:["assets/yt_I4nHuMFgYlg.jpg","assets/sl_pyr_2.jpg","assets/sl_silver_2.jpg","assets/sl_peptides_2.jpg"]},
+ {t:"шоурил",slides:["assets/yd_showreel.jpg","assets/sl_reel_1.jpg","assets/sl_reel_2.jpg","assets/sl_reel_3.jpg"]},
+ {t:"перфоманс 360°",video:"assets/perf_preview.mp4",slides:["assets/perf_cover.jpg"]},
+];
+const DEFAULT=P[6];
+
+function makeScreen(host,defaultP,interval){
+  const a=document.createElement("img"),b=document.createElement("img");
+  const v=document.createElement("video");v.muted=true;v.loop=true;v.playsInline=true;v.preload="none";v.src="assets/perf_preview.mp4";
+  host.appendChild(a);host.appendChild(b);host.appendChild(v);
+  let timer=null,active=0;
+  function show(p){
+    if(timer){clearInterval(timer);timer=null}
+    v.classList.remove("on");v.pause();
+    if(p.video){v.classList.add("on");v.play().catch(()=>{});a.classList.remove("on");b.classList.remove("on");return}
+    let i=0;active=0;
+    a.src=p.slides[0];a.classList.add("on");b.classList.remove("on");
+    if(p.slides.length>1) timer=setInterval(()=>{
+      i=(i+1)%p.slides.length;
+      const els=[a,b],n=1-active;
+      els[n].src=p.slides[i];els[n].classList.add("on");els[active].classList.remove("on");active=n;
+    },interval||1600);
+  }
+  if(defaultP)show(defaultP);
+  return show;
+}
+
+/* 1 · MSCHF: фон-подглядка */
+const v1=document.getElementById("v1");
+const v1show=makeScreen(document.getElementById("v1-scr"),null);
+document.querySelectorAll("#v1 .row").forEach(r=>{
+  r.addEventListener("mouseenter",()=>{v1.classList.add("peek");v1show(P[+r.dataset.p]);});
+  r.addEventListener("mouseleave",()=>{v1.classList.remove("peek");});
+});
+
+/* 2 · tholman: буквы-спаны + ротация слова + полароид */
+const nameEl=document.getElementById("v2-name");
+nameEl.innerHTML=nameEl.innerHTML.split("<br>").map(line=>
+  [...line].map(ch=>ch===" "?" ":`<span>${ch}</span>`).join("")
+).join("<br>");
+const WORDS=["сценарист","режиссёр","продюсер","интервьюер в кадре"];
+let wi=0;
+setInterval(()=>{wi=(wi+1)%WORDS.length;document.getElementById("v2-word").textContent=WORDS[wi];},2200);
+const v2show=makeScreen(document.getElementById("v2-scr"),DEFAULT);
+const v2label=document.getElementById("v2-label");
+document.querySelectorAll("#v2 .tags span").forEach(el=>{
+  el.addEventListener("mouseenter",()=>{const p=P[+el.dataset.p];v2show(p);v2label.textContent=p.t;});
+  el.addEventListener("mouseleave",()=>{v2show(DEFAULT);v2label.textContent="шоурил";});
+});
+
+/* 3 · дуальность */
+const v3show=makeScreen(document.getElementById("v3-scr"),DEFAULT);
+document.querySelectorAll("#v3 .tags span").forEach(el=>{
+  el.addEventListener("mouseenter",()=>v3show(P[+el.dataset.p]));
+  el.addEventListener("mouseleave",()=>v3show(DEFAULT));
+});
+
+/* 4 · артефакты: раскладка + параллакс */
+const ART=[
+ {p:0,img:"assets/yt_lwoH0SGTgNM.jpg",x:7, y:16,w:230,d:1.3,cap:"Cerca Trova — +250 000 за 12 мес"},
+ {p:1,img:"assets/yt_sungz.jpg",     x:33,y:9, w:180,d:.8, cap:"Sunscrypt — 830 000 за квартал"},
+ {p:2,img:"assets/ch_maidobura.jpg", x:56,y:14,w:130,d:1.7,cap:"Каналы с нуля — 4 запуска"},
+ {p:3,img:"assets/yt_nIWbMEtdJRk.jpg",x:71,y:24,w:215,d:1  ,cap:"LINES — охваты ×11, лиды ×4"},
+ {p:4,img:"assets/sl_nav1_2.jpg",    x:14,y:56,w:150,d:1.9,cap:"AI-ролики — полный пайплайн"},
+ {p:5,img:"assets/yt_I4nHuMFgYlg.jpg",x:35,y:62,w:240,d:.7, cap:"Документалки — история · медицина"},
+ {p:6,img:"assets/yd_showreel.jpg",  x:63,y:58,w:175,d:1.5,cap:"Шоурил — 02:00"},
+ {p:7,img:"assets/perf_cover.jpg",   x:84,y:44,w:120,d:2.2,cap:"Перфоманс 360°"},
+];
+const field=document.getElementById("v4-field"),v4cap=document.getElementById("v4-cap");
+ART.forEach((it,k)=>{
+  const el=document.createElement("a");
+  el.className="art";
+  el.style.cssText=`left:${it.x}%;top:${it.y}%;width:${it.w}px;--fd:${5+k%4}s;--fdel:${k*.6}s`;
+  el.dataset.d=it.d;
+  el.innerHTML=`<img src="${it.img}" alt="">`;
+  el.addEventListener("mouseenter",()=>{v4cap.innerHTML="<b>"+it.cap+"</b>";});
+  el.addEventListener("mouseleave",()=>{v4cap.textContent="наведите на артефакт";});
+  field.appendChild(el);
+});
+document.getElementById("v4").addEventListener("mousemove",e=>{
+  const cx=e.clientX/innerWidth-.5, cy=e.clientY/innerHeight-.5;
+  field.querySelectorAll(".art").forEach(el=>{
+    const d=+el.dataset.d;
+    el.style.translate=`${-cx*14*d}px ${-cy*10*d}px`;
+  });
+});
+
+/* 5 · зин: полароиды живут сами */
+document.querySelectorAll("#v5 .pol").forEach((pol,k)=>{
+  makeScreen(pol.querySelector(".scr"),P[+pol.dataset.slides],2400+k*420);
+});
+
+/* переключатель */
+document.querySelectorAll(".lab-bar button").forEach(b=>{
+  b.addEventListener("click",()=>{
+    document.querySelectorAll(".lab-bar button").forEach(x=>x.classList.toggle("on",x===b));
+    document.querySelectorAll(".variant").forEach(v=>{
+      const on=v.id==="v"+b.dataset.v;
+      v.classList.remove("on");
+      if(on){void v.offsetWidth;v.classList.add("on");}
+    });
+  });
+});
+</script>
+</body>
+</html>

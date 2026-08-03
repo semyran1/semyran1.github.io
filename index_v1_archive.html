@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Серафим Панюшкин — сценарист · режиссёр · продюсер</title>
+<meta name="description" content="Режиссёр и сценарист видеоконтента: YouTube-каналы с нуля, вирусные AI-ролики, документалки и перфомансы. Кейсы с цифрами внутри.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#111;
+  --gray:#8a8a8a;
+  --soft:#444;
+  --bg:#fff;
+  --card-bg:#fff;
+  /* палитра ховеров — по одному цвету на проект */
+  --c-cerca:#ff3b1f;
+  --c-zero:#2f6bff;
+  --c-lines:#00b34a;
+  --c-ai:#e935c1;
+  --c-docs:#ff9100;
+  --c-reel:#00bcd4;
+  --c-perf:#7c4dff;
+  --c-an:#009688;
+  --c-sun:#c99700;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);color:var(--ink);
+  font-family:'Manrope',-apple-system,sans-serif;
+  font-size:17px;line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  transition:background .7s ease,color .7s ease;
+}
+/* смена фона по секциям (кино-переходы) */
+body.bg-paper{--bg:#f5f2ec;--card-bg:#f5f2ec}
+body.bg-warm{--bg:#faf6ef;--card-bg:#faf6ef}
+body.bg-dark{
+  --bg:#0f0f11;--ink:#f2f2f0;--gray:#9a9a94;--soft:#c9c9c4;--card-bg:#0f0f11;
+}
+.wrap{max-width:1240px;margin:0 auto;padding:0 28px}
+.mono{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.04em;color:var(--gray)}
+a{color:inherit}
+::selection{background:var(--ink);color:#fff}
+
+/* ---------- header ---------- */
+header{position:sticky;top:0;z-index:100;background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:blur(10px);transition:background .7s ease}
+.nav{display:flex;align-items:center;justify-content:space-between;height:58px;gap:14px}
+.logo{font-weight:800;font-size:16px;text-decoration:none;letter-spacing:.02em}
+.logo i{font-style:normal;color:var(--c-cerca)}
+.nav-links{display:flex;gap:20px;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.04em}
+.nav-links a{text-decoration:none;color:var(--gray)}
+.nav-links a:hover{color:var(--ink)}
+@media(max-width:820px){.nav-links{display:none}}
+.nav-right{display:flex;align-items:center;gap:10px}
+.lang{display:flex;gap:2px}
+.lang button{background:none;border:0;color:var(--gray);font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;padding:5px 8px;cursor:pointer}
+.lang button.on{color:var(--ink);text-decoration:underline 2px}
+
+/* ---------- hero: кино-фон 21:9, играющие буквы ---------- */
+.kino{position:relative;min-height:92vh;background:#000;color:#f2f2f2;overflow:hidden}
+.kino .band{position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);aspect-ratio:21/9;overflow:hidden}
+@media(max-width:700px){.kino .band{aspect-ratio:16/9}}
+.kino .band video{width:100%;height:100%;object-fit:cover}
+.kino .veil{position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.78) 0%,rgba(0,0,0,.5) 52%,rgba(0,0,0,.28) 100%)}
+.kino::after{content:"";position:absolute;inset:0;background:rgba(0,0,0,.42);transition:background .5s;pointer-events:none}
+body.peek .kino::after{background:rgba(0,0,0,.08)}
+.kino .in{position:relative;z-index:2;min-height:92vh;display:flex;flex-direction:column;justify-content:center;max-width:1240px;margin:0 auto;padding:70px 28px 60px}
+.kino .name{font-weight:800;font-size:clamp(54px,11.6vw,168px);line-height:.88;letter-spacing:-.05em;user-select:none;text-shadow:0 4px 40px rgba(0,0,0,.45);color:#f2f2f2}
+.kino .name span{display:inline-block;transition:transform .18s,color .18s}
+.kino .name span:nth-child(2n){transform:rotate(2.2deg) translateY(2px)}
+.kino .name span:nth-child(3n){transform:rotate(-2.4deg)}
+.kino .name span:nth-child(5n){transform:rotate(1.4deg) translateY(-3px)}
+.kino .name span:hover{animation:jig .35s ease-in-out infinite;color:#ffe600}
+@keyframes jig{0%,100%{transform:rotate(-4deg) translateY(-2px)}50%{transform:rotate(4deg) translateY(2px)}}
+.kino .iam{margin-top:34px;font-weight:700;font-size:clamp(20px,2.4vw,32px);letter-spacing:-.02em}
+.kino .iam .w{position:relative;padding:2px 10px;color:#111;white-space:nowrap}
+.kino .iam .w::before{content:"";position:absolute;inset:-2px -6px;background:#ffe600;border-radius:3px;transform:rotate(-1.2deg);z-index:-1;box-shadow:0 0 34px rgba(255,230,0,.45)}
+.kino .tags{margin-top:46px;display:flex;gap:13px 26px;flex-wrap:wrap;max-width:860px}
+.kino .tag{display:inline-grid;font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.06em;color:#bdbdbd;cursor:pointer;border-bottom:1px dotted #555;padding-bottom:3px;text-decoration:none}
+.kino .tag span{grid-area:1/1;white-space:nowrap;transition:opacity .25s}
+.kino .tag .alt2{opacity:0;color:#ffe600}
+.kino .tag:nth-child(2n){transform:rotate(1.6deg)}
+.kino .tag:nth-child(3n){transform:rotate(-1.8deg)}
+.kino .tag:hover{border-color:#ffe600;animation:jig .4s ease-in-out infinite}
+.kino .tag:hover .base2{opacity:0}
+.kino .tag:hover .alt2{opacity:1}
+.kino .go{display:inline-block;align-self:flex-start;margin-top:40px;background:#ffe600;color:#111;font-weight:800;font-size:15px;padding:13px 24px;text-decoration:none;transform:rotate(-1.2deg);box-shadow:0 0 30px rgba(255,230,0,.25);transition:.2s}
+.kino .go:hover{transform:rotate(0) scale(1.04)}
+@media (prefers-reduced-motion: reduce){
+  .kino .name span:hover,.kino .tag:hover{animation:none}
+}
+.cta-btn{
+  display:inline-block;text-decoration:none;background:var(--ink);color:var(--bg);
+  font-weight:800;font-size:16px;padding:13px 26px;margin-top:8px;transition:.2s;
+}
+.cta-btn:hover{transform:rotate(-1.5deg) scale(1.03)}
+
+/* ---------- полоса цифр ---------- */
+.strip{padding:38px 0 8px;font-family:'JetBrains Mono',monospace;font-size:12.5px;letter-spacing:.04em;color:var(--gray);display:flex;flex-wrap:wrap;gap:8px 26px}
+.strip b{color:var(--ink);font-weight:700}
+
+/* ---------- sections ---------- */
+section{padding:96px 0 0}
+.scene{
+  font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.14em;
+  color:var(--gray);text-transform:uppercase;margin-bottom:14px;
+  display:flex;align-items:center;gap:12px;
+}
+.scene::after{content:"";flex:0 0 46px;height:1px;background:var(--gray);opacity:.5}
+.sec-title{font-weight:800;font-size:clamp(30px,4.6vw,54px);line-height:1.05;letter-spacing:-.01em}
+.sec-title .dot{color:var(--c,var(--ink))}
+.sec-sub{color:var(--gray);margin-top:12px;max-width:640px;font-size:15.5px}
+
+/* ---------- case ---------- */
+.case{margin-top:64px;position:relative;--c:var(--ink)}
+.case-head{max-width:760px}
+.case-num{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--c);letter-spacing:.06em}
+.case h3{font-weight:800;font-size:clamp(23px,3vw,34px);line-height:1.12;margin-top:6px}
+.case h3 u{text-decoration-color:var(--c);text-decoration-thickness:3px;text-underline-offset:5px}
+.case .role{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--gray);margin-top:10px;letter-spacing:.04em}
+.case .desc{color:var(--soft);margin-top:12px;font-size:15.5px}
+.metrics{display:flex;flex-wrap:wrap;gap:8px 38px;margin:22px 0 8px;align-items:baseline}
+.metric .v{font-weight:800;font-size:clamp(26px,3.4vw,40px);color:var(--c);line-height:1.05;letter-spacing:-.01em}
+.metric .l{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--gray);margin-top:2px;letter-spacing:.03em}
+.metric:nth-child(2){transform:rotate(-.8deg)}
+.metric:nth-child(3){transform:rotate(.6deg)}
+
+/* cards */
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px 18px;margin-top:26px}
+.grid.g4{grid-template-columns:repeat(4,1fr)}
+.grid.g2{grid-template-columns:repeat(2,minmax(0,460px))}
+@media(max-width:1000px){.grid.g4{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:820px){.grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:540px){.grid,.grid.g4,.grid.g2{grid-template-columns:1fr}}
+.card{display:block;text-decoration:none;transition:.2s}
+.card .cov{border:1px solid var(--ink);padding:5px;transition:border-color .2s,transform .2s;position:relative}
+.card .cov .im{aspect-ratio:16/9;overflow:hidden;position:relative;background:#f4f4f2}
+.card .cov img,.card .cov video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.card .cov .im img.sw{opacity:0;transition:opacity .5s ease}
+.card .cov .im img.sw.on{opacity:1}
+.card:hover .cov{border-color:var(--c);transform:rotate(-.7deg)}
+.card .t{font-weight:700;font-size:14.5px;line-height:1.4;margin-top:10px}
+.card:hover .t{color:var(--c)}
+.card .m{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--gray);margin-top:4px;letter-spacing:.03em}
+.card .tag{
+  position:absolute;top:-9px;right:10px;background:var(--c);color:#fff;
+  font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;
+  padding:2px 8px;letter-spacing:.05em;transform:rotate(1.5deg);
+}
+
+/* каналы */
+.channels{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:26px}
+@media(max-width:820px){.channels{grid-template-columns:1fr}}
+.ch{display:flex;gap:14px;align-items:center;text-decoration:none;border:1px solid var(--ink);padding:14px;transition:.2s}
+.ch:hover{border-color:var(--c);transform:rotate(-.6deg)}
+.ch img{width:56px;height:56px;border-radius:50%}
+.ch .t{font-weight:800;font-size:15.5px}
+.ch .m{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--gray);margin-top:3px}
+.ch .num{margin-left:auto;text-align:right;display:flex;flex-direction:column;gap:5px}
+.ch .num b{color:var(--c);font-size:17px;font-weight:800;display:block;line-height:1.05}
+.ch .num .n2 b{color:var(--ink);font-size:14px}
+.ch .num span{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--gray);letter-spacing:.02em}
+.footnote{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--gray);margin-top:16px;letter-spacing:.03em}
+.footnote b{color:var(--ink)}
+
+/* showreel */
+.reel{display:grid;grid-template-columns:1.3fr 1fr;gap:0;border:1px solid var(--ink);padding:8px;margin-top:40px;text-decoration:none;transition:.2s;--c:var(--c-reel)}
+.reel:hover{border-color:var(--c);transform:rotate(-.4deg)}
+.reel .im{aspect-ratio:16/9;position:relative;overflow:hidden;background:#f4f4f2}
+.reel .im img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.reel-body{padding:26px 30px;display:flex;flex-direction:column;justify-content:center;gap:10px}
+.reel-body .t{font-weight:800;font-size:clamp(20px,2.4vw,28px);line-height:1.15}
+.reel:hover .t{color:var(--c)}
+.reel-body p{color:var(--gray);font-size:14.5px}
+.reel-body .go{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--c);font-weight:700}
+@media(max-width:820px){.reel{grid-template-columns:1fr}.reel-body{padding:18px 6px 8px}}
+
+/* аналитика */
+.shots{display:flex;gap:14px;overflow-x:auto;padding:24px 4px 14px;scroll-snap-type:x mandatory}
+.shots::-webkit-scrollbar{height:6px}
+.shots::-webkit-scrollbar-thumb{background:#ddd}
+.shot{flex:0 0 auto;max-width:84vw;scroll-snap-align:start;border:1px solid var(--ink);padding:5px}
+.shot img{height:min(300px,52vw);width:auto;max-width:100%;object-fit:contain;display:block}
+
+/* wip — постер «Слепого пятна» */
+.wip{margin-top:26px;display:grid;grid-template-columns:minmax(0,560px) 1fr;gap:28px;align-items:center}
+@media(max-width:820px){.wip{grid-template-columns:1fr}}
+.wip-poster{position:relative;border:1px solid var(--ink);padding:7px}
+.wip-poster img{width:100%;display:block;aspect-ratio:16/9;object-fit:cover}
+.wip-overlay{position:absolute;left:28px;bottom:26px;color:#fff;text-shadow:0 2px 12px rgba(0,0,0,.8)}
+.wip-name{font-weight:800;font-size:clamp(22px,3vw,34px);line-height:1.05;letter-spacing:.02em;text-transform:lowercase}
+.wip-sub{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;margin-top:6px;opacity:.85}
+.wip .t{font-weight:800;font-size:clamp(17px,2vw,22px)}
+.wip .d{color:var(--gray);font-size:14px;margin:8px 0 12px;max-width:420px}
+.wip .soon{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--c-perf);font-weight:700;letter-spacing:.06em}
+
+/* about */
+.polas{display:flex;gap:26px;margin-top:40px;align-items:flex-start}
+@media(max-width:820px){.polas{flex-wrap:wrap;justify-content:center}}
+.pola{background:#fff;border:1px solid #e2e2e0;padding:8px 8px 34px;box-shadow:0 10px 28px -14px rgba(0,0,0,.28);flex:1 1 0;max-width:300px;min-width:200px}
+.pola:nth-child(1){transform:rotate(-3deg)}
+.pola:nth-child(2){transform:rotate(1.6deg) translateY(16px)}
+.pola:nth-child(3){transform:rotate(-1.2deg)}
+.pola img{width:100%;display:block;aspect-ratio:4/5;object-fit:cover}
+.pola .cap{font-family:'JetBrains Mono',monospace;font-size:10px;color:#777;margin-top:8px;text-align:center}
+.about-cols{display:grid;grid-template-columns:1.2fr .8fr;gap:48px;margin-top:44px;align-items:start}
+@media(max-width:920px){.about-cols{grid-template-columns:1fr}}
+.about-cols p{margin-bottom:14px;color:var(--soft);font-size:16px}
+.about-cols p b{font-weight:800}
+.facts{font-family:'JetBrains Mono',monospace;font-size:12.5px;line-height:2.1;color:var(--soft);letter-spacing:.02em}
+.facts li{list-style:none;padding-left:20px;position:relative}
+.facts li::before{content:"→";position:absolute;left:0;color:var(--c-cerca)}
+.facts li:nth-child(2)::before{color:var(--c-zero)}
+.facts li:nth-child(3)::before{color:var(--c-lines)}
+.facts li:nth-child(4)::before{color:var(--c-ai)}
+.facts li:nth-child(5)::before{color:var(--c-docs)}
+.facts li:nth-child(6)::before{color:var(--c-reel)}
+.facts li:nth-child(7)::before{color:var(--c-sun)}
+
+/* footer — титры фильма */
+footer{margin-top:120px;padding:90px 0 32px}
+.credits{
+  font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.08em;
+  color:var(--gray);text-transform:uppercase;text-align:center;
+  display:flex;flex-direction:column;gap:10px;margin-bottom:60px;
+}
+.credits .row b{color:var(--ink);font-weight:700}
+.foot-phrase{font-weight:800;font-size:clamp(30px,5.4vw,64px);line-height:1.08;letter-spacing:-.01em;max-width:900px;margin:0 auto;text-align:center}
+.foot-phrase i{font-style:normal;color:var(--c-cerca)}
+.foot-cta{justify-content:center}
+.foot-cta{display:flex;gap:16px;flex-wrap:wrap;margin-top:34px}
+.foot-cta .cta-btn{margin:0}
+.foot-cta .alt-btn{
+  display:inline-block;text-decoration:none;border:1px solid var(--ink);
+  font-weight:700;font-size:15px;padding:13px 26px;transition:.2s;
+}
+.foot-cta .alt-btn:hover{transform:rotate(1.2deg);border-color:var(--c-cerca);color:var(--c-cerca)}
+.foot-bottom{
+  display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-top:70px;
+  font-family:'JetBrains Mono',monospace;font-size:10.5px;color:#aaa;letter-spacing:.04em;
+}
+.foot-bottom span b{color:#777}
+
+/* reveal-анимация */
+.rv{opacity:0;transform:translateY(26px) rotate(.6deg)}
+.rv.in{opacity:1;transform:none;transition:opacity .7s cubic-bezier(.2,.7,.3,1),transform .7s cubic-bezier(.2,.7,.3,1)}
+.rv:nth-child(odd).in{transition-delay:.06s}
+@media (prefers-reduced-motion: reduce){.rv{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="#top">semyran<i>.</i></a>
+    <nav class="nav-links">
+      <a href="#youtube">youtube</a>
+      <a href="#ads" data-i18n="nav_ads"></a>
+      <a href="#filmmaking">filmmaking</a>
+      <a href="#about" data-i18n="nav_about"></a>
+      <a href="#contact" data-i18n="nav_contact"></a>
+    </nav>
+    <div class="nav-right">
+      <div class="lang">
+        <button id="lang-ru" onclick="setLang('ru')">ru</button>
+        <button id="lang-en" onclick="setLang('en')">en</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- HERO: кино-фон + играющие буквы -->
+<section class="kino" id="hero">
+  <div class="band"><video id="kino-video" muted loop playsinline autoplay preload="auto" src="assets/clip_reel.mp4"></video></div>
+  <div class="veil"></div>
+  <div class="in">
+    <h1 class="name" id="kino-name"></h1>
+    <div class="iam"><span id="kino-pre"></span><span class="w" id="kino-word"></span></div>
+    <nav class="tags" id="kino-tags" aria-label="Проекты"></nav>
+    <a class="go" href="#contact" data-i18n="cta_go"></a>
+  </div>
+</section>
+
+<main id="top" class="wrap">
+
+  <div class="strip" id="strip"></div>
+
+  <!-- YOUTUBE -->
+  <section id="youtube">
+    <div class="scene" data-i18n="sc1"></div>
+    <h2 class="sec-title" style="--c:var(--c-cerca)" data-i18n-html="yt_h2"></h2>
+    <p class="sec-sub" data-i18n="yt_sub"></p>
+
+    <div class="case rv" id="case-cerca" style="--c:var(--c-cerca)">
+      <div class="case-head">
+        <div class="case-num">01 / cerca trova</div>
+        <h3 data-i18n-html="cerca_h3"></h3>
+        <div class="role" data-i18n="cerca_role"></div>
+      </div>
+      <div class="metrics">
+        <div class="metric"><div class="v" data-count="250000" data-prefix="+">+250 000</div><div class="l" data-i18n="cerca_m1"></div></div>
+        <div class="metric"><div class="v">≈1,5 млн</div><div class="l" data-i18n="cerca_m2"></div></div>
+        <div class="metric"><div class="v">×5</div><div class="l" data-i18n="cerca_m3"></div></div>
+      </div>
+      <div class="grid g4" id="cerca-grid"></div>
+    </div>
+
+    <div class="case rv" id="case-zero" style="--c:var(--c-zero)">
+      <div class="case-head">
+        <div class="case-num">02 / from zero</div>
+        <h3 data-i18n-html="zero_h3"></h3>
+        <div class="role" data-i18n="zero_role"></div>
+        <div class="desc" data-i18n="zero_desc"></div>
+      </div>
+      <div class="channels" id="zero-channels"></div>
+      <div class="footnote" data-i18n-html="zero_note"></div>
+    </div>
+
+    <div class="case rv" id="case-sun" style="--c:var(--c-sun)">
+      <div class="case-head">
+        <div class="case-num">03 / sunscrypt</div>
+        <h3 data-i18n-html="sun_h3"></h3>
+        <div class="role" data-i18n="sun_role"></div>
+        <div class="desc" data-i18n="sun_desc"></div>
+      </div>
+      <div class="metrics">
+        <div class="metric"><div class="v">830 000</div><div class="l" data-i18n="sun_m1"></div></div>
+        <div class="metric"><div class="v">73K</div><div class="l" data-i18n="sun_m2"></div></div>
+        <div class="metric"><div class="v">6:56</div><div class="l" data-i18n="sun_m3"></div></div>
+      </div>
+      <div class="channels" id="sun-channel" style="grid-template-columns:minmax(0,420px)"></div>
+      <div class="grid" id="sun-grid"></div>
+    </div>
+
+    <div class="case rv" id="case-pod" style="--c:var(--c-perf)">
+      <div class="case-head">
+        <div class="case-num">04 / podcasts</div>
+        <h3 data-i18n-html="pod_h3"></h3>
+        <div class="role" data-i18n="pod_role"></div>
+        <div class="desc" data-i18n="pod_desc"></div>
+      </div>
+      <div class="channels" id="pod-channel" style="grid-template-columns:minmax(0,420px);margin-bottom:20px"></div>
+      <div class="grid g4" id="pod-grid"></div>
+    </div>
+
+    <div class="case rv" id="case-lines" style="--c:var(--c-lines)">
+      <div class="case-head">
+        <div class="case-num">05 / lines</div>
+        <h3 data-i18n-html="lines_h3"></h3>
+        <div class="role" data-i18n="lines_role"></div>
+        <div class="desc" data-i18n="lines_desc"></div>
+      </div>
+      <div class="metrics">
+        <div class="metric"><div class="v">×4</div><div class="l" data-i18n="lines_m1"></div></div>
+        <div class="metric"><div class="v">×11</div><div class="l" data-i18n="lines_m2"></div></div>
+        <div class="metric"><div class="v">×2,5</div><div class="l" data-i18n="lines_m3"></div></div>
+      </div>
+      <div class="grid" id="lines-grid"></div>
+    </div>
+
+    <div class="case rv" id="analytics" style="--c:var(--c-an)">
+      <div class="case-head">
+        <div class="case-num">06 / proof</div>
+        <h3 data-i18n-html="an_h3"></h3>
+        <div class="desc" data-i18n="an_desc"></div>
+      </div>
+      <div class="shots">
+        <div class="shot"><img src="assets/analytics_sun1.jpg" alt="YouTube Studio: sunscrypt, 70% на 0:30" loading="lazy"></div>
+        <div class="shot"><img src="assets/analytics_sun2.jpg" alt="YouTube Studio: sunscrypt, лайки 94,6%" loading="lazy"></div>
+        <div class="shot"><img src="assets/analytics_4.png" alt="YouTube Studio: 78% на 0:30" loading="lazy"></div>
+        <div class="shot"><img src="assets/analytics_3.png" alt="YouTube Studio: 77% на 0:25" loading="lazy"></div>
+        <div class="shot"><img src="assets/analytics_1.png" alt="YouTube Studio: 74% на 0:30" loading="lazy"></div>
+        <div class="shot"><img src="assets/analytics_2.png" alt="YouTube Studio: 72% на 0:30" loading="lazy"></div>
+        <div class="shot"><img src="assets/analytics_5.png" alt="YouTube Studio" loading="lazy"></div>
+        <div class="shot"><img src="assets/analytics_6.png" alt="YouTube Studio" loading="lazy"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- РЕКЛАМА -->
+  <section id="ads">
+    <div class="scene" data-i18n="sc2"></div>
+    <h2 class="sec-title" style="--c:var(--c-ai)" data-i18n-html="ads_h2"></h2>
+    <p class="sec-sub" data-i18n="ads_sub"></p>
+
+    <div class="case rv" id="case-ai" style="--c:var(--c-ai)">
+      <div class="case-head">
+        <div class="case-num">05 / ai</div>
+        <h3 data-i18n-html="ai_h3"></h3>
+        <div class="role" data-i18n="ai_role"></div>
+        <div class="desc" data-i18n="ai_desc"></div>
+      </div>
+      <div class="grid" id="ai-grid"></div>
+    </div>
+
+    <div class="case rv" style="--c:var(--c-docs)">
+      <div class="case-head">
+        <div class="case-num">06 / commercial</div>
+        <h3 data-i18n-html="comm_h3"></h3>
+        <div class="role" data-i18n="comm_role"></div>
+      </div>
+      <div class="grid g4" id="comm-grid"></div>
+    </div>
+  </section>
+
+  <!-- FILMMAKING -->
+  <section id="filmmaking">
+    <div class="scene" data-i18n="sc3"></div>
+    <h2 class="sec-title" style="--c:var(--c-reel)" data-i18n-html="fm_h2"></h2>
+    <p class="sec-sub" data-i18n="fm_sub"></p>
+
+    <a class="reel rv" href="https://disk.yandex.ru/i/W1wbU3Mv8c_THg" target="_blank" rel="noopener">
+      <div class="im"><img src="assets/yd_showreel.jpg" alt="Showreel"></div>
+      <div class="reel-body">
+        <span class="mono" data-i18n="reel_kick"></span>
+        <div class="t" data-i18n="reel_t"></div>
+        <p data-i18n="reel_p"></p>
+        <span class="go" data-i18n="reel_go"></span>
+      </div>
+    </a>
+
+    <div class="case rv" id="case-docs" style="--c:var(--c-docs)">
+      <div class="case-head">
+        <div class="case-num">07 / docs</div>
+        <h3 data-i18n-html="docs_h3"></h3>
+        <div class="role" data-i18n="docs_role"></div>
+      </div>
+      <div class="grid" id="docs-grid"></div>
+    </div>
+
+    <div class="case rv" id="case-perf" style="--c:var(--c-perf)">
+      <div class="case-head">
+        <div class="case-num">08 / live</div>
+        <h3 data-i18n-html="perf_h3"></h3>
+        <div class="role" data-i18n="perf_role"></div>
+        <div class="desc" data-i18n="perf_desc"></div>
+      </div>
+      <div class="grid g2">
+        <a class="card perf-card" href="https://disk.yandex.ru/i/HJoF8jx1f_otKQ" target="_blank" rel="noopener">
+          <div class="cov"><span class="tag">360°</span>
+            <div class="im">
+              <video id="perf-video" muted loop playsinline preload="none" poster="assets/perf_cover.jpg" src="assets/perf_preview.mp4"></video>
+            </div>
+          </div>
+          <div class="t" data-i18n="perf_card_t"></div>
+          <div class="m" data-i18n="perf_card_m"></div>
+        </a>
+      </div>
+      <div class="wip">
+        <div class="wip-poster">
+          <img src="assets/blindspot.jpg" alt="«Слепое пятно» — кадр из фильма">
+          <div class="wip-overlay">
+            <div class="wip-name" data-i18n="wip_name"></div>
+            <div class="wip-sub" data-i18n="wip_sub"></div>
+          </div>
+        </div>
+        <div class="wip-info">
+          <div class="t" data-i18n="wip_t"></div>
+          <div class="d" data-i18n="wip_d"></div>
+          <span class="soon">coming soon</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ОБО МНЕ -->
+  <section id="about">
+    <div class="scene" data-i18n="sc4"></div>
+    <h2 class="sec-title" style="--c:var(--c-zero)" data-i18n-html="ab_h2"></h2>
+    <div class="polas rv">
+      <div class="pola"><img src="assets/photo_1.jpg" alt=""><div class="cap" data-i18n="ph1"></div></div>
+      <div class="pola"><img src="assets/photo_3.jpg" alt=""><div class="cap" data-i18n="ph2"></div></div>
+      <div class="pola"><img src="assets/photo_6.jpg" alt=""><div class="cap" data-i18n="ph3"></div></div>
+    </div>
+    <div class="about-cols rv">
+      <div>
+        <p data-i18n-html="ab_p1"></p>
+        <p data-i18n-html="ab_p2"></p>
+        <p data-i18n-html="ab_p3"></p>
+      </div>
+      <ul class="facts">
+        <li data-i18n="f1"></li>
+        <li data-i18n="f2"></li>
+        <li data-i18n="f3"></li>
+        <li data-i18n="f4"></li>
+        <li data-i18n="f5"></li>
+        <li data-i18n="f6"></li>
+        <li data-i18n="f7"></li>
+      </ul>
+    </div>
+  </section>
+
+</main>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="credits rv">
+      <div class="row" data-i18n-html="cr1"></div>
+      <div class="row" data-i18n-html="cr2"></div>
+      <div class="row" data-i18n-html="cr3"></div>
+    </div>
+    <div class="foot-phrase rv" data-i18n-html="foot_phrase"></div>
+    <div class="foot-cta">
+      <a class="cta-btn" href="https://t.me/semyran" target="_blank" rel="noopener" data-i18n="foot_tg"></a>
+      <a class="alt-btn" href="mailto:semyran1@gmail.com">semyran1@gmail.com</a>
+    </div>
+    <div class="foot-bottom">
+      <span data-i18n-html="foot_c"></span>
+      <span>apollo production — <b>coming soon</b></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ============================================================
+   ДАННЫЕ. Облако (hero) — CLOUD; кейсы — гриды ниже.
+   Добавить работу = дописать запись в соответствующий массив.
+   ============================================================ */
+const I18N = {
+ru:{
+  nav_ads:"реклама", nav_about:"обо мне", nav_contact:"контакты",
+  plate:"Серафим<br>Панюшкин",
+  plate_sub:"сценарист · режиссёр · продюсер",
+  cta_go:"Давайте делать вместе!",
+  cap_left:"осторожно, творец",
+  cap_right:"наведите на проект →",
+  cloud_hint:"// это кликабельно",
+  strip:["<b>350+</b> сценариев","<b>20+</b> каналов","<b>70–78%</b> удержание на 0:30","<b>10M+</b> просмотров"],
+  yt_h2:'youtube<span class="dot">.</span>',
+  yt_sub:"Каналы, где растут цифры. Только органика.",
+  cerca_h3:"Cerca trova — <u>мужской стиль</u>",
+  cerca_role:"сценарист · креативный продюсер",
+  cerca_m1:"подписчиков за 12 месяцев",
+  cerca_m2:"просмотров за 5 роликов",
+  cerca_m3:"клиентов из youtube",
+  sc1:"сцена 01 / длинные форматы",
+  sc2:"сцена 02 / коммерция",
+  sc3:"сцена 03 / кино",
+  sc4:"сцена 04 / крупный план",
+  cr1:"сценарий — <b>Серафим Панюшкин</b>",
+  cr2:"режиссура — <b>Серафим Панюшкин</b>",
+  cr3:"продюсер — <b>тоже он</b>",
+  zero_h3:"каналы <u>с нуля</u>",
+  zero_role:"сценарист · режиссёр · креативный продюсер",
+  zero_desc:"Запуск в сложных нишах: IT, эзотерика, медицина. Ролики набирают в разы больше просмотров, чем у канала подписчиков.",
+  zero_note:"бонус: бизнес-канал Евгения Маркерта — <b>40 000 просмотров и 5 000 подписчиков всего за 3 ролика</b>",
+  sun_h3:"sunscrypt — <u>финансы и крипта</u>",
+  sun_role:"ресёрч · сценарист",
+  sun_desc:"Длинные аналитические ролики на 13–27 минут: глубокий ресёрч и сценарии для канала с взрослой аудиторией.",
+  sun_m1:"просмотров за квартал",
+  sun_m2:"подписчиков у канала",
+  sun_m3:"средний просмотр",
+  pod_h3:"подкасты и <u>длинные интервью</u>",
+  pod_role:"ресёрчер · сценарист · режиссёр",
+  pod_desc:"Экспертные форматы на 30–52 минуты для молодых каналов — до 10 000 просмотров уже на старте.",
+  lines_h3:"lines — <u>контент-маркетинг под ключ</u>",
+  lines_role:"маркетолог · youtube-продюсер · команда до 12 человек",
+  lines_desc:"Дизайн-бюро: за полгода выстроил контент-маркетинг с нуля — YouTube, Reels, Shorts и сквозная аналитика. Хит — 60 000 просмотров.",
+  lines_m1:"лидов из youtube",
+  lines_m2:"охваты instagram: 8k → 88k",
+  lines_m3:"заявок из instagram",
+  an_h3:"аналитика <u>удержания</u>",
+  an_desc:"Скриншоты из YouTube Studio: 72–78% зрителей всё ещё смотрят на отметке 0:30 — заметно выше обычного.",
+  ads_h2:'реклама<span class="dot">.</span>',
+  ads_sub:"Вирусные продуктовые ролики, AI-продакшен и коммерческие видео, которые продают.",
+  ai_h3:"AI-продакшен для <u>вирусных роликов</u>",
+  ai_role:"режиссёр · продюсер · полный ai-пайплайн",
+  ai_desc:"Весь пайплайн на мне: сценарий, видеогенерации, музыка и монтаж — от концепции до финального рендера. «Навигатор души» и продуктовые ролики для маркетплейсов.",
+  comm_h3:"коммерческие <u>видео и ивенты</u>",
+  comm_role:"продюсер",
+  fm_h2:'filmmaking<span class="dot">.</span>',
+  fm_sub:"Кино, документалистика и то, что между ними. Генерации, музыка, монтаж — один пайплайн, один автор.",
+  reel_kick:"шоурил · 2 минуты",
+  reel_t:"сначала посмотрите это",
+  reel_p:"Режиссура, продюсирование, камера и монтаж — сжато в один ролик.",
+  reel_go:"смотреть ↗",
+  docs_h3:"<u>документалки</u>",
+  docs_role:"сценарист · режиссёр · продюсер",
+  perf_h3:"перфоманс <u>360°</u>",
+  perf_role:"режиссёр · продюсер",
+  perf_desc:"Иммерсивный перфоманс по скандинавским мифам: проекция 360° и живое выступление. AI-визуал и музыка — мой собственный пайплайн.",
+  perf_card_t:"Скандинавские мифы — иммерсивный перфоманс",
+  perf_card_m:"наведите — оно живое",
+  wip_t:"«Слепое пятно» — фильм",
+  wip_d:"Авторский фильм Apollo Production: сценарий, AI-генерации, музыка — полный цикл на мне. В производстве.",
+  wip_name:"слепое пятно",
+  wip_sub:"a film by apollo production",
+  ab_h2:'это я<span class="dot">.</span>',
+  ph1:"выступаю на конференции",
+  ph2:"на съёмках",
+  ph3:"с тёзкой продакшена",
+  ab_p1:"Я — <b>режиссёр видеоконтента и сценарист</b>. Специализация: экспертные ролики, обзоры, образовательные и документальные видео. Умею превращать даже «скучные» темы в захватывающий контент.",
+  ab_p2:"10 лет в маркетинге научили меня думать не только кадрами, но и цифрами: мои ролики не просто набирают сотни тысяч просмотров — они конвертируют зрителей в клиентов. <b>«Человек-комбайн»</b>: драматург и маркетолог в одном лице.",
+  ab_p3:"Веду <b>полный цикл производства</b> — от стратегии контента до финальной упаковки на YouTube. Налаженная команда операторов, монтажёров и дизайнеров. Помогаю спикерам раскрывать харизму и звучать естественно.",
+  f1:"40+ роликов в месяц: сценарии и режиссура",
+  f2:"удержание 78% на 30-й секунде",
+  f3:"сроки — от 10 дней с момента съёмки",
+  f4:"опыт: каналы-миллионники и запуски с нуля",
+  f5:"полный ai-пайплайн: видеогенерации · музыка · монтаж",
+  f6:"условия: почасовая · фикс · долевое участие",
+  f7:"особый интерес: геймдев · история · биология",
+  foot_phrase:'придумали что-то<br>безумное? <i>мне подходит.</i>',
+  foot_tg:"написать в telegram",
+  foot_c:"© 2026 · <b>ИП Панюшкин Серафим</b>",
+  cloud:{
+    cerca:{base:"cerca trova",alt:"+250 000 подписчиков"},
+    sun:{base:"sunscrypt",alt:"830K за квартал"},
+    zero:{base:"каналы с нуля",alt:"131 000 просмотров"},
+    lines:{base:"lines",alt:"лиды ×4"},
+    ai:{base:"ai-ролики",alt:"ai-пайплайн"},
+    docs:{base:"документалки",alt:"история · медицина · технологии"},
+    reel:{base:"шоурил",alt:"2 минуты обо мне"},
+    perf:{base:"перфоманс 360°",alt:"скандинавские мифы"},
+    an:{base:"аналитика",alt:"78% на 0:30"},
+  }
+},
+en:{
+  nav_ads:"ads", nav_about:"about", nav_contact:"contact",
+  plate:"Serafim<br>Panyushkin",
+  plate_sub:"scriptwriter · director · producer",
+  cta_go:"Go create together!",
+  cap_left:"caution: creator at work",
+  cap_right:"hover a project →",
+  cloud_hint:"// it's clickable",
+  strip:["<b>350+</b> scripts","<b>20+</b> channels","<b>70–78%</b> retention at 0:30","<b>10M+</b> views"],
+  yt_h2:'youtube<span class="dot">.</span>',
+  yt_sub:"Channels where numbers grow. Organic only.",
+  cerca_h3:"Cerca trova — <u>menswear</u>",
+  cerca_role:"scriptwriter · creative producer",
+  cerca_m1:"subscribers in 12 months",
+  cerca_m2:"views across 5 videos",
+  cerca_m3:"clients from youtube",
+  sc1:"scene 01 / long-form",
+  sc2:"scene 02 / commercial",
+  sc3:"scene 03 / film",
+  sc4:"scene 04 / close-up",
+  cr1:"written by <b>Serafim Panyushkin</b>",
+  cr2:"directed by <b>Serafim Panyushkin</b>",
+  cr3:"produced by <b>the same guy</b>",
+  zero_h3:"channels <u>from zero</u>",
+  zero_role:"scriptwriter · director · creative producer",
+  zero_desc:"Launches in tough niches: IT, esoterics, medicine. Videos earn multiples more views than the channel has subscribers.",
+  zero_note:"bonus: Evgeny Markert's business channel — <b>40,000 views and 5,000 subscribers from just 3 videos</b>",
+  sun_h3:"sunscrypt — <u>finance & crypto</u>",
+  sun_role:"research · scriptwriter",
+  sun_desc:"Long-form analytical videos, 13–27 minutes: deep research and scripts for a channel with a mature audience.",
+  sun_m1:"views per quarter",
+  sun_m2:"channel subscribers",
+  sun_m3:"average view duration",
+  pod_h3:"podcasts & <u>long interviews</u>",
+  pod_role:"researcher · scriptwriter · director",
+  pod_desc:"Expert formats of 30–52 minutes for young channels — up to 10,000 views right out of the gate.",
+  lines_h3:"lines — <u>turnkey content marketing</u>",
+  lines_role:"marketer · youtube producer · team of up to 12",
+  lines_desc:"A design bureau: in six months I built content marketing from scratch — YouTube, Reels, Shorts and end-to-end analytics. Top video — 60,000 views.",
+  lines_m1:"leads from youtube",
+  lines_m2:"instagram reach: 8k → 88k",
+  lines_m3:"instagram inquiries",
+  an_h3:"retention <u>analytics</u>",
+  an_desc:"YouTube Studio screenshots: 72–78% of viewers still watching at 0:30 — well above typical.",
+  ads_h2:'ads<span class="dot">.</span>',
+  ads_sub:"Viral product videos, AI production and commercial video that sells.",
+  ai_h3:"AI production for <u>viral videos</u>",
+  ai_role:"director · producer · full ai pipeline",
+  ai_desc:"The whole pipeline is on me: script, video generation, music and edit — from concept to final render. 'Soul Navigator' and product videos for marketplaces.",
+  comm_h3:"commercial <u>videos & events</u>",
+  comm_role:"producer",
+  fm_h2:'filmmaking<span class="dot">.</span>',
+  fm_sub:"Film, documentary, and everything in between. Generation, music, edit — one pipeline, one author.",
+  reel_kick:"showreel · 2 min",
+  reel_t:"watch this first",
+  reel_p:"Directing, producing, camera and edit — compressed into one video.",
+  reel_go:"watch ↗",
+  docs_h3:"<u>documentaries</u>",
+  docs_role:"scriptwriter · director · producer",
+  perf_h3:"<u>360°</u> performance",
+  perf_role:"director · producer",
+  perf_desc:"An immersive performance based on Norse myths: 360° projection and a live act. AI visuals and music — my own pipeline.",
+  perf_card_t:"Norse myths — immersive performance",
+  perf_card_m:"hover — it's alive",
+  wip_t:"'Blind Spot' — a film",
+  wip_d:"An original Apollo Production film: script, AI generation, music — the full cycle is on me. In production.",
+  wip_name:"blind spot",
+  wip_sub:"a film by apollo production",
+  ab_h2:'this is me<span class="dot">.</span>',
+  ph1:"speaking at a conference",
+  ph2:"on set",
+  ph3:"with the studio's namesake",
+  ab_p1:"I'm a <b>video director and scriptwriter</b>. My lane: expert videos, reviews, educational and documentary formats. I turn even 'boring' topics into gripping content.",
+  ab_p2:"Ten years in marketing taught me to think in numbers as well as frames: my videos don't just collect hundreds of thousands of views — they convert viewers into clients. A <b>one-man combine</b>: dramatist and marketer in one.",
+  ab_p3:"I run the <b>full production cycle</b> — from content strategy to final YouTube packaging, with an established team of camera operators, editors and designers. I help speakers unlock their charisma and sound natural.",
+  f1:"40+ videos a month: scripts and directing",
+  f2:"78% retention at the 30-second mark",
+  f3:"turnaround from 10 days after the shoot",
+  f4:"experience: million-sub channels and zero-to-one launches",
+  f5:"full ai pipeline: video generation · music · edit",
+  f6:"terms: hourly · fixed · revenue share",
+  f7:"special interest: gamedev · history · biology",
+  foot_phrase:"cooked up something<br>crazy? <i>i'm in.</i>",
+  foot_tg:"message on telegram",
+  foot_c:"© 2026 · <b>Sole proprietor Serafim Panyushkin</b>",
+  cloud:{
+    cerca:{base:"cerca trova",alt:"+250,000 subscribers"},
+    sun:{base:"sunscrypt",alt:"830K per quarter"},
+    zero:{base:"channels from zero",alt:"131,000 views"},
+    lines:{base:"lines",alt:"leads ×4"},
+    ai:{base:"ai videos",alt:"ai pipeline"},
+    docs:{base:"documentaries",alt:"history · medicine · tech"},
+    reel:{base:"showreel",alt:"2 minutes on me"},
+    perf:{base:"360° performance",alt:"norse myths"},
+    an:{base:"analytics",alt:"78% at 0:30"},
+  }
+}};
+
+/* hero: имя, роли и теги-проекты (клип на фоне + подмена на метрику) */
+const HERO = {
+  name:{ru:"серафим\nпанюшкин",en:"serafim\npanyushkin"},
+  pre:{ru:"я — ",en:"i am — "},
+  roles:{ru:["сценарист","режиссёр","продюсер"],en:["scriptwriter","director","producer"]},
+  tags:[
+    {href:"#case-cerca",clip:"assets/clip_cerca.mp4",ru:["cerca trova","+250 000 подписчиков"],en:["cerca trova","+250,000 subscribers"]},
+    {href:"#case-sun",clip:"assets/clip_sun.mp4",ru:["sunscrypt","830 000 за квартал"],en:["sunscrypt","830,000 per quarter"]},
+    {href:"#case-zero",clip:"assets/clip_maido.mp4",ru:["каналы с нуля","4 запуска с нуля"],en:["channels from zero","4 launches from zero"]},
+    {href:"#case-lines",clip:"assets/clip_lines.mp4",ru:["lines","охваты ×11"],en:["lines","reach ×11"]},
+    {href:"#case-ai",clip:"assets/clip_ai.mp4",ru:["ai-ролики","полный ai-пайплайн"],en:["ai videos","full ai pipeline"]},
+    {href:"#case-docs",clip:"assets/clip_doc.mp4",ru:["документалки","ai-сериал"],en:["documentaries","ai series"]},
+    {href:"#case-perf",clip:"assets/perf_preview.mp4",ru:["перфоманс 360°","сканд. мифы"],en:["360° performance","norse myths"]},
+  ]
+};
+
+const SUN_CH = {img:"assets/ch_sunscrypt.jpg",href:"https://www.youtube.com/@sunscrypt2140",t:"sunscrypt",
+  m:{ru:"финансы и крипта · youtube",en:"finance & crypto · youtube"},
+  v:"70%",l:{ru:"удержание на 0:30",en:"retention at 0:30"},
+  v2:"94–96%",l2:{ru:"лайки под роликами",en:"video like ratio"}};
+
+const POD_CH = {img:"assets/ch_maidobura_peptides.jpg",href:"https://www.youtube.com/@Александр_Майдобура",t:"Александр Майдобура про пептиды",
+  m:{ru:"новый канал · подкасты",en:"new channel · podcasts"},
+  v:"443",l:{ru:"подписчика у канала",en:"channel subscribers"},
+  v2:"10K",l2:{ru:"лучший результат",en:"best-performing video"}};
+
+const SUN_VIDS = [
+  {cover:"assets/yt_sungz.jpg",slides:["assets/sl_sungz_1.jpg","assets/sl_sungz_2.jpg","assets/sl_sungz_3.jpg"],href:"https://youtu.be/ps_LdI9_K1U",t:{ru:"Государство закрывает серую зону в крипте",en:"The state is closing crypto's gray zone"},m:{ru:"аналитика · 27 мин",en:"analysis · 27 min"},b:{ru:"84K просмотров",en:"84K views"}},
+  {cover:"assets/yt_sungl.jpg",slides:["assets/sl_sungl_1.jpg","assets/sl_sungl_2.jpg","assets/sl_sungl_3.jpg"],href:"https://youtu.be/tdUQNF6ZW7U",t:{ru:"Google сломал будущее Биткоина",en:"Google broke Bitcoin's future"},m:{ru:"аналитика",en:"analysis"},b:{ru:"74K просмотров",en:"74K views"}},
+  {cover:"assets/yt_suntw.jpg",slides:["assets/sl_suntw_1.jpg","assets/sl_suntw_2.jpg","assets/sl_suntw_3.jpg"],href:"https://youtu.be/C7AsaXwuZ58",t:{ru:"Одно приложение из App Store обнулило кошелёк",en:"One App Store app drained a wallet"},m:{ru:"trust wallet · разбор",en:"trust wallet · breakdown"},b:{ru:"25K просмотров",en:"25K views"}},
+];
+
+const PODS = [
+  {cover:"assets/pod_peptides2.jpg",href:"https://youtu.be/pUoWCsEvEIk",t:{ru:"Не применяй пептиды, пока не посмотришь это видео",en:"Don't touch peptides before watching this"},m:{ru:"эксперт-формат · 51 мин",en:"expert format · 51 min"},b:{ru:"10K просмотров",en:"10K views"}},
+  {cover:"assets/pod_healer.jpg",href:"https://youtu.be/E8WdNUbLW-E",t:{ru:"Лечит болезни силой мысли? Целитель Анатолий",en:"Healing with the power of thought? Anatoly"},m:{ru:"подкаст · 50 мин",en:"podcast · 50 min"},b:{ru:"10K просмотров",en:"10K views"}},
+  {cover:"assets/pod_peptides1.jpg",href:"https://youtu.be/cJdLvaoocl8",t:{ru:"Найден эликсир вечной молодости",en:"The elixir of eternal youth, found"},m:{ru:"эксперт-формат · 32 мин",en:"expert format · 32 min"},b:{ru:"5,2K просмотров",en:"5.2K views"}},
+  {cover:"assets/pod_fatigue.jpg",href:"https://youtu.be/wuddtghup4Q",t:{ru:"Главная причина вечной усталости",en:"The real cause of constant fatigue"},m:{ru:"эксперт-формат · 52 мин",en:"expert format · 52 min"}},
+];
+
+const CERCA = [
+  {cover:"assets/yt_lwoH0SGTgNM.jpg",href:"https://youtu.be/lwoH0SGTgNM",t:"91% мужчин выглядят одинаково — 9 ошибок в одежде"},
+  {cover:"assets/yt_o6j1BzyPFiM.jpg",href:"https://youtu.be/o6j1BzyPFiM",t:"Моя утренняя рутина — 6 привычек для мужчины"},
+  {cover:"assets/yt_5hWZUTulf3I.jpg",href:"https://youtu.be/5hWZUTulf3I",t:"Как мужчине выбрать футболку? Лучший гайд"},
+  {cover:"assets/yt_WDQHzcnzVD8.jpg",href:"https://youtu.be/WDQHzcnzVD8",t:"Как мужчине выбрать штаны? Лучший гайд"},
+  {cover:"assets/yt_0xYz1biiOiE.jpg",href:"https://youtu.be/0xYz1biiOiE",t:"Тренды мужских стрижек 2025"},
+  {cover:"assets/yt_c1_jUVtanrE.jpg",href:"https://youtu.be/c1_jUVtanrE",t:"8 отличий дешёвой и дорогой обуви"},
+  {cover:"assets/yt_UV3MyY4JkYA.jpg",href:"https://youtu.be/UV3MyY4JkYA",t:"Не носите эту одежду в городе летом"},
+  {cover:"assets/yt_Q0W7HvX2DQ.jpg",href:"https://youtu.be/Q-0W7HvX2DQ",t:{ru:"Опрос на улице — интервью беру я сам",en:"Street interview — I'm the one asking"},b:{ru:"это я, в кадре",en:"that's me, on camera"}},
+];
+
+const ZERO_CH = [
+  {img:"assets/ch_zuev.jpg",href:"https://www.youtube.com/@zuev_igor",t:"Igor Zuev",m:{ru:"it и карьера",en:"it & career"},
+   v:"26 000",l:{ru:"просмотров / 1 мес",en:"views / 1 mo"},v2:"800",l2:{ru:"подписчиков / 1 мес",en:"subs / 1 mo"}},
+  {img:"assets/ch_maidobura.jpg",href:"https://www.youtube.com/@Alexandr_Maidobura",t:"Александр Майдобура",m:{ru:"эзотерика",en:"esoterics"},
+   v:"80 000",l:{ru:"просмотров / 2 мес",en:"views / 2 mo"},v2:"1 200",l2:{ru:"подписчиков / 2 мес",en:"subs / 2 mo"}},
+  {img:"assets/ch_avclinic.jpg",href:"https://www.youtube.com/@avclinic_official",t:"AV Clinic",m:{ru:"медицина",en:"medicine"},
+   v:"25 000",l:{ru:"просмотров / 1-й мес",en:"views / 1st mo"},v2:"1 000",l2:{ru:"подписчиков / 1-й мес",en:"subs / 1st mo"}},
+];
+
+const LINES = [
+  {cover:"assets/yt_nIWbMEtdJRk.jpg",href:"https://youtu.be/nIWbMEtdJRk",t:"10 трендов в дизайне интерьера 2024",m:"youtube",b:{ru:"хит · 60k",en:"hit · 60k"}},
+  {cover:"assets/yt_JUcc7KZxS8k.jpg",href:"https://youtu.be/JUcc7KZxS8k",t:"Идеальный минимализм — обзор квартиры",m:"youtube"},
+  {cover:"assets/yt_BbTQIKHxT80.jpg",href:"https://youtu.be/BbTQIKHxT80",t:"Минимализм в каждой детали",m:"youtube"},
+  {cover:"assets/ig_lines1.jpg",href:"https://www.instagram.com/reel/C6Q_coqtAnB/",t:{ru:"reels — команда бюро LINES",en:"reels — the LINES team"},m:"instagram"},
+  {cover:"assets/ig_lines2.jpg",href:"https://www.instagram.com/reel/C3sS3W-t79u/",t:{ru:"reels — дизайн интерьера",en:"reels — interior design"},m:"instagram"},
+  {cover:"assets/ig_lines3.jpg",href:"https://www.instagram.com/reel/C2Sd_lwNJPi/",t:{ru:"reels — дизайн интерьера",en:"reels — interior design"},m:"instagram"},
+];
+
+const AI = [
+  {cover:"assets/yd_navigator1.jpg",slides:["assets/sl_nav1_1.jpg","assets/sl_nav1_2.jpg","assets/sl_nav1_3.jpg","assets/sl_nav1_4.jpg"],href:"https://disk.yandex.ru/i/rljoNNQ3RHX4GA",t:{ru:"«Навигатор души» — Королева",en:"'Soul Navigator' — The Queen"},m:{ru:"вертикальный ai-ролик",en:"vertical ai video"}},
+  {cover:"assets/yd_navigator2.jpg",slides:["assets/sl_nav2_1.jpg","assets/sl_nav2_2.jpg","assets/sl_nav2_3.jpg","assets/sl_nav2_4.jpg"],href:"https://disk.yandex.ru/i/dgI-HYAgXd3Dyw",t:{ru:"«Навигатор души» — Генерал",en:"'Soul Navigator' — The General"},m:{ru:"вертикальный ai-ролик",en:"vertical ai video"}},
+  {cover:"assets/yd_navigator3.jpg",slides:["assets/sl_nav3_1.jpg","assets/sl_nav3_2.jpg","assets/sl_nav3_3.jpg","assets/sl_nav3_4.jpg"],href:"https://disk.yandex.ru/i/MrL40b7HAAmsWA",t:{ru:"«Навигатор души» — Кинг",en:"'Soul Navigator' — The King"},m:{ru:"вертикальный ai-ролик",en:"vertical ai video"}},
+  {cover:"assets/yd_fliska1.jpg",slides:["assets/sl_fliska1_1.jpg","assets/sl_fliska1_2.jpg","assets/sl_fliska1_3.jpg","assets/sl_fliska1_4.jpg"],href:"https://disk.yandex.ru/i/Nfo91xRRiCwIDg",t:{ru:"Флиска — ролик для маркетплейсов",en:"Fleece — marketplace video"},m:{ru:"продуктовый ai-ролик",en:"product ai video"}},
+  {cover:"assets/yd_fliska2.jpg",slides:["assets/sl_fliska2_1.jpg","assets/sl_fliska2_2.jpg","assets/sl_fliska2_3.jpg","assets/sl_fliska2_4.jpg"],href:"https://disk.yandex.ru/i/RMSk_4pcSWoRfA",t:{ru:"Флиска — продуктовый ролик № 2",en:"Fleece — product video #2"},m:{ru:"продуктовый ai-ролик",en:"product ai video"}},
+  {cover:"assets/yd_fliska3.jpg",slides:["assets/sl_fliska3_1.jpg","assets/sl_fliska3_2.jpg","assets/sl_fliska3_3.jpg","assets/sl_fliska3_4.jpg"],href:"https://disk.yandex.ru/i/2p_nT91rU4l35g",t:{ru:"Флиска — «футболист»",en:"Fleece — 'the footballer'"},m:{ru:"продуктовый ai-ролик",en:"product ai video"}},
+];
+
+const COMM = [
+  {cover:"assets/yd_realty1.jpg",slides:["assets/sl_realty1_1.jpg","assets/sl_realty1_2.jpg","assets/sl_realty1_3.jpg","assets/sl_realty1_4.jpg"],href:"https://disk.yandex.ru/i/ndoMk9MAWKqAOw",t:{ru:"Недвижимость — рекламный ролик",en:"Real estate — ad video"},m:{ru:"реклама · 30 сек",en:"ads · 30 sec"}},
+  {cover:"assets/yd_realty2.jpg",slides:["assets/sl_realty2_1.jpg","assets/sl_realty2_2.jpg","assets/sl_realty2_3.jpg","assets/sl_realty2_4.jpg"],href:"https://disk.yandex.ru/i/hSWzwTwkeLP6cw",t:{ru:"Недвижимость — сторис",en:"Real estate — stories"},m:{ru:"реклама",en:"ads"}},
+  {cover:"assets/yd_nft1.jpg",slides:["assets/sl_nft1_1.jpg","assets/sl_nft1_2.jpg","assets/sl_nft1_3.jpg","assets/sl_nft1_4.jpg"],href:"https://disk.yandex.ru/i/GkGNp-k18KZHbg",t:{ru:"NFT-выставка — тизер (en)",en:"NFT exhibition — teaser (en)"},m:{ru:"ивент",en:"event"}},
+  {cover:"assets/yd_nft3.jpg",slides:["assets/sl_nft3_1.jpg","assets/sl_nft3_2.jpg","assets/sl_nft3_3.jpg","assets/sl_nft3_4.jpg"],href:"https://disk.yandex.ru/i/nLMpubGeBAvwRA",t:{ru:"Анонс выставки Krasovski и Lebedenko",en:"Krasovski & Lebedenko promo"},m:{ru:"ивент",en:"event"}},
+  {cover:"assets/yd_clip1.jpg",slides:["assets/sl_clip1_1.jpg","assets/sl_clip1_2.jpg","assets/sl_clip1_3.jpg","assets/sl_clip1_4.jpg"],href:"https://disk.yandex.ru/i/OZnARVTujsn2VQ",t:{ru:"Музыкальный клип — бекстейдж",en:"Music video — backstage"},m:{ru:"клип",en:"music video"}},
+  {cover:"assets/yd_clip2.jpg",slides:["assets/sl_clip2_1.jpg","assets/sl_clip2_2.jpg","assets/sl_clip2_3.jpg","assets/sl_clip2_4.jpg"],href:"https://disk.yandex.ru/i/l0NO3EuzlmvYnA",t:{ru:"Бекстейдж со съёмок клипа",en:"Backstage from the shoot"},m:{ru:"клип",en:"music video"}},
+  {cover:"assets/yd_eco.jpg",slides:["assets/sl_eco_1.jpg","assets/sl_eco_2.jpg"],href:"https://disk.yandex.ru/i/3qWtwMq84aHPOg",t:{ru:"Экология — видео для номинации",en:"Ecology — award video"},m:{ru:"номинация",en:"award"}},
+];
+
+const DOCS = [
+  {cover:"assets/yt_I4nHuMFgYlg.jpg",slides:["assets/sl_pyr_1.jpg","assets/sl_pyr_2.jpg","assets/sl_pyr_3.jpg"],href:"https://youtu.be/I4nHuMFgYlg",t:{ru:"Пирамида Хеопса: вопросы к официальной версии",en:"The Great Pyramid: questioning the official story"},m:{ru:"документалка",en:"documentary"}},
+  {cover:"assets/yd_peptides.jpg",slides:["assets/sl_peptides_1.jpg","assets/sl_peptides_2.jpg","assets/sl_peptides_3.jpg","assets/sl_peptides_4.jpg"],href:"https://disk.yandex.ru/i/jXhPxsBl7Rj-Zg",t:{ru:"«Кто есть кто» — AI док-сериал о пептидах",en:"'Who is who' — AI doc series on peptides"},m:{ru:"ai-сериал",en:"ai series"},b:"ai"},
+  {cover:"assets/yt_8rUQn-MkCCw.jpg",slides:["assets/sl_silver_1.jpg","assets/sl_silver_2.jpg","assets/sl_silver_3.jpg"],href:"https://www.youtube.com/watch?v=8rUQn-MkCCw",t:{ru:"Наночастицы серебра против патогенов",en:"Silver nanoparticles vs pathogens"},m:"science of silver",b:{ru:"+20% конверсии",en:"+20% conversion"}},
+];
+
+/* ---------- рендер ---------- */
+const pick=(v,l)=>(v&&typeof v==="object"&&(v.ru||v.en))?(v[l]||v.ru):v;
+const igGrad=["linear-gradient(135deg,#f2ede4,#e3d9c8)","linear-gradient(135deg,#e8e4ee,#d3cade)","linear-gradient(135deg,#e4eee6,#c8decf)"];
+
+function cardHTML(it,lang){
+  const tag=it.b?`<span class="tag">${pick(it.b,lang)}</span>`:"";
+  const inner=it.ig
+    ?`<div class="im" style="position:relative;background:${igGrad[(it.ig-1)%3]}"><svg style="position:absolute;inset:0;margin:auto" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="1.6"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.4"/><circle cx="17.6" cy="6.4" r="1.3" fill="#111" stroke="none"/></svg></div>`
+    :`<div class="im"><img src="${it.cover}" alt="${pick(it.t,lang)}" loading="lazy"></div>`;
+  const slidesAttr=it.slides?` data-slides="${it.slides.join("|")}"`:"";
+  return `<a class="card" href="${it.href}" target="_blank" rel="noopener"${slidesAttr}>
+    <div class="cov">${tag}${inner}</div>
+    <div class="t">${pick(it.t,lang)}</div>${it.m?`<div class="m">${pick(it.m,lang)}</div>`:""}
+  </a>`;
+}
+
+function chCardHTML(ch,lang){
+  return `<a class="ch" href="${ch.href}" target="_blank" rel="noopener">
+    <img src="${ch.img}" alt="${ch.t}">
+    <div><div class="t">${ch.t}</div><div class="m">${pick(ch.m,lang)}</div></div>
+    <div class="num">
+      <div><b>${ch.v}</b><span>${pick(ch.l,lang)}</span></div>
+      <div class="n2"><b>${ch.v2}</b><span>${pick(ch.l2,lang)}</span></div>
+    </div>
+  </a>`;
+}
+
+function render(lang){
+  const t=I18N[lang];
+  document.documentElement.lang=lang;
+  document.querySelectorAll("[data-i18n]").forEach(el=>{if(t[el.dataset.i18n]!==undefined)el.textContent=t[el.dataset.i18n]});
+  document.querySelectorAll("[data-i18n-html]").forEach(el=>{if(t[el.dataset.i18nHtml]!==undefined)el.innerHTML=t[el.dataset.i18nHtml]});
+
+  document.getElementById("strip").innerHTML=t.strip.map(s=>`<span>${s}</span>`).join("");
+
+  renderHero(lang);
+
+  document.getElementById("cerca-grid").innerHTML=CERCA.map(it=>cardHTML(it,lang)).join("");
+  document.getElementById("lines-grid").innerHTML=LINES.map(it=>cardHTML(it,lang)).join("");
+  document.getElementById("ai-grid").innerHTML=AI.map(it=>cardHTML(it,lang)).join("");
+  document.getElementById("comm-grid").innerHTML=COMM.map(it=>cardHTML(it,lang)).join("");
+  document.getElementById("docs-grid").innerHTML=DOCS.map(it=>cardHTML(it,lang)).join("");
+  document.getElementById("pod-grid").innerHTML=PODS.map(it=>cardHTML(it,lang)).join("");
+  document.getElementById("sun-grid").innerHTML=SUN_VIDS.map(it=>cardHTML(it,lang)).join("");
+  document.getElementById("sun-channel").innerHTML=[SUN_CH].map(ch=>chCardHTML(ch,lang)).join("");
+  document.getElementById("pod-channel").innerHTML=[POD_CH].map(ch=>chCardHTML(ch,lang)).join("");
+  document.getElementById("zero-channels").innerHTML=ZERO_CH.map(ch=>chCardHTML(ch,lang)).join("");
+
+  document.getElementById("lang-ru").classList.toggle("on",lang==="ru");
+  document.getElementById("lang-en").classList.toggle("on",lang==="en");
+  document.title=lang==="ru"
+    ?"Серафим Панюшкин — сценарист · режиссёр · продюсер"
+    :"Serafim Panyushkin — scriptwriter · director · producer";
+  initReveal();
+  initCount();
+}
+
+/* ===================== движок слайд-шоу (crossfade) =====================
+   Универсальный кроссфейд-движок на двух <img> слоях. Используется и для
+   idle-фото в hero, и для ховер-превью облака, и для карточек кейсов. */
+const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+function crossfade(imgA, imgB, srcs, interval){
+  let idx=0, active=0;
+  const els=[imgA,imgB];
+  els[0].src=srcs[0]; els[0].classList.add("on"); els[1].classList.remove("on");
+  if(reduceMotion || srcs.length<2) return null;
+  return setInterval(()=>{
+    idx=(idx+1)%srcs.length;
+    const next=1-active;
+    els[next].src=srcs[idx]; els[next].classList.add("on");
+    els[active].classList.remove("on");
+    active=next;
+  },interval);
+}
+
+/* ===== hero: рендер, ротация роли, клип-фон ===== */
+const kinoV=document.getElementById("kino-video");
+const KINO_DEFAULT="assets/clip_reel.mp4";
+let kinoCur=KINO_DEFAULT, heroLang="ru", roleIdx=0;
+
+function kinoShow(src){
+  kinoCur=src;
+  if(kinoV.getAttribute("src")!==src){kinoV.src=src}
+  const pl=()=>{if(kinoCur===src)kinoV.play().catch(()=>{})};
+  if(kinoV.readyState>=2)pl();else kinoV.addEventListener("canplay",pl,{once:true});
+}
+/* браузер глушит muted-видео в фоновой вкладке — будим */
+["visibilitychange","focus","pointermove","pointerdown"].forEach(ev=>
+  addEventListener(ev,()=>{if(kinoV.paused)kinoV.play().catch(()=>{})},{passive:true}));
+
+function renderHero(lang){
+  heroLang=lang;
+  const nameEl=document.getElementById("kino-name");
+  nameEl.innerHTML=pick(HERO.name,lang).split("\n").map(line=>
+    [...line].map(ch=>ch===" "?" ":`<span>${ch}</span>`).join("")
+  ).join("<br>");
+  document.getElementById("kino-pre").textContent=pick(HERO.pre,lang);
+  document.getElementById("kino-word").textContent=HERO.roles[lang][roleIdx%HERO.roles[lang].length];
+  const tags=document.getElementById("kino-tags");
+  tags.innerHTML=HERO.tags.map((tg,i)=>{
+    const [base,alt]=tg[lang];
+    return `<a class="tag" href="${tg.href}" data-clip="${tg.clip}"><span class="base2">${base}</span><span class="alt2">${alt}</span></a>`;
+  }).join("");
+  tags.querySelectorAll(".tag").forEach(el=>{
+    el.addEventListener("mouseenter",()=>{document.body.classList.add("peek");kinoShow(el.dataset.clip);});
+    el.addEventListener("mouseleave",()=>{document.body.classList.remove("peek");kinoShow(KINO_DEFAULT);});
+  });
+}
+if(!matchMedia("(prefers-reduced-motion: reduce)").matches){
+  setInterval(()=>{
+    roleIdx=(roleIdx+1)%HERO.roles[heroLang].length;
+    document.getElementById("kino-word").textContent=HERO.roles[heroLang][roleIdx];
+  },2200);
+}
+
+/* перфоманс-карточка: hover = play */
+const pv=document.getElementById("perf-video");
+const pcard=document.querySelector(".perf-card");
+pcard.addEventListener("mouseenter",()=>pv.play().catch(()=>{}));
+pcard.addEventListener("mouseleave",()=>pv.pause());
+
+/* карточки кейсов со слайд-шоу при наведении (data-slides на .card) */
+const cardTimers=new WeakMap();
+document.addEventListener("mouseover",e=>{
+  const card=e.target.closest(".card[data-slides]");
+  if(!card||cardTimers.has(card))return;
+  const im=card.querySelector(".im");
+  let a=im.querySelector("img.sw.a"),b=im.querySelector("img.sw.b");
+  if(!a){
+    a=document.createElement("img");a.className="sw a";
+    b=document.createElement("img");b.className="sw b";
+    im.appendChild(a);im.appendChild(b);
+  }
+  const srcs=card.dataset.slides.split("|");
+  cardTimers.set(card, crossfade(a,b,srcs,700));
+});
+document.addEventListener("mouseout",e=>{
+  const card=e.target.closest(".card[data-slides]");
+  if(!card||card.contains(e.relatedTarget))return;
+  if(cardTimers.has(card)){
+    clearInterval(cardTimers.get(card));
+    cardTimers.delete(card);
+    const im=card.querySelector(".im");
+    im.querySelectorAll("img.sw").forEach(n=>n.remove());
+  }
+});
+
+/* reveal */
+function initReveal(){
+  document.querySelectorAll(".rv").forEach(el=>{
+    el.classList.remove("in");
+    const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){el.classList.add("in");io.disconnect()}})},{threshold:.12});
+    io.observe(el);
+  });
+}
+
+/* count-up для +250 000 */
+function initCount(){
+  const fmt=n=>String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g," ");
+  document.querySelectorAll("[data-count]").forEach(el=>{
+    const target=+el.dataset.count,prefix=el.dataset.prefix||"";
+    const io=new IntersectionObserver(es=>{es.forEach(e=>{
+      if(!e.isIntersecting)return;io.disconnect();
+      const t0=performance.now(),dur=1300;
+      (function tick(now){
+        const p=Math.min((now-t0)/dur,1),ease=1-Math.pow(1-p,3);
+        el.textContent=prefix+fmt(target*ease);
+        if(p<1)requestAnimationFrame(tick);
+      })(t0);
+    })},{threshold:.5});
+    io.observe(el);
+  });
+}
+
+/* смена фона по секциям — кино-переходы */
+(function(){
+  const zones=[
+    {sel:"#ads",cls:"bg-paper"},
+    {sel:"#filmmaking",cls:"bg-dark"},
+    {sel:"#about",cls:"bg-warm"},
+    {sel:"#contact",cls:"bg-dark"},
+  ];
+  const all=["bg-paper","bg-dark","bg-warm"];
+  const active=new Map();
+  zones.forEach(z=>{
+    const el=document.querySelector(z.sel);
+    new IntersectionObserver(es=>{
+      es.forEach(e=>active.set(z.sel,e.isIntersecting?e.intersectionRatio:0));
+      let best=null,bestR=.08;
+      zones.forEach(q=>{const r=active.get(q.sel)||0;if(r>bestR){best=q;bestR=r}});
+      document.body.classList.remove(...all);
+      if(best)document.body.classList.add(best.cls);
+    },{threshold:[0,.12,.3,.55,.8]}).observe(el);
+  });
+})();
+
+function setLang(lang){
+  localStorage.setItem("lang",lang);
+  const u=new URL(location);u.searchParams.set("lang",lang);history.replaceState(null,"",u);
+  render(lang);
+}
+const urlLang=new URLSearchParams(location.search).get("lang");
+render(urlLang==="en"||urlLang==="ru"?urlLang:(localStorage.getItem("lang")||"ru"));
+</script>
+</body>
+</html>
