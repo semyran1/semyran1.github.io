@@ -319,7 +319,10 @@ section{padding:96px 0 0}
 .wip{margin-top:26px;display:grid;grid-template-columns:minmax(0,560px) 1fr;gap:28px;align-items:center}
 @media(max-width:820px){.wip{grid-template-columns:1fr}}
 .wip-poster{position:relative;border:1px solid var(--ink);padding:7px}
-.wip-poster img{width:100%;display:block;aspect-ratio:16/9;object-fit:cover}
+.wip-poster .im{position:relative;aspect-ratio:16/9;overflow:hidden;background:#000}
+.wip-poster .im img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.wip-poster .im img.sw{opacity:0;transition:opacity .6s ease}
+.wip-poster .im img.sw.on{opacity:1}
 .wip-overlay{position:absolute;left:28px;bottom:26px;color:#fff;text-shadow:0 2px 12px rgba(0,0,0,.8)}
 .wip-name{font-weight:800;font-size:clamp(22px,3vw,34px);line-height:1.05;letter-spacing:.02em;text-transform:lowercase}
 .wip-sub{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;margin-top:6px;opacity:.85}
@@ -507,13 +510,9 @@ body.bg-dark .door-btn{color:#f2f2f2}
         <h3 class="rv-mask" data-i18n-html="wip_h3"></h3>
         <div class="role" data-i18n="wip_role"></div>
       </div>
-      <a class="wip" href="https://youtu.be/n5Id2DzHuJk" target="_blank" rel="noopener">
+      <a class="wip" href="https://youtu.be/n5Id2DzHuJk" target="_blank" rel="noopener" data-slides="assets/bs_1.jpg|assets/bs_2.jpg|assets/bs_3.jpg|assets/bs_4.jpg|assets/bs_5.jpg">
         <div class="wip-poster">
-          <img src="assets/blindspot.jpg" alt="«Ослепляющее пятно» — кадр из фильма" loading="lazy">
-          <div class="wip-overlay">
-            <div class="wip-name" data-i18n="wip_name"></div>
-            <div class="wip-sub" data-i18n="wip_sub"></div>
-          </div>
+          <div class="im"><img src="assets/bs_poster.jpg" alt="«Ослепляющее пятно» — постер фильма" loading="lazy"></div>
         </div>
         <div class="wip-info">
           <div class="t" data-i18n="wip_t"></div>
@@ -1498,7 +1497,7 @@ pcard.addEventListener("mouseleave",()=>pv.pause());
 /* карточки/шоурил: видео при наведении (data-clip), иначе слайд-шоу (data-slides) */
 const cardTimers=new WeakMap();
 document.addEventListener("mouseover",e=>{
-  const card=e.target.closest(".card[data-slides],.card[data-clip],.reel[data-clip]");
+  const card=e.target.closest(".card[data-slides],.card[data-clip],.reel[data-clip],.wip[data-slides]");
   if(!card||cardTimers.has(card))return;
   const im=card.querySelector(".im");
 
@@ -1522,7 +1521,7 @@ document.addEventListener("mouseover",e=>{
   cardTimers.set(card,{timer:crossfade(a,b,srcs,700)});
 });
 document.addEventListener("mouseout",e=>{
-  const card=e.target.closest(".card[data-slides],.card[data-clip],.reel[data-clip]");
+  const card=e.target.closest(".card[data-slides],.card[data-clip],.reel[data-clip],.wip[data-slides]");
   if(!card||card.contains(e.relatedTarget))return;
   const entry=cardTimers.get(card);
   if(!entry)return;
