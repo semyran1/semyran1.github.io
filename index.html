@@ -197,7 +197,7 @@ body.peek .kino::after{background:rgba(0,0,0,.08)}
 /* ---------- статичные стат-плашки (цифры результата) ---------- */
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;margin:44px 0;background:color-mix(in srgb,var(--ink) 16%,transparent);border:1px solid color-mix(in srgb,var(--ink) 16%,transparent)}
 .stat{background:var(--plate);padding:22px 20px;display:flex;flex-direction:column;gap:6px;transition:background .7s ease}
-.stat b{position:relative;display:inline-block;align-self:flex-start;font-weight:800;font-size:clamp(26px,3.4vw,40px);line-height:1;letter-spacing:-.01em;color:var(--ink)}
+.stat b{position:relative;isolation:isolate;display:inline-block;align-self:flex-start;font-weight:800;font-size:clamp(26px,3.4vw,40px);line-height:1;letter-spacing:-.01em;color:var(--ink)}
 .stat b::before{content:"";position:absolute;inset:12% -6% 6%;background:var(--acc);z-index:-1;opacity:.9;transform:rotate(-1.4deg)}
 .stat .l{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--gray)}
 .stat:nth-child(2n) b{transform:rotate(-.6deg)}
@@ -452,6 +452,7 @@ body.bg-dark .door-btn{color:#f2f2f2}
 body.bg-dark .case h3 u,body.bg-dark .pipeline-line b,body.bg-dark .spec dd b,body.bg-dark .stack .v b,body.bg-dark .door p b{background:none;color:var(--acc)}
 body.bg-dark .stat b::before{opacity:1}
 body.bg-dark .stat b{color:#141311}
+body.bg-dark .foot-cta .alt-btn{color:var(--ink);border-color:#555}
 </style>
 </head>
 <body>
@@ -827,7 +828,7 @@ ru:{
   nav_film:"ai-кино", nav_pipe:"пайплайн", nav_prod:"продакшн", nav_about:"обо мне", nav_contact:"контакты",
   plate:"Серафим<br>Панюшкин",
   plate_sub:"ai-режиссёр · сценарист · продюсер",
-  cta_go:"смотреть фильм ↗",
+  cta_go:"смотреть фильм →",
   cta_tg:"написать в telegram",
   hero_pipe:"полный ai-пайплайн · <b>seedance 2.5</b> · kling · veo 3 · runway · comfyui · локальные модели — сценарий → генерация → звук → монтаж",
   cap_left:"осторожно, творец",
@@ -856,14 +857,14 @@ ru:{
   wip_t:"снят · постпродакшн · подан на фестивали",
   wip_d:"Авторский фильм Apollo Production: сценарий, режиссура, AI-генерации и музыка — полный цикл на мне. Результаты фестивалей — сентябрь 2026.",
   st1:"снят", st2:"постпродакшн", st3:"фестивали · сентябрь 2026",
-  wip_go:"смотреть фильм на youtube ↗",
+  wip_go:"смотреть фильм на youtube →",
   ai_h3:"ai-сериалы и <u>один герой через сцены</u>",
   ai_role:"режиссёр · продюсер · полный ai-пайплайн",
   ai_desc:"Серийные AI-работы, где персонаж держится от эпизода к эпизоду: референс-лист, first/last frame, сквозная система сцены. «Кто есть кто» — док-сериал о пептидах, «Навигатор души» — серия вертикальных роликов по заказу клиента.",
   cases_h3:"кейсы <u>с цифрами</u>",
   cases_role:"заказчик · роль · инструменты · объём · результат · бюджет",
   cases_desc:"Формат, который просят студии: какая была задача, что сделал я, чем и с каким результатом.",
-  lb_client:"заказчик / задача", lb_role:"моя роль", lb_tools:"инструменты", lb_volume:"объём и срок", lb_result:"результат", lb_budget:"бюджет", lb_link:"смотреть ↗",
+  lb_client:"заказчик / задача", lb_role:"моя роль", lb_tools:"инструменты", lb_volume:"объём и срок", lb_result:"результат", lb_budget:"бюджет", lb_link:"смотреть →",
   /* ── сцена 02: пайплайн ── */
   pipe_h2:'пайплайн<span class="dot">.</span>',
   pipe_sub:"Чем работаю, как держу персонажа и как устроен процесс от сценария до рендера.",
@@ -940,7 +941,7 @@ ru:{
   reel_kick:"шоурил · 2 минуты",
   reel_t:"сначала посмотрите это",
   reel_p:"Режиссура, продюсирование, камера и монтаж — сжато в один ролик.",
-  reel_go:"смотреть ↗",
+  reel_go:"смотреть →",
   docs_h3:"<u>документалки</u>",
   docs_role:"сценарист · режиссёр · продюсер",
   docs_desc:"Глубокий ресёрч и драматургия — превращаю сложные темы в захватывающий контент.",
@@ -984,7 +985,7 @@ en:{
   nav_film:"ai film", nav_pipe:"pipeline", nav_prod:"production", nav_about:"about", nav_contact:"contact",
   plate:"Serafim<br>Panyushkin",
   plate_sub:"ai director · screenwriter · producer",
-  cta_go:"watch the film ↗",
+  cta_go:"watch the film →",
   cta_tg:"message on telegram",
   hero_pipe:"full ai pipeline · <b>seedance 2.5</b> · kling · veo 3 · runway · comfyui · local models — script → generation → sound → edit",
   cap_left:"caution: creator at work",
@@ -1012,14 +1013,14 @@ en:{
   wip_t:"shot · in post · submitted to festivals",
   wip_d:"An original Apollo Production film: script, direction, AI generation and music — the full cycle is on me. Festival results due September 2026.",
   st1:"shot", st2:"in post", st3:"festivals · september 2026",
-  wip_go:"watch the film on youtube ↗",
+  wip_go:"watch the film on youtube →",
   ai_h3:"ai series and <u>one character across scenes</u>",
   ai_role:"director · producer · full ai pipeline",
   ai_desc:"Episodic AI work where the character holds from episode to episode: reference sheet, first/last frame, a scene system carried through. 'Who is Who' — a docuseries on peptides; 'Soul Navigator' — a vertical series commissioned by a client.",
   cases_h3:"cases <u>with numbers</u>",
   cases_role:"client · role · tools · volume · result · budget",
   cases_desc:"The format studios ask for: what the task was, what I did, with what, and to what result.",
-  lb_client:"client / task", lb_role:"my role", lb_tools:"tools", lb_volume:"volume & timeline", lb_result:"result", lb_budget:"budget", lb_link:"watch ↗",
+  lb_client:"client / task", lb_role:"my role", lb_tools:"tools", lb_volume:"volume & timeline", lb_result:"result", lb_budget:"budget", lb_link:"watch →",
   pipe_h2:'pipeline<span class="dot">.</span>',
   pipe_sub:"What I work with, how I keep a character consistent, and how the process runs from script to render.",
   door_pipe:"<b>For technical roles.</b> ComfyUI with workflows built from scratch, local inference on my own hardware, reproducible output, consistency and lip-sync. I run every new model on my own tasks and know where it breaks.",
@@ -1095,7 +1096,7 @@ en:{
   reel_kick:"showreel · 2 min",
   reel_t:"watch this first",
   reel_p:"Directing, producing, camera and edit — compressed into one video.",
-  reel_go:"watch ↗",
+  reel_go:"watch →",
   docs_h3:"<u>documentaries</u>",
   docs_role:"scriptwriter · director · producer",
   docs_desc:"Deep research and dramaturgy — turning complex subjects into gripping content.",
