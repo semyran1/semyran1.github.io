@@ -448,6 +448,10 @@ a.wip:hover .t{text-decoration:underline;text-decoration-color:var(--acc);text-d
 .proc-note b{color:var(--ink)}
 body.bg-dark .steps li,body.bg-dark .door-btn,body.bg-dark .wip .status li,body.bg-dark .wip-poster{border-color:#333}
 body.bg-dark .door-btn{color:#f2f2f2}
+/* на чёрном фоне жёлтая подложка под белым текстом не читается — вместо подложки красим сам текст */
+body.bg-dark .case h3 u,body.bg-dark .pipeline-line b,body.bg-dark .spec dd b,body.bg-dark .stack .v b,body.bg-dark .door p b{background:none;color:var(--acc)}
+body.bg-dark .stat b::before{opacity:1}
+body.bg-dark .stat b{color:#141311}
 </style>
 </head>
 <body>
