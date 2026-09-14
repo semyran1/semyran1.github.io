@@ -453,6 +453,11 @@ body.bg-dark .case h3 u,body.bg-dark .pipeline-line b,body.bg-dark .spec dd b,bo
 body.bg-dark .stat b::before{opacity:1}
 body.bg-dark .stat b{color:#141311}
 body.bg-dark .foot-cta .alt-btn{color:var(--ink);border-color:#555}
+/* заголовок кейса — ссылка на материал */
+.h3link{display:inline-block;text-decoration:none;color:inherit}
+.h3link h3 .mask-inner::after{content:" →";font-weight:800;color:var(--acc);opacity:0;transition:opacity .2s}
+.h3link:hover h3 .mask-inner::after,.h3link:focus-visible h3 .mask-inner::after{opacity:1}
+.h3link:hover h3{text-decoration:underline;text-decoration-color:var(--acc);text-decoration-thickness:3px;text-underline-offset:6px}
 </style>
 </head>
 <body>
@@ -512,7 +517,7 @@ body.bg-dark .foot-cta .alt-btn{color:var(--ink);border-color:#555}
     <div class="case rv" id="case-film" style="--c:var(--c-ai)">
       <div class="case-head">
         <div class="case-num">01 / film</div>
-        <h3 class="rv-mask" data-i18n-html="wip_h3"></h3>
+        <a class="h3link" href="https://youtu.be/n5Id2DzHuJk" target="_blank" rel="noopener"><h3 class="rv-mask" data-i18n-html="wip_h3"></h3></a>
         <div class="role" data-i18n="wip_role"></div>
       </div>
       <a class="wip" href="https://youtu.be/n5Id2DzHuJk" target="_blank" rel="noopener" data-slides="assets/bs_1.jpg|assets/bs_2.jpg|assets/bs_3.jpg|assets/bs_4.jpg|assets/bs_5.jpg">
@@ -558,7 +563,7 @@ body.bg-dark .foot-cta .alt-btn{color:var(--ink);border-color:#555}
     <div class="case rv" id="case-perf" style="--c:var(--c-perf)">
       <div class="case-head">
         <div class="case-num">04 / live</div>
-        <h3 class="rv-mask" data-i18n-html="perf_h3"></h3>
+        <a class="h3link" href="https://disk.yandex.ru/i/HJoF8jx1f_otKQ" target="_blank" rel="noopener"><h3 class="rv-mask" data-i18n-html="perf_h3"></h3></a>
         <div class="role" data-i18n="perf_role"></div>
         <div class="desc" data-i18n="perf_desc"></div>
       </div>
