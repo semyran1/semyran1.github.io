@@ -178,6 +178,11 @@ body.peek .kino::after{background:rgba(0,0,0,.08)}
 .kino .go:hover{transform:rotate(0) scale(1.04)}
 .kino .hero-cta{display:flex;gap:14px;flex-wrap:wrap;align-items:flex-start}
 .kino .go.alt{background:transparent;color:#f2f2f2;border:1px solid #f2f2f2;box-shadow:none;transform:rotate(.8deg)}
+.kino .go.price{background:transparent;color:#f2f2f2;border:1px solid #f2f2f2;box-shadow:none;transform:rotate(.8deg)}
+.kino .go.price:hover{background:#ffe600;color:#111;border-color:#ffe600}
+.foot-cta .price-btn{display:inline-block;text-decoration:none;background:var(--acc);color:#141311;font-weight:800;font-size:15px;padding:13px 26px;transform:rotate(-1.2deg);transition:.2s}
+.foot-cta .price-btn:hover{transform:rotate(0) scale(1.04)}
+
 .kino .go.stamp{animation:stamp .32s ease}
 @keyframes stamp{0%{transform:scale(1) rotate(-1.2deg)}40%{transform:scale(.9) rotate(0)}100%{transform:scale(1) rotate(-1.2deg)}}
 @media(max-width:700px){
@@ -469,6 +474,7 @@ body.bg-dark .foot-cta .alt-btn{color:var(--ink);border-color:#555}
 .h3link:hover h3 .mask-inner::after,.h3link:focus-visible h3 .mask-inner::after{opacity:1}
 .h3link:hover h3{text-decoration:underline;text-decoration-color:var(--acc);text-decoration-thickness:3px;text-underline-offset:6px}
 </style>
+<script src="../js/funnel.js" defer></script>
 </head>
 <body>
 
@@ -508,6 +514,7 @@ body.bg-dark .foot-cta .alt-btn{color:var(--ink);border-color:#555}
     <div class="hero-cta">
       <a class="go" href="https://youtu.be/n5Id2DzHuJk" target="_blank" rel="noopener" data-i18n="cta_go"></a>
       <a class="go alt" href="https://t.me/semyran" target="_blank" rel="noopener" data-i18n="cta_tg"></a>
+      <a class="go price" href="../brief.html?from=ai" data-goal="cta_price" data-i18n="cta_price"></a>
     </div>
   </div>
 </section>
@@ -800,6 +807,7 @@ body.bg-dark .foot-cta .alt-btn{color:var(--ink);border-color:#555}
     </div>
     <div class="foot-phrase rv-mask" data-i18n-html="foot_phrase"></div>
     <div class="foot-cta">
+      <a class="price-btn" href="../brief.html?from=ai" data-goal="cta_price" data-i18n="cta_price"></a>
       <a class="cta-btn" id="foot-cta-btn" href="https://t.me/semyran" target="_blank" rel="noopener" data-i18n="foot_tg"></a>
       <a class="alt-btn" href="mailto:semyran1@gmail.com">semyran1@gmail.com</a>
     </div>
@@ -823,6 +831,7 @@ ru:{
   plate_sub:"ai-режиссёр · сценарист · продюсер",
   cta_go:"смотреть фильм →",
   cta_tg:"написать в telegram",
+  cta_price:"узнать стоимость →",
   hero_pipe:"полный ai-пайплайн · <b>seedance 2.5</b> · kling · veo 3 · runway · comfyui · локальные модели — сценарий → генерация → звук → монтаж",
   cap_left:"осторожно, творец",
   cap_right:"наведите на проект →",
@@ -980,6 +989,7 @@ en:{
   plate_sub:"ai director · screenwriter · producer",
   cta_go:"watch the film →",
   cta_tg:"message on telegram",
+  cta_price:"get a quote →",
   hero_pipe:"full ai pipeline · <b>seedance 2.5</b> · kling · veo 3 · runway · comfyui · local models — script → generation → sound → edit",
   cap_left:"caution: creator at work",
   cap_right:"hover a project →",

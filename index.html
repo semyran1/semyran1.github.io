@@ -154,6 +154,12 @@ body.peek .kino::after{background:rgba(0,0,0,.08)}
 .kino .go{display:inline-block;align-self:flex-start;margin-top:40px;background:#ffe600;color:#111;font-weight:800;font-size:15px;padding:13px 24px;text-decoration:none;transform:rotate(-1.2deg);box-shadow:0 0 30px rgba(255,230,0,.25);transition:transform .2s}
 .kino .go:hover{transform:rotate(0) scale(1.04)}
 .kino .go.stamp{animation:stamp .32s ease}
+.kino .hero-cta{display:flex;gap:14px;flex-wrap:wrap;align-items:flex-start}
+.kino .go.price{background:transparent;color:#f2f2f2;border:1px solid #f2f2f2;box-shadow:none;transform:rotate(.8deg)}
+.kino .go.price:hover{background:#ffe600;color:#111;border-color:#ffe600}
+.foot-cta .price-btn{display:inline-block;text-decoration:none;background:var(--acc);color:#141311;font-weight:800;font-size:15px;padding:13px 26px;transform:rotate(-1.2deg);transition:.2s}
+.foot-cta .price-btn:hover{transform:rotate(0) scale(1.04)}
+
 @keyframes stamp{0%{transform:scale(1) rotate(-1.2deg)}40%{transform:scale(.9) rotate(0)}100%{transform:scale(1) rotate(-1.2deg)}}
 @media(max-width:700px){
   /* на мобильном кадр идёт сразу под шапкой, кино-полос нет — шапке нужен свой фон */
@@ -367,6 +373,7 @@ footer{margin-top:120px;padding:90px 0 32px}
 .rv:nth-child(odd).in{transition-delay:.06s}
 @media (prefers-reduced-motion: reduce){.rv{opacity:1;transform:none}}
 </style>
+<script src="js/funnel.js" defer></script>
 </head>
 <body>
 
@@ -402,7 +409,10 @@ footer{margin-top:120px;padding:90px 0 32px}
     <h1 class="name" id="kino-name"></h1>
     <div class="iam"><span id="kino-pre"></span><span class="w" id="kino-word"></span></div>
     <nav class="tags" id="kino-tags" aria-label="Проекты"></nav>
-    <a class="go" href="#contact" data-i18n="cta_go"></a>
+    <div class="hero-cta">
+      <a class="go" href="#contact" data-i18n="cta_go"></a>
+      <a class="go price" href="brief.html?from=main" data-goal="cta_price" data-i18n="cta_price"></a>
+    </div>
   </div>
 </section>
 
@@ -627,6 +637,7 @@ footer{margin-top:120px;padding:90px 0 32px}
     </div>
     <div class="foot-phrase rv-mask" data-i18n-html="foot_phrase"></div>
     <div class="foot-cta">
+      <a class="price-btn" href="brief.html?from=main" data-goal="cta_price" data-i18n="cta_price"></a>
       <a class="cta-btn" id="foot-cta-btn" href="https://t.me/semyran" target="_blank" rel="noopener" data-i18n="foot_tg"></a>
       <a class="alt-btn" href="mailto:semyran1@gmail.com">semyran1@gmail.com</a>
     </div>
@@ -649,6 +660,7 @@ ru:{
   plate:"Серафим<br>Панюшкин",
   plate_sub:"сценарист · режиссёр · продюсер",
   cta_go:"Давайте делать вместе!",
+  cta_price:"узнать стоимость →",
   cap_left:"осторожно, творец",
   cap_right:"наведите на проект →",
   cloud_hint:"// это кликабельно",
@@ -747,6 +759,7 @@ en:{
   plate:"Serafim<br>Panyushkin",
   plate_sub:"scriptwriter · director · producer",
   cta_go:"Go create together!",
+  cta_price:"get a quote →",
   cap_left:"caution: creator at work",
   cap_right:"hover a project →",
   cloud_hint:"// it's clickable",

@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Узнать стоимость — Серафим Панюшкин</title>
+<meta name="description" content="Шесть коротких вопросов с вариантами ответа. Ответ со сроком и сметой в тот же день.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#f7f5f0">
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+    (function(m,e,t,r,i,k,a){
+        m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();
+        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=111134962', 'ym');
+    ym(111134962, 'init', {ssr:true, webvisor:true, clickmap:true, referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/111134962" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+<script src="js/lead.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#141311; --gray:#6a6558; --soft:#3c382f; --bg:#f7f5f0; --plate:#fcfbf8; --acc:#ffe600;
+  --mono:'JetBrains Mono',ui-monospace,monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:Manrope,-apple-system,sans-serif;font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.wrap{max-width:900px;margin:0 auto;padding:0 24px}
+/* шапка и прогресс */
+header{position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid color-mix(in srgb,var(--ink) 12%,transparent)}
+.hrow{display:flex;justify-content:space-between;align-items:center;height:56px;gap:16px}
+.logo{font-weight:800;font-size:17px;text-decoration:none;letter-spacing:-.02em}
+.logo i{font-style:normal;color:var(--acc);-webkit-text-stroke:1px var(--ink)}
+.back{font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--gray);text-decoration:none}
+.back:hover{color:var(--ink)}
+.bar{height:3px;background:color-mix(in srgb,var(--ink) 12%,transparent)}
+.bar i{display:block;height:100%;width:0;background:var(--acc);transition:width .45s cubic-bezier(.2,.7,.3,1)}
+/* шаг */
+main{padding:52px 0 90px;min-height:calc(100vh - 59px)}
+.step{display:none;animation:in .45s cubic-bezier(.2,.7,.3,1) both}
+.step.on{display:block}
+@keyframes in{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+.num{font-family:var(--mono);font-size:10.5px;font-weight:700;color:#141311;background:var(--acc);padding:3px 8px;letter-spacing:.06em;display:inline-block;transform:rotate(-1deg)}
+h1{font-weight:800;font-size:clamp(28px,4.6vw,44px);line-height:1.1;letter-spacing:-.02em;margin-top:14px}
+h1 u{text-decoration:none;background:linear-gradient(transparent 62%,var(--acc) 62%);padding:0 .05em;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.sub{color:var(--gray);margin-top:10px;max-width:620px}
+/* варианты */
+.opts{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:30px}
+@media(max-width:640px){.opts{grid-template-columns:1fr}}
+.opt{position:relative;text-align:left;background:var(--plate);border:1px solid var(--ink);padding:18px 18px 16px;cursor:pointer;font:inherit;color:inherit;transition:transform .16s,border-color .16s,box-shadow .16s}
+.opt:hover{transform:translateY(-2px)}
+.opt.on{border-width:2px;box-shadow:6px 6px 0 var(--acc)}
+.opt b{display:block;font-weight:800;font-size:17px;line-height:1.3}
+.opt span{display:block;font-family:var(--mono);font-size:11px;color:var(--gray);margin-top:6px;line-height:1.5}
+.opt.on b::after{content:" ✓";color:var(--ink)}
+.own{margin-top:16px}
+label{display:block;font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--gray);margin-bottom:7px}
+input,textarea{width:100%;background:var(--plate);border:1px solid var(--ink);padding:13px 14px;font:inherit;color:inherit;border-radius:0;outline:none}
+input:focus,textarea:focus{border-width:2px;padding:12px 13px}
+textarea{min-height:100px;resize:vertical}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}
+@media(max-width:640px){.pair{grid-template-columns:1fr}}
+.full{grid-column:1/-1}
+.chips{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.chip{font-family:var(--mono);font-size:12px;border:1px solid var(--ink);background:transparent;padding:9px 14px;cursor:pointer;transition:.15s}
+.chip.on{background:var(--acc)}
+/* навигация */
+.nav{display:flex;gap:14px;align-items:center;margin-top:34px;flex-wrap:wrap}
+.btn{display:inline-block;font-weight:800;font-size:15px;padding:14px 26px;border:1px solid var(--ink);background:transparent;cursor:pointer;text-decoration:none;color:inherit;transition:transform .16s}
+.btn:hover{transform:rotate(-1deg)}
+.btn.solid{background:var(--acc);border-color:var(--acc);box-shadow:4px 4px 0 var(--ink)}
+.btn.ghost{border-color:transparent;color:var(--gray);padding-left:0}
+.btn.ghost:hover{color:var(--ink);transform:none}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.kbd{font-family:var(--mono);font-size:10.5px;color:var(--gray);margin-left:auto}
+.kbd b{border:1px solid color-mix(in srgb,var(--ink) 30%,transparent);padding:2px 6px;font-weight:400}
+/* сводка */
+.sum{margin-top:26px;border:1px solid var(--ink);background:var(--plate)}
+.sum .row{display:grid;grid-template-columns:minmax(0,170px) 1fr auto;gap:10px 18px;padding:13px 18px;border-bottom:1px solid color-mix(in srgb,var(--ink) 12%,transparent);align-items:baseline}
+.sum .row:last-child{border-bottom:0}
+.sum dt{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--gray)}
+.sum dd{font-weight:700}
+.sum .edit{font-family:var(--mono);font-size:10.5px;color:var(--gray);text-decoration:none;border-bottom:1px solid color-mix(in srgb,var(--ink) 25%,transparent);cursor:pointer;background:none;border-top:0;border-left:0;border-right:0;padding:0}
+.sum .edit:hover{color:var(--ink);border-color:var(--acc)}
+.hint{font-family:var(--mono);font-size:11.5px;color:var(--gray);margin-top:14px;line-height:1.7;min-height:1.7em}
+.hint b{color:var(--ink)}
+.err{border-color:#d33!important}
+/* финал */
+.done{text-align:center;padding:40px 0}
+.done .mark{font-size:72px;line-height:1;color:var(--acc);-webkit-text-stroke:2px var(--ink)}
+.done h1{margin-top:18px}
+.done .sub{margin:12px auto 0}
+.done .nav{justify-content:center}
+@media (prefers-reduced-motion: reduce){.step{animation:none}.bar i{transition:none}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap hrow">
+    <a class="logo" href="index.html">semyran<i>.</i></a>
+    <a class="back" id="back-link" href="index.html">← вернуться в портфолио</a>
+  </div>
+  <div class="bar"><i id="bar"></i></div>
+</header>
+
+<main class="wrap" id="main"></main>
+
+<script>
+/* ═══ вопросы: 3–4 варианта, один клик ═══ */
+const STEPS = [
+  {id:"task", multi:true, cap:"шаг 1 · задача", t:'Что <u>нужно снять</u>?', sub:"Можно выбрать несколько.",
+   opts:[["Ролики для YouTube","длинные, экспертные, обзоры"],["AI-видео","реклама, продукт, сериал, аватар"],["Кино и документалка","короткий метр, док, имидж"],["Канал под ключ","стратегия, сценарии, продакшн, аналитика"]], own:true},
+  {id:"vol", cap:"шаг 2 · объём", t:'Сколько <u>роликов</u>?', sub:"Примерно — потом уточним.",
+   opts:[["Один ролик",""],["2–4 в месяц",""],["5–10 в месяц",""],["Больше 10 в месяц",""]]},
+  {id:"have", multi:true, cap:"шаг 3 · что уже есть", t:'С чем <u>приходите</u>?', sub:"Это сильнее всего влияет на срок и цену.",
+   opts:[["Канал и материалы","есть что развивать"],["Продукт или бренд","нужен контент под него"],["Только идея","сценария ещё нет"],["Нужна стратегия","с чего вообще начать"]], own:true},
+  {id:"when", cap:"шаг 4 · срок", t:'Когда <u>нужно</u>?', sub:"",
+   opts:[["Срочно","до двух недель"],["В течение месяца",""],["Не горит","планируем заранее"],["Постоянно","нужен человек в команду"]]},
+  {id:"budget", cap:"шаг 5 · бюджет", t:'На что <u>рассчитываете</u>?', sub:"Вилка нужна, чтобы предложить подходящий формат, а не чтобы подогнать цену.",
+   opts:[["До 50 000 ₽",""],["50–150 000 ₽",""],["150–300 000 ₽",""],["Обсудим","пока не знаю"]]},
+  {id:"contact", cap:"шаг 6 · контакт", t:'Куда <u>прислать расчёт</u>?', sub:"Отвечу в тот же день: срок, смета, ближайшие примеры под вашу задачу.", contact:true},
+  {id:"final", cap:"итог", t:'Проверьте и <u>отправьте</u>', sub:"Ничего не уходит без вашего нажатия.", final:true},
+];
+const LABEL = {task:"задача", vol:"объём", have:"на входе", when:"срок", budget:"бюджет", name:"имя", how:"связь", contact:"контакт", comment:"комментарий"};
+
+let A = {}; try { A = JSON.parse(localStorage.getItem("brief") || "{}"); } catch(e){}
+let cur = 0;
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const save = () => { try { localStorage.setItem("brief", JSON.stringify(A)); } catch(e){} };
+const goal = n => { if (window.funnelGoal) funnelGoal(n); else if (typeof ym === "function") ym(111134962,"reachGoal",n); };
+
+function optsHTML(s){
+  const val = A[s.id] || (s.multi ? [] : "");
+  const on = o => s.multi ? val.includes(o) : val === o;
+  return `<div class="opts">${s.opts.map(([o,d]) =>
+    `<button type="button" class="opt${on(o)?" on":""}" data-opt="${esc(o)}"><b>${esc(o)}</b>${d?`<span>${esc(d)}</span>`:""}</button>`).join("")}</div>`
+    + (s.own ? `<div class="own"><label for="own">свой вариант</label><input id="own" type="text" placeholder="если ничего не подошло — напишите словами" value="${esc(A["own_"+s.id]||"")}"></div>` : "");
+}
+function contactHTML(){
+  const how = A.how || "Telegram";
+  const ph = {Telegram:"@ник или ссылка", "Почта":"адрес почты", "Телефон":"+7 …"}[how] || "";
+  return `<div class="chips">${["Telegram","Почта","Телефон"].map(h=>`<button type="button" class="chip${how===h?" on":""}" data-how="${h}">${h}</button>`).join("")}</div>
+    <div class="pair">
+      <div><label for="f-contact">${esc(how)} *</label><input id="f-contact" type="text" placeholder="${esc(ph)}" value="${esc(A.contact||"")}"></div>
+      <div><label for="f-name">как вас зовут</label><input id="f-name" type="text" placeholder="имя" value="${esc(A.name||"")}"></div>
+      <div class="full"><label for="f-comment">что ещё важно</label><textarea id="f-comment" placeholder="ссылки на референсы, детали задачи — всё, что не влезло в варианты">${esc(A.comment||"")}</textarea></div>
+    </div>`;
+}
+function lines(){
+  const out = [];
+  STEPS.forEach((s,i) => {
+    if (s.final) return;
+    if (s.contact){
+      if (A.name) out.push(["name", A.name, i]);
+      if (A.contact) out.push(["contact", (A.how||"Telegram") + ": " + A.contact, i]);
+      if (A.comment) out.push(["comment", A.comment, i]);
+      return;
+    }
+    let v = A[s.id]; if (Array.isArray(v)) v = v.join(", ");
+    if (A["own_"+s.id]) v = (v ? v + ", " : "") + A["own_"+s.id];
+    if (v) out.push([s.id, v, i]);
+  });
+  return out;
+}
+const leadText = () => ["Заявка на расчёт — сайт Серафима Панюшкина", ""]
+  .concat(lines().map(([k,v]) => LABEL[k] + ": " + v))
+  .concat(["", "страница: " + location.href]).join("\n");
+const leadFields = () => { const f = {}; lines().forEach(([k,v]) => f[LABEL[k]] = v); return f; };
+
+function sumHTML(){
+  const L = lines();
+  return `<div class="sum">${L.length ? L.map(([k,v,i]) =>
+      `<div class="row"><dt>${LABEL[k]}</dt><dd>${esc(v)}</dd><button class="edit" data-go="${i}">изменить</button></div>`).join("")
+    : `<div class="row"><dt>пусто</dt><dd>вы пока ничего не выбрали</dd><span></span></div>`}</div>
+    <div class="nav">
+      <button class="btn solid" id="send">отправить на расчёт</button>
+      <button class="btn ghost" id="back">← назад</button>
+    </div>
+    <div class="hint" id="hint">заявка уйдёт мне в Telegram и на почту, ответ — в тот же день</div>`;
+}
+function doneHTML(extra){
+  return `<div class="done"><div class="mark">✓</div><h1>Заявка <u>ушла</u></h1>
+    <p class="sub">${extra}</p>
+    <div class="nav"><a class="btn solid" href="https://t.me/semyran" target="_blank" rel="noopener">написать в Telegram</a>
+    <a class="btn" href="index.html">вернуться в портфолио</a></div></div>`;
+}
+
+function render(){
+  const s = STEPS[cur];
+  document.getElementById("bar").style.width = (cur / (STEPS.length - 1) * 100) + "%";
+  const body = s.final ? sumHTML() : s.contact ? contactHTML() : optsHTML(s);
+  const nav = s.final ? "" : `<div class="nav">
+      ${cur ? `<button class="btn ghost" id="back">← назад</button>` : ""}
+      <button class="btn solid" id="next">${cur === STEPS.length - 2 ? "к итогу →" : "дальше →"}</button>
+      <span class="kbd"><b>Enter</b> дальше</span></div>`;
+  document.getElementById("main").innerHTML = `<section class="step on">
+    <span class="num">${s.cap}</span><h1>${s.t}</h1>${s.sub ? `<p class="sub">${s.sub}</p>` : ""}${body}${nav}</section>`;
+  bind(s); save(); scrollTo({top:0,behavior:"smooth"});
+  if (cur > 0 && !s.final) goal("brief_step_" + (cur + 1));
+}
+function collect(s){
+  if (s.own){ const el = document.getElementById("own"); if (el) A["own_"+s.id] = el.value.trim(); }
+  if (s.contact){ ["contact","name","comment"].forEach(k => { const el = document.getElementById("f-"+k); if (el) A[k] = el.value.trim(); }); }
+}
+function bind(s){
+  const root = document.getElementById("main");
+  root.querySelectorAll(".opt").forEach(b => b.addEventListener("click", () => {
+    const o = b.dataset.opt;
+    if (s.multi){ const v = new Set(A[s.id]||[]); v.has(o) ? v.delete(o) : v.add(o); A[s.id] = [...v]; b.classList.toggle("on"); }
+    else { A[s.id] = o; root.querySelectorAll(".opt").forEach(x => x.classList.toggle("on", x.dataset.opt === o));
+           collect(s); setTimeout(() => { cur++; render(); }, 180); }      /* один выбор — сразу дальше */
+    save();
+  }));
+  root.querySelectorAll(".chip").forEach(c => c.addEventListener("click", () => { collect(s); A.how = c.dataset.how; save(); render(); }));
+  const next = document.getElementById("next");
+  if (next) next.addEventListener("click", () => {
+    collect(s);
+    if (s.contact && !A.contact){ const el = document.getElementById("f-contact"); el.classList.add("err"); el.focus(); return; }
+    cur++; render();
+  });
+  const back = document.getElementById("back");
+  if (back) back.addEventListener("click", () => { collect(s); cur--; render(); });
+  root.querySelectorAll("[data-go]").forEach(b => b.addEventListener("click", () => { cur = +b.dataset.go; render(); }));
+  const send = document.getElementById("send");
+  if (send) send.addEventListener("click", async () => {
+    const hint = document.getElementById("hint");
+    if (!A.contact){ cur = STEPS.findIndex(x => x.contact); render(); return; }
+    send.disabled = true; hint.textContent = "отправляю…";
+    const text = leadText();
+    const res = await sendLead(leadFields(), text);
+    goal("brief_submit");
+    if (res.sent.length){
+      const how = A.how || "Telegram";
+      A = {}; save();
+      document.getElementById("main").innerHTML = doneHTML("Отвечу в тот же день, " + esc(how.toLowerCase()) + ". Пока ждёте — посмотрите <a href='https://youtu.be/n5Id2DzHuJk' target='_blank' rel='noopener'>«Ослепляющее пятно»</a>.");
+      return;
+    }
+    let copied = false;
+    try { await navigator.clipboard.writeText(text); copied = true; } catch(e){}
+    hint.innerHTML = copied ? "заявка <b>скопирована</b> — вставьте её в открывшийся чат" : "скопируйте текст заявки и вставьте в чат";
+    send.disabled = false;
+    window.open(LEAD.TG_CHAT, "_blank", "noopener");
+  });
+}
+addEventListener("keydown", e => {
+  if (e.target.tagName === "TEXTAREA") return;
+  if (e.key === "Enter"){ const n = document.getElementById("next") || document.getElementById("send"); if (n){ e.preventDefault(); n.click(); } }
+});
+/* откуда пришли: ссылка «вернуться» ведёт на ту версию портфолио, с которой открыли бриф */
+const from = new URLSearchParams(location.search).get("from");
+if (from === "ai") document.querySelectorAll("#back-link,.logo,[href='index.html']").forEach(a => a.setAttribute("href","ai/index.html"));
+goal("brief_open");
+render();
+</script>
+</body>
+</html>
