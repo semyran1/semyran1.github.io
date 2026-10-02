@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Расчёт роликов на 2027 год — Серафим Панюшкин</title>
+<meta name="description" content="Ролики-сторителлинг с помощью ИИ: цена одного ролика, объём на год и итог. Можно уточнить расчёт, ответив на вопросы с готовыми вариантами.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#f7f5f0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* Язык портфолио semyran1.github.io и его brief.html: тёплая бумага, чернила, один жёлтый акцент,
+   рамки 1px без скруглений, жёсткие тени, Manrope + JetBrains Mono. */
+:root{
+  --bg:#f7f5f0; --plate:#fcfbf8; --ink:#141311; --soft:#3c382f; --gray:#6a6558;
+  --line:rgba(20,19,17,.14); --line2:rgba(20,19,17,.07);
+  --acc:#ffe600; --on-acc:#141311; --hl:#ffe600; --hl-fg:inherit; --red:#c8321f; --ok:#2f6b3a;
+  --mono:'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace;
+  --sans:Manrope,-apple-system,'Segoe UI',Roboto,sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0e0e0d; --plate:#171715; --ink:#f3f1ea; --soft:#d3cec1; --gray:#a29c8d;
+  --line:rgba(243,241,234,.16); --line2:rgba(243,241,234,.08);
+  --hl:transparent; --hl-fg:#ffe600; --red:#ff7f6e; --ok:#8fd19b; color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#0e0e0d; --plate:#171715; --ink:#f3f1ea; --soft:#d3cec1; --gray:#a29c8d;
+  --line:rgba(243,241,234,.16); --line2:rgba(243,241,234,.08);
+  --hl:transparent; --hl-fg:#ffe600; --red:#ff7f6e; --ok:#8fd19b; color-scheme:dark;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+[hidden]{display:none!important}
+.wrap{max-width:860px;margin:0 auto;padding-inline:24px}
+@media(max-width:560px){.wrap{padding-inline:16px}}
+
+header{position:sticky;top:0;z-index:6;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.hrow{display:flex;justify-content:space-between;align-items:center;height:56px;gap:16px}
+.logo{font-weight:800;font-size:17px;text-decoration:none;letter-spacing:-.02em}
+.logo i{font-style:normal;color:var(--acc);-webkit-text-stroke:1px var(--ink)}
+.hmeta{font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--gray)}
+@media(max-width:520px){.hmeta{display:none}}
+
+main{padding-block:48px 90px}
+section{margin-top:56px}
+section.first{margin-top:0}
+.num{font-family:var(--mono);font-size:10.5px;font-weight:700;color:var(--on-acc);background:var(--acc);padding:3px 8px;letter-spacing:.06em;display:inline-block;transform:rotate(-1deg)}
+h1{font-weight:800;font-size:clamp(28px,4.6vw,44px);line-height:1.1;letter-spacing:-.02em;margin-top:14px;text-wrap:balance}
+h2{font-weight:800;font-size:clamp(21px,2.6vw,28px);line-height:1.2;letter-spacing:-.01em;margin-top:12px;text-wrap:balance}
+u{text-decoration:none;background:linear-gradient(transparent 62%,var(--hl) 62%);color:var(--hl-fg);padding:0 .05em;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.sub{color:var(--gray);margin-top:10px;max-width:660px}
+label,.lbl{display:block;font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--gray);margin-bottom:9px}
+.hint{font-family:var(--mono);font-size:11px;color:var(--gray);margin-top:10px;line-height:1.7}
+.hint b{color:var(--ink)}
+.ctl{margin-top:24px}
+
+/* выбор */
+.chips{display:flex;gap:10px;flex-wrap:wrap}
+.chip{font-family:var(--mono);font-size:13px;border:1px solid var(--ink);background:transparent;padding:10px 16px;cursor:pointer;transition:.15s;color:var(--ink);line-height:1.3;text-align:left}
+.chip:hover{transform:translateY(-1px)}
+.chip.on{background:var(--acc);color:var(--on-acc);box-shadow:4px 4px 0 var(--ink)}
+.chip small{display:block;font-size:10px;opacity:.75;margin-top:2px}
+.opts{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+@media(max-width:560px){.opts{grid-template-columns:1fr}}
+.opt{position:relative;display:block;text-align:left;background:var(--plate);border:1px solid var(--ink);padding:14px 16px 13px;cursor:pointer;transition:transform .16s,box-shadow .16s;color:var(--ink);min-width:0}
+.opt:hover{transform:translateY(-2px)}
+.opt.on{border-width:2px;padding:13px 15px 12px;box-shadow:6px 6px 0 var(--acc)}
+.opt b{display:block;font-weight:800;font-size:17px;line-height:1.3}
+.opt.on b::after{content:" ✓"}
+.opt .d{display:block;font-size:14px;color:var(--gray);margin-top:5px;line-height:1.45}
+.opt .p{display:block;font-family:var(--mono);font-size:12px;margin-top:9px;font-weight:700}
+.sub-ctl{margin-top:14px;padding-left:14px;border-left:3px solid var(--acc)}
+
+/* карточка результата */
+.card{border:1px solid var(--ink);background:var(--plate);box-shadow:6px 6px 0 var(--acc);margin-top:26px}
+.card .ph{padding:10px 18px;background:var(--acc);color:var(--on-acc);font-family:var(--mono);font-size:11px;line-height:1.5;letter-spacing:.04em}
+.big{padding:20px 18px 14px}
+.big .lbl{margin-bottom:4px}
+.big .v{font-weight:800;font-size:clamp(36px,6vw,52px);line-height:1.05;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.big .v small{font-size:.38em;font-weight:700;letter-spacing:0;color:var(--gray);margin-left:6px}
+.big .u{font-family:var(--mono);font-size:12px;color:var(--gray);margin-top:8px;line-height:1.7}
+.big .u s{opacity:.7}
+.big .u b{color:var(--ink)}
+.rows{padding:2px 18px 6px;border-top:1px dashed var(--ink)}
+.rows .lbl{margin:14px 0 6px}
+.rows .r{display:flex;justify-content:space-between;gap:14px;align-items:baseline;padding:7px 0;border-bottom:1px solid var(--line2);font-size:15px;color:var(--soft)}
+.rows .r:last-child{border-bottom:0}
+.rows .r span small{display:block;font-family:var(--mono);font-size:10.5px;color:var(--gray);line-height:1.5;margin-top:1px}
+.rows .r b{font-family:var(--mono);font-size:12.5px;color:var(--ink);font-weight:700;white-space:nowrap;font-variant-numeric:tabular-nums}
+.rows .r.tot{border-top:1px solid var(--ink);margin-top:4px;padding-top:11px;color:var(--ink);font-weight:700}
+.rows .r.sv b{color:var(--ok)}
+.rows .r.gr b{font-size:15px}
+
+/* что входит */
+.inc{list-style:none;margin-top:16px}
+.inc li{display:flex;gap:10px;font-size:15.5px;padding:6px 0;color:var(--soft);border-bottom:1px solid var(--line2)}
+.inc li::before{content:"✓";font-family:var(--mono);font-weight:700;color:var(--ok);flex:none}
+.inc.no li::before{content:"–";color:var(--gray)}
+details{margin-top:14px;border-top:1px solid var(--line)}
+details>summary{cursor:pointer;list-style:none;padding:13px 0;font-family:var(--mono);font-size:11.5px;letter-spacing:.04em;display:flex;justify-content:space-between;gap:12px}
+details>summary::-webkit-details-marker{display:none}
+details>summary::after{content:"+";font-family:var(--mono)}
+details[open]>summary::after{content:"–"}
+details .inc{margin-top:0;padding-bottom:12px}
+
+.ladder{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--ink);background:var(--plate);margin-top:14px}
+.ladder div{padding:9px 12px;border-right:1px solid var(--line);font-family:var(--mono);font-size:10.5px;color:var(--gray);line-height:1.5}
+.ladder div:last-child{border-right:0}
+.ladder b{display:block;font-size:14px;color:var(--ink)}
+.ladder .on{background:var(--acc);color:var(--on-acc)}
+.ladder .on b{color:var(--on-acc)}
+@media(max-width:480px){.ladder{grid-template-columns:repeat(2,1fr)}.ladder div:nth-child(2){border-right:0}.ladder div:nth-child(-n+2){border-bottom:1px solid var(--line)}}
+
+.actions{display:flex;gap:12px;flex-wrap:wrap;padding:16px 18px 18px;border-top:1px dashed var(--ink)}
+.btn{display:inline-block;font-weight:800;font-size:14.5px;padding:12px 20px;border:1px solid var(--ink);background:transparent;cursor:pointer;color:var(--ink);transition:transform .16s;text-decoration:none}
+.btn:hover{transform:rotate(-1deg)}
+.btn.solid{background:var(--acc);color:var(--on-acc);box-shadow:4px 4px 0 var(--ink)}
+.fine{font-family:var(--mono);font-size:10.5px;color:var(--gray);line-height:1.8;padding:0 18px 16px}
+
+/* уточнение */
+.q{margin-top:22px;padding-top:18px;border-top:1px solid var(--line)}
+.q h4{font-size:17px;font-weight:800;line-height:1.35;display:flex;gap:12px;align-items:baseline}
+.q h4 i{font-style:normal;font-family:var(--mono);font-size:11px;font-weight:700;background:var(--acc);color:var(--on-acc);padding:2px 7px;transform:rotate(-2deg);flex:none}
+.q .chips{margin-top:12px}
+.q .note{font-family:var(--mono);font-size:11px;color:var(--gray);margin-top:9px;line-height:1.7}
+.refbar{position:sticky;bottom:0;z-index:5;margin-top:26px;border:1px solid var(--ink);background:var(--plate);box-shadow:6px 6px 0 var(--acc);padding:14px 18px;display:flex;gap:10px 24px;flex-wrap:wrap;align-items:baseline}
+.refbar .k{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--gray);display:block}
+.refbar b{font-family:var(--mono);font-size:17px;font-variant-numeric:tabular-nums}
+.refbar .d{font-family:var(--mono);font-size:11px;color:var(--gray);flex-basis:100%}
+@media(max-width:560px){.refbar{padding:9px 12px;gap:4px 14px;box-shadow:4px 4px 0 var(--acc)}.refbar b{font-size:13px}.refbar .k{font-size:9px}.refbar .d{display:none}}
+
+.stories{display:grid;grid-template-columns:1fr;gap:12px;padding-bottom:14px}
+@media(min-width:700px){.stories{grid-template-columns:1fr 1fr}}
+.st{border:1px solid var(--ink);background:var(--plate);padding:13px 15px 12px}
+.st .who{font-weight:800;font-size:15.5px;line-height:1.3}
+.st p{font-size:14px;color:var(--soft);margin-top:5px;line-height:1.5}
+.st .why{display:block;margin-top:8px;font-family:var(--mono);font-size:10.5px;color:var(--gray);line-height:1.5;border-top:1px dashed var(--line);padding-top:7px}
+
+footer{border-top:1px solid var(--line);padding-block:26px;font-family:var(--mono);font-size:10.5px;color:var(--gray);line-height:1.8}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:var(--bg);font-family:var(--mono);font-size:12px;padding:10px 16px;opacity:0;pointer-events:none;transition:.25s;z-index:20}
+.toast.on{opacity:1;transform:translateX(-50%)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap hrow">
+    <a class="logo" href="#top">semyran<i>.</i></a>
+    <span class="hmeta">расчёт на 2027 · версия от 02.10.2026</span>
+  </div>
+</header>
+
+<main class="wrap" id="top">
+
+  <!-- шаг 1: цена одного ролика -->
+  <section class="first">
+    <span class="num">1 · один ролик</span>
+    <h1>Истории из жизни, <u>2 ролика в неделю</u></h1>
+    <p class="sub">Серия вертикальных роликов 9:16 про потенциальных пациентов, сделанных нейросетями: герой из обычной профессии замечает признаки проблем со зрением. Сначала цена одного ролика, итог за год в конце.</p>
+
+    <div class="ctl">
+      <label>Что делаю я</label>
+      <div class="opts" id="c-scope"></div>
+      <div class="sub-ctl" id="c-montage" hidden>
+        <label>Озвучка, музыка и монтаж</label>
+        <div class="chips" id="c-edit"></div>
+      </div>
+    </div>
+
+    <div class="ctl">
+      <label>Длительность ролика</label>
+      <div class="chips" id="c-dur"></div>
+      <p class="hint">До 30 секунд цена одна: подготовка и сценарий у 20 и 30 секунд почти одинаковые. Минута дороже в 1,75 раза, а не вдвое.</p>
+    </div>
+
+    <div class="card">
+      <div class="ph" id="p-head">цена одного ролика</div>
+      <div class="big">
+        <div class="lbl">за один ролик</div>
+        <div class="v" id="p-price">—</div>
+        <div class="u" id="p-note"></div>
+      </div>
+      <div class="rows" id="p-parts"></div>
+    </div>
+
+    <ul class="inc" id="inc-yes"></ul>
+    <details>
+      <summary>Что не входит</summary>
+      <ul class="inc no" id="inc-no">
+        <li class="fixed">Живая съёмка людей</li>
+        <li class="fixed">Врач в кадре: цифровой двойник считаю отдельно, нужно письменное согласие врача</li>
+        <li class="fixed">Публикации и ведение каналов: 35 000 ₽ в месяц, подключается отдельно</li>
+        <li class="fixed">Рекламный бюджет площадок</li>
+        <li class="fixed">Перемонтаж ваших готовых длинных роликов в 20–30 секунд: посмотрю и назову цену отдельно</li>
+        <li class="fixed">Проверка текстов врачом и юристом клиники: на вашей стороне, ответы нужны быстро</li>
+      </ul>
+    </details>
+  </section>
+
+  <!-- шаг 2: сколько роликов -->
+  <section>
+    <span class="num">2 · объём</span>
+    <h2>Сколько <u>роликов</u></h2>
+    <div class="ctl">
+      <label>Роликов в неделю</label>
+      <div class="chips" id="c-wk"></div>
+    </div>
+    <div class="ctl">
+      <label>Недель в году</label>
+      <div class="chips" id="c-weeks"></div>
+      <p class="hint" id="h-weeks"></p>
+    </div>
+    <div class="ladder" id="ladder"></div>
+    <p class="hint">Цена выше уже с максимальной скидкой: она действует от 50 роликов в договоре. При меньшем объёме скидка ниже.</p>
+  </section>
+
+  <!-- шаг 3: итог -->
+  <section id="total">
+    <span class="num">3 · итог</span>
+    <h2>Что получается <u>за год</u></h2>
+    <div class="card">
+      <div class="ph" id="t-head">итог по договору</div>
+      <div class="big">
+        <div class="lbl">за год</div>
+        <div class="v" id="t-total">—</div>
+        <div class="u" id="t-units"></div>
+      </div>
+      <div class="rows" id="t-rows"></div>
+      <div class="actions">
+        <button class="btn solid" id="b-refine">уточнить расчёт</button>
+        <button class="btn" id="b-copy">скопировать смету</button>
+      </div>
+      <p class="fine">Это предварительная цена: она считается по типовому ролику. Ответьте на несколько вопросов с вариантами, и цифра станет точнее. ИП на УСН, без НДС. Права на ролики ваши после оплаты.</p>
+    </div>
+  </section>
+
+  <!-- шаг 4: уточнение -->
+  <section id="refine" hidden>
+    <span class="num">4 · уточнение</span>
+    <h2>Чтобы цифра была <u>точнее</u></h2>
+    <p class="sub">Заранее выбран самый вероятный вариант, меняйте только то, что отличается. Цена пересчитывается сразу. На что не знаете ответ, оставляйте как есть.</p>
+    <div id="qs"></div>
+    <div class="refbar" id="refbar"></div>
+    <div class="actions" style="border-top:0;padding-left:0">
+      <button class="btn solid" id="b-send">скопировать ссылку с ответами</button>
+      <a class="btn" href="https://t.me/semyran" target="_blank" rel="noopener">написать в Telegram</a>
+    </div>
+    <p class="hint">Ссылка хранит ваш выбор и цену. Отправьте её Серафиму в любой мессенджер, он откроет её с теми же ответами.</p>
+  </section>
+
+  <!-- примеры сюжетов -->
+  <section>
+    <details>
+      <summary>Примеры сюжетов из вашей таблицы</summary>
+      <p class="hint" style="margin:0 0 14px">Каждая история отдельный выпуск: другой герой, другая обстановка. Поэтому считаю как сторителлинг, а не шаблонную серию.</p>
+      <div class="stories" id="stories"></div>
+    </details>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">semyran. · ориентировочная оценка, точная цена после брифа · ИП на УСН, без НДС</div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const DATA = {"list":{"30":25600,"45":35200,"60":44800},"gen":{"30":5800,"45":8700,"60":11600},"scn":{"30":6400,"45":7100,"60":7700},"post":{"30":0.2062,"45":0.2121,"60":0.2108},"tiers":[[1,0],[5,0.1],[20,0.15],[50,0.22]]};
+
+/* ═══ состояние ═══ */
+const KEY = "zrenie2";
+const S = { dur: 30, wk: 2, weeks: 50, scope: "key", edit: "me", ans: {} };
+try { Object.assign(S, JSON.parse(localStorage.getItem(KEY) || "{}")); } catch (e) {}
+if (!DATA.list[S.dur]) S.dur = 30;
+let FROM_LINK = false;
+const save = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} };
+const r100 = x => Math.round(x / 100) * 100;
+const fmt = n => Math.round(n).toLocaleString("ru-RU").replace(/ /g, " ") + " ₽";
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const tier = n => DATA.tiers.reduce((d, t) => n >= t[0] ? t[1] : d, 0);
+const plural = (n, a, b, c) => { const m = n % 100, k = n % 10; return (m > 10 && m < 20) ? c : k === 1 ? a : (k > 1 && k < 5) ? b : c; };
+const clips = n => n + " " + plural(n, "ролик", "ролика", "роликов");
+const $ = id => document.getElementById(id);
+const toast = t => { const el = $("toast"); el.textContent = t; el.classList.add("on"); setTimeout(() => el.classList.remove("on"), 1800); };
+const durName = d => d === 60 ? "1 минута" : d === 45 ? "45 секунд" : "до 30 секунд";
+
+/* ═══ состав цены ═══ */
+// Компоненты прайса (до скидки). Нейросети по себестоимости, сценарий по рынку, озвучка/монтаж по доле модели;
+// остаток делится на подготовку (герой, обстановка, стиль) и генерацию кадров.
+function comps(dur, scope, edit) {
+  const full = DATA.list[dur], gen = DATA.gen[dur], scn = DATA.scn[dur];
+  const post = r100((full - gen) * DATA.post[dur]);
+  const rest = full - gen - scn - post;
+  const pre = r100(rest * 0.3);
+  const c = { pre, scn, shoot: rest - pre, post, gen };
+  if (scope === "script") { c.scn = 0; if (edit === "client") c.post = 0; }
+  return c;
+}
+const listFor = (dur, scope, edit) => { const c = comps(dur, scope, edit); return c.pre + c.scn + c.shoot + c.post + c.gen; };
+const SCOPE_NAME = () => S.scope === "key" ? "под ключ" : S.edit === "client" ? "сценарий и монтаж ваши, только генерация" : "сценарий ваш";
+
+function calc(dur, nContract, scope, edit) {
+  const list = listFor(dur, scope, edit), d = tier(nContract);
+  const price = d ? r100(list * (1 - d)) : list;
+  return { list, d, price };
+}
+
+/* ═══ вопросы для уточнения ═══ */
+// def: вариант, заложенный в предварительную цену. effect: что меняется в цене.
+const QS = [
+  { id: "voice", t: "Кто говорит в ролике?", def: "narr", o: [
+    ["narr", "Рассказчик за кадром + субтитры"], ["heroes", "Герои говорят между собой"], ["silent", "Без слов: музыка и субтитры"], ["idk", "Не решили"]],
+    note: { heroes: "Реплики героев сложнее в генерации. Цену уточню после тестового ролика.", idk: "Закладываю рассказчика и субтитры." } },
+  { id: "end", t: "Чем заканчивается ролик?", def: "logo", o: [
+    ["logo", "Логотип и призыв записаться"], ["doc", "Врач в кадре, вы его снимаете"], ["twin", "Цифровой двойник врача"], ["idk", "Не решили"]],
+    note: { doc: "Вашу съёмку врача встрою в ролик. Цена не меняется.", twin: "Двойник врача считаю отдельно и только с письменного согласия врача. В цену не входит.", idk: "Закладываю логотип и призыв." } },
+  { id: "plat", t: "Для скольких площадок нужны разные версии?", def: "one", o: [
+    ["one", "Один файл для всех"], ["two", "2 версии (+20%)"], ["three", "3 и больше (+40%)"]],
+    effect: { two: { ver: 1 }, three: { ver: 2 } }, note: { one: "Один вертикальный файл 9:16 подходит для Telegram, VK, Дзена и Reels." } },
+  { id: "ads", t: "Будете продвигать ролики платной рекламой?", def: "no", o: [
+    ["no", "Нет, только органика"], ["yes", "Да, запустим в рекламу (+30%)"], ["idk", "Пока не знаем"]],
+    effect: { yes: { rights: 1 } }, note: { yes: "Права на платную рекламу +30% к работе.", idk: "Закладываю без рекламы, права докупаются позже." } },
+  { id: "appr", t: "Как согласуете ролики?", def: "fast", o: [
+    ["fast", "Один человек, ответ за 1–2 дня"], ["many", "Несколько человек, 3–5 дней (+15%)"], ["idk", "Не знаем"]],
+    effect: { many: { rev: 1 } }, note: { many: "Больше согласований это дополнительный раунд правок на каждый ролик, +15% к работе.", idk: "Для ритма «2 в неделю» нужен один человек с правом сказать «да»." } },
+  { id: "old", t: "Что с вашими готовыми длинными роликами?", def: "none", o: [
+    ["none", "Не нужно"], ["recut", "Пересобрать в 20–30 секунд"]],
+    note: { recut: "Пришлите ролики, посмотрю и назову цену отдельно: перемонтаж обычно дешевле нового ролика." } },
+  { id: "pub", t: "Кто будет публиковать и вести каналы?", def: "self", o: [
+    ["self", "Вы сами"], ["me", "Нужно мне (+35 000 ₽ в месяц)"]],
+    effect: { me: { pub: 1 } } },
+  { id: "start", t: "Когда старт?", def: "jan", o: [
+    ["jan", "Январь 2027"], ["pilot", "Пилот из 4 роликов в конце 2026"], ["idk", "Не знаем"]],
+    effect: { pilot: { pilot: 1 } }, note: { pilot: "Пилот считается по прайсу, без скидки. В договор 2027 тогда входит на 4 ролика меньше." } },
+  { id: "law", t: "Кто проверит формат серии юридически?", def: "idk", o: [
+    ["yes", "Юрист клиники проверит"], ["no", "Некому"], ["idk", "Не знаем"]],
+    note: { no: "Реклама медицинских услуг в РФ имеет жёсткие требования (предупреждение о противопоказаниях, ограничения на истории «излечения»). Стоит показать формат юристу до старта.", idk: "Формат серии стоит показать юристу до старта." } },
+  { id: "budget", t: "Сколько в год вы планируете тратить на такой контент?", def: "later", o: [
+    ["lt1", "До 1 млн ₽"], ["1to2", "1–2 млн ₽"], ["gt2", "Больше 2 млн ₽"], ["later", "Скажем позже"]] },
+];
+const ans = q => (S.ans && S.ans[q.id]) || q.def;
+const optLabel = (q, id) => (q.o.find(x => x[0] === id) || [])[1];
+
+/* суммарный эффект ответов */
+function effects() {
+  const e = { ver: 0, rights: 0, rev: 0, pub: 0, pilot: 0 };
+  QS.forEach(q => { const f = q.effect && q.effect[ans(q)]; if (f) Object.keys(f).forEach(k => e[k] += f[k]); });
+  return e;
+}
+
+/* ═══ расчёт ═══ */
+function model() {
+  const n = S.wk * S.weeks;
+  const c = calc(S.dur, n, S.scope, S.edit);
+  const cl = comps(S.dur, S.scope, S.edit), k = c.list ? c.price / c.list : 1;
+  // разбивка прайса до скидки: сумма пунктов равна прайсу
+  const parts = [["pre", "Подготовка: герой, обстановка, стиль"], ["scn", "Сценарий и раскадровка"], ["shoot", "Генерация кадров"], ["post", "Озвучка, музыка, монтаж, субтитры"], ["gen", "Нейросети"]]
+    .filter(([id]) => cl[id] > 0).map(([id, t]) => ({ id, t, v: cl[id] }));
+  const total = n * c.price, without = n * c.list;
+  return { n, c, k, parts, total, without, save: without - total, month: total / 12, reserve: Math.round(total * 1.1 / 10000) * 10000,
+           gen: cl.gen, shootC: cl.shoot * k, postC: cl.post * k };
+}
+function refined(M) {
+  const e = effects(), work = M.c.price - M.gen;   // работа = цена без нейросетей, как в модели
+  const up = e.ver * 0.2 * (M.shootC + M.postC) + e.rights * 0.3 * work + e.rev * 0.15 * work;
+  const price = r100(M.c.price + up);
+  const nYear = e.pilot ? M.n - 4 : M.n;
+  const pilotCost = e.pilot ? 4 * M.c.list : 0;
+  const pub = e.pub ? 35000 * 12 : 0;
+  const total = nYear * price + pub;
+  return { e, price, nYear, pilotCost, pub, total, delta: total - M.total, perMonth: total / 12 };
+}
+
+/* ═══ отрисовка ═══ */
+function chips(id, items, key, after) {
+  const root = $(id);
+  root.innerHTML = items.map(([v, t, s]) => `<button type="button" class="chip${S[key] === v ? " on" : ""}" data-v="${v}">${t}${s ? `<small>${s}</small>` : ""}</button>`).join("");
+  root.querySelectorAll(".chip").forEach(b => b.addEventListener("click", () => { S[key] = isNaN(b.dataset.v) ? b.dataset.v : +b.dataset.v; save(); render(); }));
+}
+
+function render() {
+  const M = model(), n = M.n;
+  chips("c-dur", [[30, "20–30 сек", "цена одна"], [45, "45 сек", ""], [60, "1 минута", "×1,75 к 30 сек"]], "dur");
+  chips("c-wk", [[1, "1", ""], [2, "2", "ваш запрос"], [3, "3", ""]], "wk");
+  chips("c-weeks", [[50, "50", "с паузой на праздники"], [52, "52", "без пауз"]], "weeks");
+  $("h-weeks").innerHTML = (S.weeks === 50 ? "Новогодние каникулы без выпусков. " : "Выпуски идут весь год. ") + "<b>" + clips(n) + " в год.</b>";
+
+  // выбор объёма работ
+  const pk = sc => fmt(calc(S.dur, n, sc, S.edit).price);
+  const SC = [["key", "Под ключ", "Идеи, сценарий и раскадровка мои. Вы согласуете и получаете готовый ролик."],
+              ["script", "Сценарий ваш", "Клиника присылает готовый сценарий. Я делаю подготовку, генерацию и монтаж."]];
+  const sr = $("c-scope");
+  sr.innerHTML = SC.map(([v, t, d]) => `<button type="button" class="opt${S.scope === v ? " on" : ""}" data-v="${v}"><b>${t}</b><span class="d">${d}</span><span class="p">${pk(v)} за ролик</span></button>`).join("");
+  sr.querySelectorAll(".opt").forEach(b => b.addEventListener("click", () => { S.scope = b.dataset.v; save(); render(); }));
+  $("c-montage").hidden = S.scope !== "script";
+  if (S.scope === "script") {
+    const pe = e => fmt(calc(S.dur, n, "script", e).price);
+    chips("c-edit", [["me", "Озвучку, музыку и монтаж делаю я", pe("me") + " за ролик"], ["client", "Только генерация: монтаж на вашей стороне", pe("client") + " за ролик"]], "edit");
+    $("c-edit").querySelectorAll(".chip").forEach(b => b.classList.add("wide"));
+  }
+
+  // шаг 1: цена ролика
+  $("p-head").textContent = SCOPE_NAME() + " · " + durName(S.dur);
+  $("p-price").innerHTML = fmt(M.c.price) + "<small>за ролик</small>";
+  $("p-note").innerHTML = `Прайс <s>${fmt(M.c.list)}</s>, скидка −${Math.round(M.c.d * 100)}% при договоре от 50 роликов в год.`;
+  $("p-parts").innerHTML = `<div class="lbl">из чего складывается прайс ролика</div>` + M.parts.map(p => `<div class="r"><span>${p.t}${p.id === "pre" ? "<small>новый герой и обстановка для каждой истории</small>" : ""}</span><b>${fmt(p.v)}</b></div>`).join("") +
+    `<div class="r"><span>Скидка за объём, −${Math.round(M.c.d * 100)}%</span><b>−${fmt(M.c.list - M.c.price)}</b></div>` +
+    `<div class="r tot"><span>Цена ролика в договоре</span><b>${fmt(M.c.price)}</b></div>`;
+
+  // что входит
+  const yes = [];
+  yes.push("Подготовка: персонаж, обстановка и стиль каждой истории");
+  yes.push(S.scope === "key" ? "Сценарий и раскадровка: своя история для каждого ролика" : "Раскадровка по вашему сценарию, подгоняю текст под нужную длину");
+  yes.push("Генерация видео нейросетями, герой выглядит одинаково во всех кадрах");
+  if (S.scope === "script" && S.edit === "client") yes.push("Отдельные клипы по кадрам в высоком качестве для вашего монтажа");
+  else yes.push("Озвучка нейросетью (ElevenLabs), музыка, монтаж, субтитры. Запись вашего диктора тоже смонтирую");
+  yes.push("Два раунда правок на ролик. Файлы для ваших площадок. Права ваши после оплаты");
+  $("inc-yes").innerHTML = yes.map(t => `<li>${t}</li>`).join("");
+  const no = $("inc-no"); no.querySelectorAll("li.var").forEach(l => l.remove());
+  const extra = [];
+  if (S.scope === "script") extra.push("Идеи и сценарии: присылает клиника, по тексту на каждый ролик");
+  if (S.scope === "script" && S.edit === "client") extra.push("Озвучка, музыка, монтаж и субтитры: на стороне клиники");
+  extra.slice().reverse().forEach(t => { const li = document.createElement("li"); li.className = "var"; li.textContent = t; no.prepend(li); });
+
+  // шаг 2: ступени скидки
+  $("ladder").innerHTML = DATA.tiers.map((t, i) => {
+    const next = DATA.tiers[i + 1], on = n >= t[0] && (!next || n < next[0]);
+    return `<div class="${on ? "on" : ""}"><b>${t[1] ? "−" + Math.round(t[1] * 100) + "%" : "без скидки"}</b>${next ? "от " + t[0] + " до " + (next[0] - 1) : "от " + t[0]} роликов</div>`;
+  }).join("");
+
+  // шаг 3: итог
+  $("t-head").textContent = "итог · " + SCOPE_NAME() + " · " + durName(S.dur) + " · " + S.wk + " в неделю";
+  $("t-total").textContent = fmt(M.total);
+  $("t-units").textContent = clips(n) + " × " + fmt(M.c.price);
+  $("t-rows").innerHTML =
+    `<div class="r"><span>Прайс без скидки<small>${clips(n)} × ${fmt(M.c.list)}</small></span><b><s>${fmt(M.without)}</s></b></div>` +
+    `<div class="r sv"><span>Скидка за объём, −${Math.round(M.c.d * 100)}%</span><b>−${fmt(M.save)}</b></div>` +
+    `<div class="r gr"><span>Один платёж в месяц<small>за ролики этого месяца, около ${Math.round(n / 12)} ${plural(Math.round(n / 12), "ролика", "роликов", "роликов")}</small></span><b>${fmt(Math.round(M.month / 100) * 100)}</b></div>` +
+    `<div class="r"><span>В бюджет с запасом 10%<small>на дополнительные правки и срочные ролики</small></span><b>${fmt(M.reserve)}</b></div>`;
+
+  renderRefine(M);
+}
+
+function renderRefine(M) {
+  const root = $("qs");
+  root.innerHTML = QS.map((q, i) => {
+    const a = ans(q), note = q.note && q.note[a];
+    return `<div class="q"><h4><i>${i + 1}</i>${esc(q.t)}</h4><div class="chips" data-q="${q.id}">${q.o.map(([id, t]) => `<button type="button" class="chip${a === id ? " on" : ""}" data-v="${id}">${esc(t)}</button>`).join("")}</div>${note ? `<p class="note">${esc(note)}</p>` : ""}</div>`;
+  }).join("");
+  root.querySelectorAll(".chips").forEach(box => box.querySelectorAll(".chip").forEach(b => b.addEventListener("click", () => { S.ans = S.ans || {}; S.ans[box.dataset.q] = b.dataset.v; save(); render(); })));
+
+  const R = refined(M);
+  const parts = [];
+  if (R.e.ver) parts.push("версии под площадки +" + R.e.ver * 20 + "%");
+  if (R.e.rights) parts.push("права на платную рекламу +30% к работе");
+  if (R.e.rev) parts.push("доп. раунд правок +15% к работе");
+  if (R.pub) parts.push("публикации и ведение 35 000 ₽ × 12");
+  if (R.pilotCost) parts.push("пилот 2026 отдельно: " + fmt(R.pilotCost));
+  $("refbar").innerHTML =
+    `<div><span class="k">уточнённо за ролик</span><b>${fmt(R.price)}</b></div>` +
+    `<div><span class="k">за год${R.e.pilot ? ", договор 2027" : ""}</span><b>${fmt(R.total)}</b></div>` +
+    `<div><span class="k">платёж в месяц</span><b>${fmt(Math.round(R.perMonth / 100) * 100)}</b></div>` +
+    `<div class="d">${R.delta === 0 ? "Совпадает с предварительной ценой." : (R.delta > 0 ? "+" : "−") + fmt(Math.abs(R.delta)) + " к предварительной цене."}${parts.length ? " Учтено: " + parts.join("; ") + "." : ""}</div>`;
+  return R;
+}
+
+/* ═══ сюжеты ═══ */
+const STORIES = [
+  ["Офисный сотрудник", "К вечеру глаза красные и сухие, всё расплывается. Восемь часов за компьютером, а по дороге и дома телефон.", "сухость глаз, зрительная нагрузка"],
+  ["Парикмахер, 40+", "Клиент показывает референс на телефоне. Мастер отодвигает телефон дальше, потом ловит на себе удивлённый взгляд.", "пресбиопия, зрение после 40"],
+  ["Фотограф", "Меняет настройки, протирает объектив, снова фокусируется, и ничего не помогает. Думает, что сломалась камера.", "астигматизм, изменение остроты зрения"],
+  ["Стоматолог, 40+", "Понимает, что при работе расплывается картинка. Что дальше: очки?", "пресбиопия, изменения зрения вблизи"],
+  ["Мастер маникюра", "Несколько часов с мелкими деталями. К концу дня контуры расплываются или двоятся, трудно удержать фокус.", "скрытое косоглазие"],
+  ["Водитель такси", "Днём всё отлично. Вечером щурится из-за встречных фар, не может разглядеть номер дома и боковые зеркала.", "ночное зрение, блики"],
+  ["Дедушка, которого привела семья", "«Есть жалобы?» «Нет». Жена рядом: «Он ценники в магазине фотографирует, чтобы увеличить».", "отрицание проблемы, возможна катаракта"],
+];
+$("stories").innerHTML = STORIES.map(([w, t, why]) => `<div class="st"><div class="who">${esc(w)}</div><p>${esc(t)}</p><span class="why">за этим может стоять: ${esc(why)}</span></div>`).join("");
+
+/* ═══ кнопки ═══ */
+async function copyText(text, ok) {
+  try { await navigator.clipboard.writeText(text); toast(ok); }
+  catch (e) { const ta = document.createElement("textarea"); ta.value = text; document.body.appendChild(ta); ta.select(); try { document.execCommand("copy"); toast(ok); } catch (_) { toast("не удалось скопировать"); } ta.remove(); }
+}
+function baseText() {
+  const M = model();
+  return ["Ролики-сторителлинг с помощью ИИ на 2027 год",
+    "Вариант: " + SCOPE_NAME() + ", " + durName(S.dur) + ", вертикаль 9:16",
+    S.wk + " в неделю, " + clips(M.n) + " в год",
+    "",
+    "Цена ролика: " + fmt(M.c.price) + " (прайс " + fmt(M.c.list) + ", скидка −" + Math.round(M.c.d * 100) + "%)",
+    "Итого за год: " + fmt(M.total),
+    "Один платёж в месяц: " + fmt(Math.round(M.month / 100) * 100),
+    "",
+    "Входит: " + Array.from(document.querySelectorAll("#inc-yes li")).map(l => l.textContent).join("; ") + ".",
+    "ИП на УСН, без НДС. Предварительная цена до уточнения."].join("\n");
+}
+$("b-copy").addEventListener("click", () => copyText(baseText(), "смета скопирована"));
+$("b-refine").addEventListener("click", () => { const s = $("refine"); s.hidden = false; s.scrollIntoView({ behavior: "smooth" }); });
+/* ссылка с ответами: состояние в хэше, base64url от компактного JSON */
+function encodeState() {
+  const a = {}; QS.forEach(q => { if (ans(q) !== q.def) a[q.id] = ans(q); });
+  const o = { v: 1, d: S.dur, w: S.wk, k: S.weeks, s: S.scope, e: S.edit, a };
+  return btoa(JSON.stringify(o)).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+}
+function applyHash() {
+  const m = /[#&]r=([A-Za-z0-9_-]+)/.exec(location.hash); if (!m) return;
+  try {
+    let t = m[1].replace(/-/g, "+").replace(/_/g, "/"); while (t.length % 4) t += "=";
+    const o = JSON.parse(atob(t));
+    if (o.v !== 1) return;
+    if (DATA.list[o.d]) S.dur = o.d;
+    if ([1, 2, 3].includes(o.w)) S.wk = o.w;
+    if ([50, 52].includes(o.k)) S.weeks = o.k;
+    if (["key", "script"].includes(o.s)) S.scope = o.s;
+    if (["me", "client"].includes(o.e)) S.edit = o.e;
+    S.ans = {};
+    QS.forEach(q => { const v = o.a && o.a[q.id]; if (v && q.o.some(x => x[0] === v)) S.ans[q.id] = v; });
+    FROM_LINK = true; save();
+  } catch (e) {}
+}
+$("b-send").addEventListener("click", () => {
+  const url = location.href.split("#")[0] + "#r=" + encodeState();
+  copyText(url, "ссылка скопирована, отправьте её Серафиму");
+});
+applyHash();
+render();
+if (FROM_LINK) { $("refine").hidden = false; setTimeout(() => $("refine").scrollIntoView(), 50); }
+</script>
+</body>
+</html>
