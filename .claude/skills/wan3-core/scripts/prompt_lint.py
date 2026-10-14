@@ -287,9 +287,10 @@ def main():
     if em:
         warns.append(f"acting: emotion words ({', '.join(sorted(set(w.lower() for w in em))[:5])}) - "
                      "write the visible behaviour instead (gaze, hands, breath)")
+    one_person = bool(re.search(r"\b(exactly one|only one|a single) (man|woman|person|character|girl|boy)\b", text, re.I))
     for st, en, seg in segments:
         p = PRON.findall(seg)
-        if len(p) >= 5:
+        if len(p) >= 5 and not one_person:
             warns.append(f"pronouns: shot at line {st} uses {len(p)} pronouns - name who acts")
 
     # ---- output
