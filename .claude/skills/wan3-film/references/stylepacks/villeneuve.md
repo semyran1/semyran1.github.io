@@ -71,8 +71,7 @@ through haze; most scenes are one take written with `No cut.`
 
 A low-frequency drone or sub-bass pulse under everything, sparse metallic or glassy textures,
 wind through the structure; dialogue sparse, quiet, close, never overlapped; silence before an
-event. Paste: `Sound: a deep sub-bass drone, wind and a few sparse metallic resonances; no melody;
-the figure says nothing, or one quiet line in a close, dry voice.`
+event. Paste: `Sound: a deep sub-bass drone, wind and a few sparse metallic resonances; no melody; no dialogue.` (Add a spoken line only when the brief supplies it: close, dry, quiet.)
 
 ## SELF-CHECK
 

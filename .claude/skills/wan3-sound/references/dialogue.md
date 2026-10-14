@@ -1,6 +1,6 @@
 # The dialogue block - two or more characters, any speech
 
-Marks as in `wan3-core/references/provenance.md`. The mechanisms below were bought with failed
+Marks as in `wan3-core/references/provenance.md`. The mechanisms below were Seedance-observed (paid for with failed
 generations on Seedance 2.5 (speaker attribution lost five times in a row, each time for a
 different reason); here they are `[CRAFT]`, untested on Wan. The handbook's own dialogue examples
 (015, 021, 036, 044, 048, 056, 059) show the intent. Read this whole file before a multi-speaker
@@ -12,23 +12,28 @@ voices - 6 What breaks
 ## 1. The ledger `[CRAFT]`
 
 An in-prompt block, one entry per time segment, silent segments included. A rule that is only an
-internal note goes unapplied; a rule that is a block in the prompt gets checked (and the lint can
-see it).
+internal note goes unapplied; a rule that is a block in the prompt gets checked (and the lint can see
+it: lines starting `Segment` or `Dialogue ledger` are not read as shots or time ranges).
+
+**Where the words live.** The Seedance ledger held the quoted line itself. On Wan the handbook writes
+lines inside the action sentence of the shot (015, 021, 059), so here: **the line is in the shot
+sentence, once; the ledger carries who, where, on- or off-screen and every other mouth, and repeats no
+words.** (Untested which form Wan follows better: C5-style test, 480p.)
 
 ```text
+Shot 2 [4-9s]: Medium close-up, fixed shot. MAYA, the young woman on the right (Image 2), says in
+English, "Let's train back, my legs are still sore from yesterday." ANNA nods slowly.
+
 Dialogue ledger
-Segment 1 (0-5s) - speaker: ANNA, the woman on the left of frame (Image 1). On-screen.
-  ANNA says in English: "Which area are we training today?" Her lips move as she speaks.
-  MAYA's lips stay naturally closed while she listens.
-Segment 2 (5-9s) - speaker: MAYA, the woman on the right (Image 2). On-screen.
-  MAYA says: "Let's train back, my legs are still sore from yesterday." Her lips move.
-  ANNA nods; her lips stay closed.
-Segment 3 (9-10s) - no speech. Both mouths visible, lips closed; they begin to walk.
+Segment 1 (0-4s) - speaker: ANNA, the woman on the left (Image 1), on-screen; MAYA's lips closed.
+Segment 2 (4-9s) - speaker: MAYA, the woman on the right (Image 2), on-screen; ANNA's lips closed.
+Segment 3 (9-10s) - no speech; both mouths visible, lips closed; ANNA and MAYA begin to walk.
 ```
 
 Each entry carries: the speaker's **name** and an identifier that survives (face/position/build,
-not clothing alone), whether the voice is on- or off-screen, the exact line, the language if not
-English, and the state of every other visible mouth.
+not clothing alone), on- or off-screen, the language if not English, and the state of every other
+visible mouth. A segment's length must fit its line: words / 2.5 + 1 s (section 4) - the 10-word line
+above needs 5 s, which is why segment 2 is 5 s.
 
 ## 2. Rules `[CRAFT]`
 
@@ -71,10 +76,9 @@ English, and the state of every other visible mouth.
 
 ## 4. Pacing arithmetic
 
-Spoken pace in the handbook: **about 2.5 words per second** (047, "speaking speed about 2.5
-words/second"). Shot length >= words / 2.5 + a beat (0.5-1 s) before and after. Examples: 8 words ->
-3.2 s -> a 5 s shot; 25 words -> 10 s; a 30 s clip holds about 60 words of dialogue if nothing else
-happens. Overlong lines get speeded up and mushy, or truncated. The lint warns above 3 words per
+The only spoken pace the handbook states: **about 2.5 words per second** (047, a voiceover prompt:
+"speaking speed about 2.5 words/second"); one source, treat as an estimate until C4/C5 runs. Shot length >= words / 2.5 + 1 s (half a second of air each side). Examples: 8 words -> 4.2 s -> a
+5 s shot; 25 words -> 11 s; a 30 s clip holds about 65 words of dialogue if nothing else happens. Overlong lines get speeded up and mushy, or truncated. The lint warns above 3 words per
 second.
 
 ## 5. Recorded voices `[CRAFT]`

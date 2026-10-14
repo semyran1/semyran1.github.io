@@ -73,19 +73,22 @@ Wan: quotes are what the handbook shows. Use angle brackets for effects **or** f
 - **Silent characters** keep their mouths naturally closed while listening (Seedance's documented
   line; worth copying); a segment with no speech is written as fully as a speaking one - free time
   is filled with speech.
-- **Pace**: the handbook's own number is **about 2.5 words per second** (047). A 15-word line needs
-  6 s. Count the words, divide by 2.5, and leave the shot at least that long plus a beat.
+- **Pace**: the only pace the handbook states (047, a voiceover prompt) is **about 2.5 words per second**.  Shot length >= words / 2.5 + 1 s (half a second each side). A 15-word line needs 7 s.
 - **Delivery**: put emotion and manner in the voice descriptors of the line, not in separate
   instructions attached to individual words - those tend to come back as on-screen subtitles
   (Seedance FAQ). Splitting a line into two with one emotion each is the safe form:
   `Anna's line (flat, tired): "By Friday." Anna's line (sharper, not louder): "Artur."`
-- **Lip-sync**: ask for it where the face is legible (`lip sync to dialogue`, 036); a back of a head
-  or a mouth beyond the frame has no lip-sync to give, so a voice without a mouth is marked
-  off-screen and the listener's face turns away.
+- **Lip-sync**: ask for it where the face is legible (`lip sync to dialogue`, 036). A turned head or
+  a mouth outside the frame has nothing to sync, so a voice without a visible mouth is marked
+  off-screen and the listener's face turns away. A 480p draft proves only that the mouth moves;
+  judge sync at the final tier.
 - **Do not invent dialogue** the user did not supply: a character without text plays by pauses,
   posture, breath and reaction.
 
-Two or more speakers: the dialogue ledger of `references/dialogue.md`.
+Two or more speakers: the dialogue ledger of `references/dialogue.md`. **Where the words live:** in the
+shot sentence, as the handbook writes them (015, 021); the ledger then carries names, positions and
+mouth states only and repeats no words. Style-pack sound lines (`wan3-film` packs) are menus: add a
+voice-over or a spoken line only when the brief supplies it.
 
 ## §4 - Voice references `[DOC]` `[DOC-2]` `[FIELD]`
 

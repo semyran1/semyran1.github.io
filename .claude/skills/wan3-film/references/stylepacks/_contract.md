@@ -63,13 +63,17 @@ SELF-CHECK
 
 - **One style per file**, roughly 900 tokens. Past that the pack starts repeating FILM's own
   references.
-- **One pack per prompt.** Blending happens only by explicit request and by hand-editing one
-  pack's output.
+- **One pack per prompt (so per shot).** Blending happens only by explicit request and by
+  hand-editing one pack's output.
+- **Sound lines are menus.** A pack's SOUND section may add ambience and music; it never adds a
+  spoken line or voice-over the brief did not supply.
 - **Style never overrides the story contract**: it shapes light, lens, cutting and sound; it
   does not add, remove or re-identify subjects, or change an end state.
-- **No real names in the model-facing block.** A pack's VIDEO STYLE BLOCK describes the look; the
-  director's name stays in the title and the index (Alibaba's guidance is to avoid naming real
-  people, and the name adds mimicry, not information). Titles of films may appear in the ASSET BRIEF
+- **No real names in the model-facing block by default.** A pack's VIDEO STYLE BLOCK describes the
+  look; the director's name stays in the title and the index (the name adds mimicry, not
+  information). The handbook itself writes one filmmaker name as a register signal (063), so a name
+  is tolerated beside the described look, never instead of it; naming a real person to depict them
+  is a different matter (`wan3-core` constraints §7). Titles of films may appear in the ASSET BRIEF
   for the human reader only.
 - A pack carries no platform artefacts (reference caps, tag syntax, prices): those belong to core
   and budget, and a pack that carries them goes stale.

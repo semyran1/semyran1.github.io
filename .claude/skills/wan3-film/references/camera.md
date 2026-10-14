@@ -10,8 +10,8 @@ displacement - 8 Whip, snap, orbit, FPV, aerial - 9 Reaction time - 10 Slow moti
 ## 1. The rule
 
 One main camera treatment per shot, named, with subject and both ends (`wan3-film` §2). Alibaba's
-guide: plain wording works - *push in, pull out, orbit, handheld follow* `[DOC]` - and each move
-is chosen for what it says. "Cinematic" is not a treatment.
+guide: plain wording works - *push in, pull out, orbit, handheld follow* `[DOC]` (excerpt) - and each
+move is chosen for what it says; the "every shot" requirement is `[DOC-2]`. "Cinematic" is not a treatment.
 
 ## 2. Shot size and angle `[DOC]`
 
@@ -34,7 +34,7 @@ Angles: eye-level, low (power, looming), high (smallness, surveillance), top-dow
 frontal-symmetrical (017: `strictly symmetrical left and right`). A pair that works: size for
 the information, angle for the attitude, one sentence each.
 
-## 3. Movements and what they say `[DOC]` `[CRAFT]`
+## 3. Movements and what they say `[DOC]` (the intent list) `[CRAFT]` (the rest)
 
 | Move | Say it as | Means |
 |---|---|---|

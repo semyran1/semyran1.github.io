@@ -38,8 +38,8 @@ toward glossy 3D.
 
 **No studio or director names in the model-facing text.** Describe traits (rounded proportions,
 physically based materials, soft global illumination, volumetric light, cinematic depth of
-field). A trait list cannot drag a studio's characters in with it, and Alibaba advises against
-naming real people `[DOC-2]` `[CRAFT]`.
+field). A trait list cannot drag a studio's characters in with it, and naming real people to depict
+them is best avoided `[OPEN]` (`wan3-core/references/constraints.md` §7).
 
 ## §2 - The style bible `[CRAFT]` from the Seedance 3D-animation skill, applied to Wan
 

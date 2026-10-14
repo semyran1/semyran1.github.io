@@ -26,7 +26,7 @@ A logged `[EMPIRICAL]` result outranks all of them for this project.
 
 ## Sources actually read
 
-1. **Official creator handbook, 64 prompts** (plus 17 X posts) - `github.com/AtlasCloudAI/awesome-wan-3.0-prompts`,
+1. **Official creator handbook, 64 prompts** ("verbatim" = verbatim as archived: English machine translations of the Chinese originals, eight entries cut short) ("verbatim" = verbatim as archived: English machine translations of the Chinese originals, eight entries cut short) (plus 17 X posts) - `github.com/AtlasCloudAI/awesome-wan-3.0-prompts`,
    `data/prompts.json`, license CC BY 4.0; handbook original is a DingTalk doc
    (`alidocs.dingtalk.com/i/nodes/qnYMoO1rWxrkmoj2IjExdZLBJ47Z3je9`). English texts are translations
    with residual Chinese in a few (the original is Chinese). Several dataset entries are cut short.
@@ -50,9 +50,16 @@ A logged `[EMPIRICAL]` result outranks all of them for this project.
 | 2-30 s, 30 fps, 480p/720p/1080p; no 4K | Model Studio guide, several vendors; Atlas counted 110 official clips: none above 1080p | `[DOC-2]` |
 | Prompt formulas: Basic = entity+scene+motion; Advanced = +aesthetic control+stylization; Sound; Reference = reference identifier + action + scene + lines (opt) + BGM (opt); Multi-shot; Editing = target + action + "rest unchanged" | Model Studio prompt guide via Segmind, Magnific, Pixo, Oxen | `[DOC-2]` |
 | Aesthetic control = light source, lighting environment, shot size, camera angle, lens, camera movement | quoted from the Model Studio guide | `[DOC]` |
+| Each camera move is chosen for its meaning (push-in intimacy/tension, tracking beside the subject, orbit emphasis, fixed stillness); plain wording works (push in, pull out, orbit, handheld follow) | excerpt of the Model Studio guide quoted in search results | `[DOC]` |
+| The guide asks for the camera treatment in every shot; an unnamed camera lets Wan cut or wander; say `fixed shot` for a still camera | LUVI, OpenArt, Wavespeed on the guide; not seen on the page | `[DOC-2]` / `[FIELD]` |
+| Avoid naming real people, rapid scene changes within a clip, relying on rendered text | the family-wide English docs per a Japanese translator; the Wan 3.0 page has no such list | `[OPEN]` |
+| Each camera move is chosen for its meaning (push-in intimacy/tension, tracking beside the subject, orbit emphasis, fixed stillness); plain wording works (push in, pull out, orbit, handheld follow) | excerpt of the Model Studio guide quoted in search results | `[DOC]` |
+| The guide asks for the camera treatment in every shot; an unnamed camera lets Wan cut or wander; say `fixed shot` for a still camera | LUVI, OpenArt, Wavespeed on the guide; not seen on the page | `[DOC-2]` / `[FIELD]` |
+| Avoid naming real people, rapid scene changes within a clip, relying on rendered text | the family-wide English docs per a Japanese translator; the Wan 3.0 page has no such list | `[OPEN]` |
 | Sound: voice = line+emotion+tone+speed+timbre+accent; effect = source+action+ambient; music = score+style; negatives for sound ("No BGM, generate only ambient and action sounds") | Segmind quoting Alibaba; Model Studio excerpt | `[DOC-2]` / `[DOC]` |
 | Dialogue pattern speaker + verb + colon + quote; voice reference attached by numbered audio; "lip sync" tag | Model Studio guide via search | `[DOC-2]` |
-| References: 10 images, 5 videos (1-15 s each, 15 s total), 5 audio (15 s total); total 20; handbook "omni-reference" up to 20 assets incl. documents and web pages | RunComfy, Scenario, Oxen, Venice; zh note | `[DOC-2]` |
+| References: 10 images, 5 videos (1-15 s each, 15 s total), 5 audio (15 s total); total 20 | RunComfy, Scenario, Oxen, Venice (third-party) | `[FIELD]` |
+| Handbook "omni-reference" mode takes up to 20 assets incl. documents and web pages; references are numbered per type (Image n / Video n / Audio n) | the Atlas zh note on the handbook; Alibaba guide via secondary sources | `[DOC-2]` |
 | Reference mode and first/last-frame mode cannot be combined | RunComfy, Pixeldojo, Scenario | `[OPEN]` on Higgsfield |
 | Extension: input video + new output must total <= 30 s | Model Studio docs via search | `[DOC-2]` |
 | No negative-prompt field; exclusions go into the prompt | Model Studio guide; several guides | `[DOC-2]` |

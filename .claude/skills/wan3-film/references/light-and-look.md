@@ -12,7 +12,7 @@ visible - 4 Atmosphere - 5 Palette and grade - 6 Stock, grain, defects - 7 Hardw
 ## 1. Optics as meaning `[CRAFT]`
 
 Choose the register by what the frame must say; **write the visible result, never the
-millimetres** - focal length and aperture only supplement the result `[DOC]` (the Seedance
+millimetres** - focal length and aperture only supplement the result (`[CRAFT]`: the Seedance
 optimizer's rule; Alibaba's list also separates *lens* from the rest of aesthetic control).
 
 | Register | Approx. | Earned when | Write |

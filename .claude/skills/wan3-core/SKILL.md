@@ -12,7 +12,7 @@ discipline applies here as there: **evidence first, craft second, and every clai
 
 Marks: `[HF]` measured on Higgsfield · `[DOC]` Alibaba text seen verbatim · `[DOC-2]` Alibaba, via
 a secondary source · `[FIELD]` third-party report · `[CRAFT]` ported rule, untested on Wan ·
-`[OPEN]` sources disagree · `[EMPIRICAL]` bought with a generation here. The register, with every
+`[OPEN]` sources disagree · `[EMPIRICAL]` confirmed by generations here. The register, with every
 source and what could not be opened, is `references/provenance.md`. **Read it once**: the official
 pages were unreachable when this set was built, and no `[EMPIRICAL]` result exists yet
 (`references/calibration.md` lists the cheap tests that create them).
@@ -36,11 +36,13 @@ stills and reference sheets -> `lira-image-prompts`; Russian-language director w
 | Choosing a mode; any image/video/audio reference; first/last frame; mapping lines | `references/modes-and-references.md` |
 | More than one shot, a one-take, 15-30 s, timecodes, cuts, chaining past 30 s | `references/long-form.md` |
 | Exclusions, quantified motion rules, "the model keeps doing X" | `references/constraints.md` |
-| What the official handbook actually does; real exemplars to imitate | `references/official-corpus.md` |
+| What the official handbook actually does; real exemplars to imitate | `references/official-corpus.md`; the 64 prompts themselves are in `references/handbook-prompts.md` (114 KB: search it, read only the hit's prompt) |
 | Which claims are tested, how to test them for pennies | `references/calibration.md` |
 | Where a claim comes from | `references/provenance.md` |
 
-Reference files are short and read whole (R1).
+Reference files are short and read whole (R1), except `handbook-prompts.md`, which is a corpus: grep
+it, then read the whole prompt around the hit. A worked, lint-clean example of a two-speaker, three-shot
+REF prompt is `references/worked-example.md`.
 
 ## §0 - Operating rules
 
@@ -59,10 +61,15 @@ a number from the cost tool, or an observation of a frame. A check answerable fr
 verified nothing.
 
 **R4 - Price before you press.** No paid generation without a `get_cost` line (`wan3-budget`).
-It is free and takes one call; the header carries its result.
+It is free and takes one call; the header carries its result. In a session without the Higgsfield
+tools write the offline figure and say so: `Cost: 26.25 cr (offline estimate; media-attached price
+unmeasured)`.
 
 **R5 - Some failures are silent** (registry in §9): the output looks acceptable and the cause
 hides. Only the checks catch them.
+
+**R7 - Language.** Talk to a Russian-speaking user in Russian; the model-facing prompt, the header line
+and the ledger are English (speech lines in the language to be spoken).
 
 **R6 - Every delivered prompt carries a header line**, above the prompt block, outside the
 model-facing text:
@@ -71,7 +78,8 @@ model-facing text:
 Loaded: <skill - what was read>; ... | Not loaded: <skill - reason> | Mode: T2V|I2V|FLF|REF|EDIT|EXT | Model: wan3_0 720p 10s | Cost: 17.5 cr | Words: N | Negatives: N
 ```
 
-A skill read before the latest compaction counts as not loaded. Words and Negatives come from
+A skill read before the latest compaction counts as not loaded; if you cannot tell whether a
+compaction happened, re-read the files you are about to rely on. Words and Negatives come from
 `python scripts/prompt_lint.py <file> --duration N`. A prompt without the header is a draft.
 
 ## §1 - Mode router `[HF]` `[DOC-2]`
@@ -84,19 +92,21 @@ before writing a word. Higgsfield media roles: `start_image`, `end_image`, `imag
 |---|---|---|---|
 | **T2V** | none | the text | look development, environments, anything with no fixed identity |
 | **I2V** | `start_image` | the image owns frame 1; the text owns motion and camera | one specific face, product or location must match |
-| **FLF** | `start_image` + `end_image` | both frames; the text owns the road between | a controlled transformation, a match cut, chaining shots |
+| **FLF** | `start_image` + `end_image` | both frames; the text owns the road between | a controlled transformation, a match cut |
 | **REF** | `image_references` / `video_references` / `audio_references` | references own identity, style, motion or voice by role line; the text owns action | several identities, a product, a voice, camera or motion transfer |
 | **EDIT / EXT** | `video_references` + an edit verb | the source video; the text names what changes | repair or alter an existing clip (`wan3-edit`) |
 
 Rules `[FIELD]` unless noted, test with `calibration.md` C10 before relying on them on Higgsfield:
 
-- **REF and FLF do not combine** (RunComfy, Scenario, Pixeldojo agree). Identity across a chain of
-  FLF clips therefore rides on the frames, not on references: pick frames that carry it.
+- **REF and first/last frame do not combine** (RunComfy, Scenario, Pixeldojo agree) `[OPEN]` on
+  Higgsfield (C10; the lint only warns). Until C10 is logged, identity across a chain of clips rides
+  on the chosen frames, not on references: pick frames that carry it. Also untested: whether a
+  single `start_image` combines with `image_references`.
 - **One primary task per prompt** `[CRAFT]`: generate, edit and extend never share a prompt.
 - **When one face matters, use I2V or REF, not words.** Describing a face in prose is the weakest
   identity anchor (Atlas: "use image-to-video when one specific face matters").
-- `aspect_ratio: auto` follows the start image or reference framing `[HF]`; set a ratio explicitly
-  when references are mixed. Higgsfield lists 16:9, 9:16, 1:1, 4:3, 3:4 - **no 21:9** `[HF]`
+- `aspect_ratio: auto` is listed by the catalog `[HF]`; that it follows the start image or reference
+  framing is `[FIELD]` (C14). Set a ratio explicitly when references are mixed. Higgsfield lists 16:9, 9:16, 1:1, 4:3, 3:4 - **no 21:9** `[HF]`
   (see `wan3-film` for the workaround).
 
 ## §2 - The prompt in one screen `[DOC]` `[DOC-2]`
@@ -116,7 +126,7 @@ Full      = overall description, references, timed shots, dialogue, sound, style
             negative list (every section optional)
 ```
 
-What 64 official prompts actually spend their words on `[DOC]` (Atlas count): style and texture 47% ·
+What 64 official prompts actually spend their words on (Atlas's count of the prompts, `[FIELD]`): style and texture 47% ·
 consistency locks ("keep", "lock", "remains unchanged") 44% · camera language 31% · sound 23% ·
 reference assignment 20% · aspect 19% · one-take 14% · shot + timecode 12% · prohibitions **6%** ·
 frame-level motion rules 3%. Median 268 Chinese characters: **the handbook does not reward long
@@ -132,7 +142,7 @@ Three habits visible in the handbook, worth adopting at once:
 2. **Write consistency as a sentence, per shot.** `Seamlessly continuing from the last frame of
    the previous shot, the character, clothing, apartment foyer, and camera position remain
    completely consistent` (035). Locks are 44% of the corpus because drift is the default.
-3. **One primary camera treatment per shot, always named** - even "fixed shot". Unnamed camera
+3. **One primary camera treatment per shot, always named** - even "fixed shot" `[DOC-2]` `[FIELD]`. Unnamed camera
    direction lets the model cut or wander (`wan3-film`, `long-form.md`).
 
 ## §3 - Story contract first `[CRAFT]`
@@ -211,8 +221,8 @@ prompt (`Generate a 25-second, 9:16 vertical...` - 19% mention a ratio), which s
 the two identical (the lint compares them). Two traps: **`-1` (smart duration) is billed as 10 s**
 `[HF]` - never use it by accident; **`get_cost` with `count: 2` returned the single-clip price**
 `[HF]`, so multiply variants yourself. `enable_thinking` (slower, better adherence `[FIELD]`) did
-not change the preflight price `[HF]`; use it for multi-reference or multi-shot prompts, leave it
-off for drafts `[CRAFT]`.
+not change the preflight price `[HF]`; it is free in credits, so a draft should carry the same flags as the final (a draft with
+thinking off does not predict the final's adherence); the only price is latency `[CRAFT]`.
 
 ## §9 - `[SILENT]` registry
 
@@ -242,7 +252,7 @@ Failures that still look like an acceptable clip:
    a one-take carries the no-cut clause.
 6. Sound decided: each line attributed to a speaker, or silence/ambient stated; music decided.
 7. Negatives counted, each justified by a strong default; a positive rewrite was tried first.
-8. `python scripts/prompt_lint.py <file> --duration N --res 720p --refs I,V,A` ran; each warning
+8. `python scripts/prompt_lint.py <file> --duration N --res 720p --images N --videos N --audios N --mode REF` ran (edit prompts: `--mode EDIT`); each warning
    answered.
 9. A revision changed only the named lines (R2).
 10. The loaded skills' own pre-send items passed.

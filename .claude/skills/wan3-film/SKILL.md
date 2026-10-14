@@ -1,6 +1,6 @@
 ---
 name: wan3-film
-description: "WAN 3.0 FILM - cinematography layer for Wan 3.0 prompts, loaded after wan3-core: the camera named in every shot (Wan cuts or wanders otherwise), push/pan/track/orbit/handheld/fixed and what they mean, the continuous-take clause, lens and depth of field as visible results, light source and exposure, what stays visible in dark scenes, film stock and grain, hardware lines used by the official handbook, no 21:9 on Higgsfield, dramatic functions, and director packs (Fincher, Villeneuve, Wong Kar-wai, Wes Anderson). Use for \"кинематографично\", \"какую камеру\", \"оптика\", \"свет\", \"зерно\", \"плёнка\", \"как в кино\", \"стиль Финчера / Вильнёва / Вонг Кар-Вая / Уэса Андерсона\", \"одним кадром\", \"наезд\", \"low key\", or any Wan 3 prompt where the look matters. One style pack per shot. Not for acting (acting-system), sound (wan3-sound) or stills (lira-image-prompts)."
+description: "WAN 3.0 FILM - cinematography layer for Wan 3.0 prompts, loaded after wan3-core: the camera named in every shot (Wan cuts or wanders otherwise), push/pan/track/orbit/handheld/fixed and what they mean, the continuous-take clause, lens and depth of field as visible results, light source and exposure, what stays visible in dark scenes, film stock and grain, hardware lines used by the official handbook, no 21:9 on Higgsfield, dramatic functions, and director packs (Fincher, Villeneuve, Wong Kar-wai, Wes Anderson). Use for \"кинематографично\", \"какую камеру\", \"оптика\", \"свет\", \"зерно\", \"плёнка\", \"как в кино\", \"стиль Финчера / Вильнёва / Вонг Кар-Вая / Уэса Андерсона\", \"одним кадром\", \"наезд\", \"low key\", or any Wan 3 prompt where the look matters. One style pack per prompt. Not for acting (acting-system), sound (wan3-sound) or stills (lira-image-prompts)."
 ---
 
 # WAN 3.0 FILM - cinematography layer
@@ -8,8 +8,8 @@ description: "WAN 3.0 FILM - cinematography layer for Wan 3.0 prompts, loaded af
 `wan3-core` §0 governs this file. Marks (`[DOC]` `[DOC-2]` `[HF]` `[FIELD]` `[CRAFT]` `[OPEN]`
 `[EMPIRICAL]`) are defined in `wan3-core/references/provenance.md`. Most of the craft here is
 carried over from the Seedance 2.5 film skill and the film literature (`[CRAFT]`); what is
-specific to Wan - naming the camera every shot, the hardware spec lines, the missing 21:9, the
-audio-driven cutting - is marked with its source.
+specific to Wan - naming the camera every shot, the hardware spec lines, the missing 21:9 - is
+marked with its source.
 
 ## §0 - Scope and reading map
 
@@ -27,9 +27,9 @@ source, lighting environment, shot size, camera angle, lens, camera movement* `[
 
 References are short; read the one the situation needs whole (core R1).
 
-## §1 - The translation law `[DOC]`
+## §1 - The translation law `[CRAFT]`
 
-**Write what the instrument does to the image, not the instrument.** Alibaba's guide ties each
+**Write what the instrument does to the image, not the instrument** (the Seedance optimizer's rule; the Alibaba handbook shows the same pairing at its best, 028). Alibaba's guide ties each
 move to an effect - push-in for intimacy or tension, tracking beside the subject, orbit for
 emphasis, a fixed camera for stillness `[DOC]` - and the handbook pairs hardware with its visible
 consequence at its best: `approximately 14-16mm ultra-wide-angle lens, with slight fisheye
@@ -42,7 +42,7 @@ Directions are in-frame displacements `[CRAFT]` (Seedance's Scene 3 lesson, mode
 "orbits to the right" can resolve to anything; "the camera arcs so the man's profile turns to
 face the lens, the lamp slides from the left edge toward centre" cannot.
 
-## §2 - Name the camera in every shot `[FIELD]` `[DOC]`
+## §2 - Name the camera in every shot `[DOC-2]` `[FIELD]`
 
 The one Wan-specific camera rule. Alibaba's guide asks for the camera treatment in each shot;
 secondary sources report that an unnamed camera is where Wan cuts inside a "continuous" clip or
@@ -53,6 +53,12 @@ moves on its own, and that a still camera must be requested (`fixed shot`) `[FIE
 - **A still camera is a treatment**: `fixed shot, the door frame, the table edge and the window
   stay at the same place in frame` - write what does not move, not "the last frame matches the
   first" (the model reads that as "return everything, the subject too, to the start" `[CRAFT]`).
+- **One treatment may have a trigger.** `Fixed, then a slow push-in that begins when she finishes
+  speaking` is one treatment (a start state, an end state, a trigger); a push-in *and* a pan in one
+  shot is two.
+- **One treatment may have a trigger.** `Fixed, then a slow push-in that begins when she finishes
+  speaking` is one treatment (a start state, an end state, a trigger); a push-in *and* a pan in one
+  shot is two.
 - **No stacks.** `drone shot, handheld close-up, locked-off dolly, fast orbit` asks for incompatible
   grammars; keep one per shot, spend the others in later shots or across cuts.
 - **A continuous take** repeats its no-cut clause at every camera move (`wan3-core` long-form §3)
@@ -92,12 +98,12 @@ this file and `wan3-core` for limits and syntax.
 A style is a compressed vocabulary, not a name - a bare director name gets surface mimicry
 `[FIELD]` and, on Wan, risks the real-name issue (`wan3-core` constraints §7). Packs live in
 `references/stylepacks/`; `_contract.md` holds the section contract and the index.
-**Load exactly one pack per shot.** Two packs give two contradictory vocabularies and the model
+**Load exactly one pack per prompt** (a multi-shot prompt keeps one pack throughout). Two packs give two contradictory vocabularies and the model
 averages them into neither look. A pack never overrides the story contract: it shapes light, lens,
 cutting and sound, it does not add or remove subjects.
 
 Current packs: Fincher, Villeneuve, Wong Kar-wai, Wes Anderson. **All four are `[CRAFT]` - none has
-been run on Wan 3 yet**; calibrate each with one 480p 5 s test before relying on it (4-5 credits).
+been run on Wan 3 yet**; calibrate each with one 480p 5 s test before relying on it (5 credits).
 Official evidence that the registers work: Wong Kar-wai named in 063, a symmetrical hotel corridor
 in 017, a hard-light black-and-white fashion film in 024, an Alexa 65 + anamorphic jump-cut film in 037.
 
@@ -145,6 +151,7 @@ uninformative, never a substitute for a light source and a lens.
 9. Weather is an interaction (rain across a lamp cone), not a noun.
 10. Grain weight is checked against motion speed and delivered resolution (heavy grain at 480p-720p
     in the dark turns to blocks).
-11. One style pack at most; its VOCABULARY appears unchanged in the asset brief and the video
-    block; its SELF-CHECK ran.
+11. One style pack at most; its VOCABULARY terms appear unchanged where the pack uses them, the
+    asset brief carries none of the video-only traits (grain, grade, lens artefacts), and its
+    SELF-CHECK ran.
 12. No item from §8 appears unless requested.

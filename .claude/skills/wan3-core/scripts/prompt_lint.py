@@ -1,7 +1,7 @@
 """Mechanical pre-send checks for a Wan 3.0 prompt.
 
     python prompt_lint.py prompt.txt --duration 15 --res 720p [--model wan3_0|wan3_0_prime]
-                          [--images 2 --videos 1 --audios 1] [--mode T2V|I2V|FLF|REF|EDIT]
+                          [--images 2 --videos 1 --audios 1] [--mode T2V|I2V|FLF|REF|EDIT|EXT]
     python prompt_lint.py - < prompt.txt
 
 Counts and structure a model tends to get wrong from memory. It prints the header counts
@@ -12,7 +12,8 @@ Checks
   words        word and character count (diagnostic; the hard limit is 20,000 characters)
   cost         credits for model x resolution x duration (Higgsfield rates measured 2026-10-14;
                the live `get_cost` call is the authority - this is the offline estimate)
-  negatives    every negative form with its line, so each can be justified or removed
+  negatives    every negative word with its line, so each can be justified or removed (quoted speech and
+               'No cut.' boundary statements are not counted; one prohibition can yield several words)
   timeline     ranges start at 0, are contiguous, end at --duration, never exceed 30 s;
                shot-label count vs range count; shots per second (over-cutting)
   camera       every shot names a camera treatment (fixed, push, pan, track, orbit ...)
@@ -22,7 +23,9 @@ Checks
                one style is used, supplied assets are all addressed, mode conflicts
   sound        spoken lines are attributed; words per second against the 2.5 w/s pace;
                a sound decision is present; <> used both for effects and for names
-  header       the length stated in the opening sentence equals --duration
+  header       the length stated in the opening sentence ('30 seconds', '15-second') equals --duration
+  pacing       spoken words per shot against the shot length (about 2.5 words/second)
+  ledger       lines starting 'Segment' / 'Dialogue ledger' are NOT read as shots or time ranges
   language     non-ASCII (mixed-language) text, fluff words, emotion words, pronouns in shots
 Exit code: 0 always (it informs, the writer decides).
 """
@@ -38,7 +41,7 @@ RATES = {  # credits per second, Higgsfield, measured with get_cost on 2026-10-1
 
 NEG = re.compile(
     r"\b(no|not|never|none|nothing|nobody|without|avoid|prohibit(?:ed|s)?|forbid(?:den)?|"
-    r"don't|doesn't|isn't|aren't|won't|cannot|can't|do not|does not|must not|should not|zero)\b",
+    r"don't|doesn't|isn't|aren't|won't|cannot|can't|do not|does not|must not|should not|zero (?:voiceover|music|dialogue))\b",
     re.I)
 # a time range needs a unit on its end: [0-3s], 0s-30s, 4-9 seconds, (1.48-3s)
 RANGE = re.compile(
@@ -72,7 +75,9 @@ FLUFF = re.compile(r"\b(cinematic|epic|beautiful|stunning|masterpiece|breathtaki
                    r"ultra[- ]?hd|award[- ]winning|premium)\b", re.I)
 EMOTION = re.compile(r"\b(anxious|nervous|sad|angry|happy|worried|scared|afraid|excited|lonely|"
                      r"melancholic|joyful|furious|tense)\b", re.I)
-HEAD_LEN = re.compile(r"\b(\d{1,2})[- ]?(?:second|sec|s)\b", re.I)
+HEAD_LEN = re.compile(r"\b(\d{1,2})[- ]?(?:seconds?|secs?|s)\b", re.I)
+LEDGER = re.compile(r"^\s*(?:Segment\b|Dialogue ledger)", re.I)
+EDIT_VERB = re.compile(r"\b(edit|remove|add|extend|replace|swap|reshape|transform|change|insert|wears?)\b", re.I)
 
 
 def words_of(text):
@@ -88,7 +93,7 @@ def main():
     ap.add_argument("--images", type=int, default=0)
     ap.add_argument("--videos", type=int, default=0)
     ap.add_argument("--audios", type=int, default=0)
-    ap.add_argument("--mode", default=None, choices=["T2V", "I2V", "FLF", "REF", "EDIT"])
+    ap.add_argument("--mode", default=None, choices=["T2V", "I2V", "FLF", "REF", "EDIT", "EXT"])
     ap.add_argument("--no-audio", action="store_true", help="generate_audio is off")
     a = ap.parse_args()
 
@@ -97,8 +102,10 @@ def main():
     warns = []
 
     nwords = words_of(text)
-    is_edit = a.mode == "EDIT" or bool(re.match(
-        r"\s*(edit|remove|add|extend|replace|swap|reshape|transform|reference the video)\b", text, re.I))
+    first = text.strip()[:120]
+    is_edit = a.mode in ("EDIT", "EXT") or bool(
+        re.search(r"\b[Vv]ideo ?\d|@Video", text) and EDIT_VERB.search(first)
+        or re.match(r"\s*(edit|remove|add|extend|replace|swap|reshape|transform|reference the video)\b", text, re.I))
     if len(text) > 20000:
         warns.append(f"length: {len(text)} characters exceeds the 20,000-character prompt limit")
 
@@ -124,6 +131,8 @@ def main():
     # ---- timeline
     spans = []
     for i, ln in enumerate(lines, 1):
+        if LEDGER.match(ln):
+            continue
         for m in RANGE.finditer(ln):
             s, e = float(m.group(1)), float(m.group(2))
             if e > s:
@@ -146,7 +155,8 @@ def main():
             warns.append(f"timeline: last range ends at {last:g}s, generation length is {a.duration}s")
         if any(("." in str(x)) for x in []):
             pass
-    shot_labels = sorted({int(m.group(1)) for m in SHOT_LABEL.finditer(text)})
+    shot_labels = sorted({int(m.group(1)) for i, ln in enumerate(lines, 1) if not LEDGER.match(ln)
+                          for m in SHOT_LABEL.finditer(ln)})
     nshots = max(len(shot_labels), len(spans))
     if shot_labels and spans and len(shot_labels) != len(spans):
         warns.append(f"timeline: {len(shot_labels)} 'Shot N' labels but {len(spans)} time ranges")
@@ -155,10 +165,15 @@ def main():
                      "short ranges drop beats or cut excessively; the 30 s ceiling carries 3-4 beats")
 
     # ---- shot segments (for camera / pronoun / speech checks)
-    seg_starts = sorted({i for i, *_ in spans} | {i for i, ln in enumerate(lines, 1) if SHOT_LABEL.search(ln)})
+    seg_starts = sorted({i for i, *_ in spans} | {i for i, ln in enumerate(lines, 1)
+                                                   if SHOT_LABEL.search(ln) and not LEDGER.match(ln)})
     segments = []
     for k, st in enumerate(seg_starts):
         en = (seg_starts[k + 1] - 1) if k + 1 < len(seg_starts) else len(lines)
+        for j in range(st, en):          # a shot ends at the first blank line after its start
+            if not lines[j].strip():
+                en = j
+                break
         segments.append((st, en, " ".join(lines[st - 1:en])))
 
     # ---- camera per shot
@@ -237,6 +252,14 @@ def main():
         if a.duration and a.duration > 0 and spoken_words / a.duration > 3.0:
             warns.append(f"sound: {spoken_words} spoken words in {a.duration}s = "
                          f"{spoken_words / a.duration:.1f} w/s; the handbook's pace is about 2.5 w/s")
+    span_by_line = {i: (s0, e0) for i, s0, e0 in spans}
+    for st, en, seg in segments:
+        if st in span_by_line:
+            s0, e0 = span_by_line[st]
+            q = sum(words_of(x) for x in re.findall(r"[\"\u201c]([^\"\u201d]{3,})[\"\u201d]", seg) if len(x.split()) >= 2)
+            if q and e0 > s0 and q / (e0 - s0) > 3.0:
+                warns.append(f"sound: shot at line {st} has {q} spoken words in {e0 - s0:g}s "
+                             f"({q / (e0 - s0):.1f} w/s) - need about {q / 2.5 + 1:.0f}s (words / 2.5 + 1)")
     sfx = re.findall(r"<([^<>]*\s[^<>]*)>", text)
     names = re.findall(r"<([A-Z][\w\-]*)>", text)
     if sfx and names:
@@ -245,7 +268,7 @@ def main():
     # ---- header length vs --duration
     head = " ".join(lines[:3])[:400]
     hm = HEAD_LEN.search(head)
-    if hm and a.duration and a.duration > 0 and int(hm.group(1)) != a.duration and not spans:
+    if hm and a.duration and a.duration > 0 and int(hm.group(1)) != a.duration:
         warns.append(f"header: opening sentence says {hm.group(1)} s but --duration is {a.duration}")
 
     # ---- language / style hygiene

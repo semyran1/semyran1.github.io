@@ -17,8 +17,8 @@ transitions
   the frame edge and does not take the centre. Fixed shot or the slowest push. Handbook: 013 opens
   on a panorama of the platform before the girl is a face.
 - **Descent into the space.** Extreme high angle, an imperceptibly slow descent; the subject
-  appears small, as part of the environment. Wan: `slow top-down descent over N seconds`; do not
-  ask for speed, it destroys control.
+  appears small, as part of the environment. Wan: `slow top-down descent over N seconds`; keep it slow - a fast
+  descent loses the sense of scale and the control of the frame.
 - **Sound before picture.** The first 1-2 s carry ambience only (rain on a roof, a hum): write the
   bed first, the subject later (008 states its sound bed: `night insect chirps, faint water
   sounds, low-frequency resonance`).

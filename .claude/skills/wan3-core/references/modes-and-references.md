@@ -4,7 +4,7 @@ Marks as in `provenance.md`. Ids (`013`, `038`) are official handbook prompts, q
 archive in `official-corpus.md`. Read this whole file before any prompt that uploads media.
 
 Contents: 1 Choosing the mode - 2 The reference protocol - 3 Forms the handbook uses - 4 Image
-references - 5 Video references - 6 Audio references - 7 First/last frame and chaining - 8 Upload
+references - 5 Video references - 6 Audio references - 7 First/last frame and start-image chaining - 8 Upload
 hygiene - 9 Count and ownership
 
 ## 1. Choosing the mode
@@ -20,8 +20,8 @@ Ask in this order; stop at the first yes.
 4. Otherwise **T2V**, and keep identity as a locked text description pasted into every shot.
 
 Two checks: a 30 s one-take that needs identity -> REF, because FLF gives no per-shot identity
-anchor beyond its two frames; a chain of clips that must join -> FLF with the previous clip's last
-frame as the next `start_image` (section 7).
+anchor beyond its two frames; a chain of clips that must join -> I2V with a still from the previous clip as the next
+`start_image` (FLF only if you also fix the end frame) (section 7).
 
 ## 2. The reference protocol `[DOC-2]` `[DOC]`
 
@@ -124,15 +124,15 @@ a character; for a dance, `Choreograph the dance according to the fixed audio's 
 emotional fluctuations: heavy drum beats correspond to sharp, large-scale movements...` (043).
 Details, the silence and padding notes, and the ledger for 2+ speakers: `wan3-sound`.
 
-## 7. First/last frame and chaining
+## 7. First/last frame and start-image chaining
 
 FLF: write timed beats for the road between the frames; keep subject, lens, ratio and light the
 same in both frames. **Chaining clips** `[FIELD]` `[CRAFT]`: take a still from near the end of clip N
 (not the last frame - the last frame often carries motion blur or a half-closed eye), use it as
 `start_image` of clip N+1, restate identity, location, camera, motion and sound in the continuation
 prompt ("lock identity, location, camera, motion and sound in every continuation" - Atlas), and
-expect more than one run per join. Because FLF excludes references, the identity of a long chain
-rides on the quality of the chosen frames: choose them from the cleanest moment, front-lit, eyes
+expect more than one run per join. Because reference mode and frame mode are said not to combine `[OPEN]` (C10), the identity of a long
+chain rides on the quality of the chosen frames unless C10 shows `start_image` + `image_references` works: choose them from the cleanest moment, front-lit, eyes
 open.
 
 ## 8. Upload hygiene (Higgsfield)

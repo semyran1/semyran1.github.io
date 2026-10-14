@@ -82,7 +82,7 @@ Seven habits visible in the 22 source-video prompts:
   paragraph of action ending on a closing image). The continuity words come from the source; do
   not retell the first half.
 - Forward and backward in one prompt are allowed (`061`); give each side its own sentence.
-- Past 30 s, or if extend is not routed on Higgsfield: first/last-frame chaining
+- Past 30 s, or if extend is not routed on Higgsfield: start-image chaining
   (`wan3-core/references/long-form.md` §10).
 
 ## §4 - Repair or re-roll? `[CRAFT]`
@@ -91,7 +91,7 @@ Compare, in credits, **before** deciding: one more attempt = the price of the cl
 repair = the price of the edit with the clip attached (get it with `get_cost`) / p(edit works).
 Repair wins when: one object, one line of dialogue, one lighting problem, one outfit item is
 wrong and the rest is good. Re-roll wins when: identity, motion or structure is wrong throughout,
-or the clip is under 3 s (the edit costs about the same). Trim the source to the problem span plus
+or the clip is short (an edit probably costs about the same as a new clip of that length - unmeasured, `[OPEN]`). Trim the source to the problem span plus
 a second either side if only a part needs work, and splice back in an editor `[CRAFT]` - but the
 edit may then lose continuity at the seams, so prefer whole-clip edits for short clips.
 
@@ -100,6 +100,8 @@ audio may be re-generated rather than preserved `[OPEN]` - listen to it.
 
 ## §5 - Pre-send items added by this skill
 
+0. Run the lint with `--mode EDIT` (or `EXT` for an extension), or its camera, sound and exclusion
+   warnings do not apply to your prompt.
 1. The prompt opens with the operation, names `Video 1` (and `Image N` for an inserted or
    replacing asset), carries one operation, and ends with a specific keep list.
 2. A `get_cost` reading with the real clip attached exists, and the repair-vs-reroll comparison is

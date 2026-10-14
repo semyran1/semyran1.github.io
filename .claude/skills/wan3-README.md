@@ -13,8 +13,11 @@ came from, and a lint script that checks what a model gets wrong from memory.
 | `wan3-edit` | edit, replace, remove, restyle, relight, change a line, extend, chain past 30 s | a clip already exists |
 | `wan3-stylized` | anime, clay, plush, ink, MG, 3D toon, hybrids, the style bible | the look is not photographic |
 
-Order of reading in a session: `wan3-core` -> `wan3-budget` -> the rest as the brief demands. Each
-`SKILL.md` has a reading map to its references; references are short and read whole.
+Order of reading in a session: `wan3-core` -> `wan3-budget` -> the rest as the brief demands. `wan3-core`,
+`wan3-film` and `wan3-sound` carry a reading map to their references; `wan3-budget`, `wan3-edit` and
+`wan3-stylized` are small. References are short and read whole, except the handbook corpus
+(`handbook-prompts.md`), which is searched. A lint-clean worked example is
+`wan3-core/references/worked-example.md`. The Russian summary of the research is `wan3-RESEARCH-ru.md`.
 
 ## What is known and what is not
 

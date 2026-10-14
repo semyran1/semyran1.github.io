@@ -1,6 +1,6 @@
 # Price table - Wan 3.0 on Higgsfield
 
-Measured 2026-10-14 with `generate_video(get_cost: true)` on a Plus plan; nothing was generated.
+Measured 2026-10-14 with `generate_video(get_cost: true)` on a Plus plan (credit prices on other plans may differ; re-measure); nothing was generated.
 Rates are credits per second; prices are linear in seconds. Re-measure when a price matters:
 the rates moved at least once already (third-party reports cite earlier 6.25/12.5/27.5 per 5 s
 for Standard and 17.5/38.5 for Prime at 720p/1080p `[FIELD]`).

@@ -2,9 +2,9 @@
 
     python wan3_cost.py price  --res 720p --dur 10 [--model wan3_0|wan3_0_prime] [--count 1]
     python wan3_cost.py table
-    python wan3_cost.py expected --res 720p --dur 10 --p 0.35
+    python wan3_cost.py expected --res 720p --dur 10 --p 0.35 [--budget 40]
     python wan3_cost.py draft  --final-res 720p --final-dur 10 --p-direct 0.30 \
-                               --draft-res 480p --draft-dur 4 --draft-n 1 --p-after-draft 0.55
+                               --draft-res 480p --draft-dur 4 --draft-n 1 --p-after-draft 0.55 [--budget 40]
     python wan3_cost.py plan   --budget 150 --res 720p --dur 10 --p 0.4
 
 Rates are credits per second measured with Higgsfield `get_cost` on 2026-10-14 (plan Plus):
@@ -33,6 +33,8 @@ def price(model, res, dur):
 def cmd_price(a):
     one = price(a.model, a.res, a.dur)
     note = " (smart duration is billed as 10 s)" if a.dur == -1 else ""
+    if a.dur != -1 and not 2 <= a.dur <= 30:
+        print("WARNING: Wan 3 accepts 2-30 s (or -1) only")
     print(f"{a.model} {a.res} {a.dur}s{note}: {one:g} cr per clip")
     if a.count > 1:
         print(f"x {a.count} variants = {one * a.count:g} cr "
@@ -53,6 +55,9 @@ def cmd_expected(a):
     one = price(a.model, a.res, a.dur)
     if not 0 < a.p <= 1:
         raise SystemExit("--p must be in (0, 1]")
+    if a.budget is not None:
+        left = a.budget - one
+        print(f"Budget {a.budget:g} cr: one attempt leaves {left:g} cr" + (" - OVER BUDGET" if left < 0 else ""))
     tries = 1 / a.p
     print(f"One attempt: {one:g} cr | acceptance p={a.p:g} -> {tries:.1f} attempts per accepted clip "
           f"-> expected {one * tries:g} cr per usable clip")
@@ -61,8 +66,15 @@ def cmd_expected(a):
 
 
 def cmd_draft(a):
+    if not (0 < a.p_direct <= 1 and 0 < a.p_after_draft <= 1):
+        raise SystemExit("--p-direct and --p-after-draft must be in (0, 1]")
     final = price(a.model, a.final_res, a.final_dur)
     draft = price(a.model, a.draft_res, a.draft_dur) * a.draft_n
+    if a.budget is not None:
+        print(f"Budget {a.budget:g} cr: draft + one final = {draft + final:g} cr"
+              + (" - OVER BUDGET (drop the draft, shorten the final, or lower the tier)" if draft + final > a.budget else "")
+              + f"; draft + two finals = {draft + 2 * final:g} cr"
+              + (" - a retry is NOT affordable" if draft + 2 * final > a.budget else ""))
     direct = final / a.p_direct
     staged = draft + final / a.p_after_draft
     print(f"Final attempt: {final:g} cr | draft pass: {draft:g} cr ({a.draft_n} x {a.draft_res} {a.draft_dur}s)")
@@ -83,7 +95,7 @@ def cmd_plan(a):
     usable = clips * a.p
     print(f"Budget {a.budget:g} cr / {one:g} cr per attempt = {clips} attempts "
           f"-> about {usable:.1f} accepted clips at p={a.p:g}")
-    print(f"Break-even for a 3-clip sequence: {3 / a.p:.1f} attempts = {3 / a.p * one:g} cr")
+    print(f"Attempts needed on average for 3 accepted clips: {3 / a.p:.1f} = {3 / a.p * one:g} cr")
 
 
 def main():
@@ -98,12 +110,14 @@ def main():
 
     p = sub.add_parser("price"); common(p); p.add_argument("--count", type=int, default=1); p.set_defaults(f=cmd_price)
     p = sub.add_parser("table"); p.set_defaults(f=cmd_table)
-    p = sub.add_parser("expected"); common(p); p.add_argument("--p", type=float, required=True); p.set_defaults(f=cmd_expected)
+    p = sub.add_parser("expected"); common(p); p.add_argument("--p", type=float, required=True)
+    p.add_argument("--budget", type=float, default=None); p.set_defaults(f=cmd_expected)
     p = sub.add_parser("draft"); common(p, True)
     p.add_argument("--final-res", default="720p"); p.add_argument("--final-dur", type=int, default=10)
     p.add_argument("--p-direct", type=float, required=True)
     p.add_argument("--draft-res", default="480p"); p.add_argument("--draft-dur", type=int, default=4)
     p.add_argument("--draft-n", type=int, default=1); p.add_argument("--p-after-draft", type=float, required=True)
+    p.add_argument("--budget", type=float, default=None)
     p.set_defaults(f=cmd_draft)
     p = sub.add_parser("plan"); common(p); p.add_argument("--budget", type=float, required=True)
     p.add_argument("--p", type=float, default=0.4); p.set_defaults(f=cmd_plan)

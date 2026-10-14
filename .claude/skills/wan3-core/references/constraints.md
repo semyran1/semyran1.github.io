@@ -3,8 +3,7 @@
 Marks as in `provenance.md`; ids are official handbook prompts. Read this whole file before adding
 a prohibition or when "the model keeps doing X".
 
-Contents: 1 What exists - 2 The ladder - 3 Locks - 4 Quantified motion - 5 The prohibitions the
-handbook allows itself - 6 Accounting - 7 Safety and names
+Contents: 1 What exists - 2 The ladder - 3 Locks - 4 Quantified motion - 5 Physical possibility - 6 Accounting - 7 Safety and names
 
 ## 1. What exists
 
@@ -16,7 +15,7 @@ handbook allows itself - 6 Accounting - 7 Safety and names
 - The handbook uses prohibitions in **6%** of its prompts (Atlas count) `[FIELD]`, always where the
   model has a **strong default**: how a fairy flies (016), extra people or objects (018, 027), a
   clean-commercial look when a rough one is wanted (028), subtitles/text (027, 037), music
-  (046: `zero voiceover`).
+  (046: `zero voiceover` is the voiceover case).
 - A prohibition names the thing, and a named thing is half-drawn `[CRAFT]`: it is the last rung of
   the ladder, never the first.
 
@@ -90,6 +89,9 @@ between versions is the signal that fixes are being stacked instead of replaced.
 
 ## 7. Safety and names `[DOC-2]`
 
-Alibaba's family-wide "avoid" list: real named people, rapid scene changes inside a single clip,
-and relying on rendered text. In practice: describe a look instead of naming a real person; one
+The family-wide English Alibaba docs list real named people, rapid scene changes inside a single
+clip and rendered text as things to avoid `[OPEN]` (the Wan 3.0 page has no such list). Naming a
+real person to *depict* them is the thing to avoid (and platform moderation may refuse it); naming a
+filmmaker as a style register is tolerated - the handbook does it once (063) - but never as the only
+style content. In practice: describe a look instead of naming a real person; one
 event per shot; if on-screen text is the point, plan to confirm it in the draft or add it in post.

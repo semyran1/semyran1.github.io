@@ -12,10 +12,9 @@ Rules of the ledger:
 - Before each paid call: `get_cost` (free). After each: record the price actually charged
   (`transactions`) - a mismatch with the preflight is itself a finding.
 - A result is logged in the table below with date, model, parameters, prompt id, verdict and the
-  rule it changes. Then the mark in the source file is upgraded `[OPEN]/[FIELD]` -> `[EMPIRICAL]`
-  (or the rule is struck).
-- No seed on Higgsfield: one run is a sample. Rules that matter are confirmed twice before they
-  are marked `[EMPIRICAL]`; a rule contradicted once is marked `[OPEN]` again.
+  rule it changes. A single run is **provisional** (`[EMPIRICAL?]` in the log only).
+- No seed on Higgsfield: one run is a sample. A rule is upgraded to `[EMPIRICAL]` in the source file
+  only after **two confirming runs**; a rule contradicted once goes back to `[OPEN]`.
 
 ## Minimum set (about 30 credits) - run before the first serious project
 
@@ -26,7 +25,7 @@ Rules of the ledger:
 | C1 | Does Higgsfield bind `Image 1` or `@Image1`? | REF, two clearly different people as images; "Image 1 hands a cup to Image 2" vs the `@Image1` form; 3 s each | 6 | who is who in each clip | `SKILL.md` §4 default syntax |
 | C5 | What audio appears when sound is not mentioned? Does "no music, no dialogue, only ambient sound" hold? | T2V, a person in a street, 3 s, twice | 6 | music? voice? ambience? | `wan3-sound` defaults |
 | C2 | Does `No cut.` plus a camera clause keep a 3-beat take one shot? | T2V, 8 s, three beats, with and without the clauses | 16 | cut times via `count_cuts.py` | `long-form.md` §3 |
-| C4 | Is Russian speech usable (intelligibility, lip-sync, accent)? | T2V, one person, one 8-word line, 4 s | 4 | listen; lip-sync verdict | `limits.md`, `wan3-sound` |
+| C4 | Is Russian speech usable (intelligibility, accent, does the mouth move)? | T2V, one person, one 8-word line, 4 s | 4 | listen; mouth movement present (sync quality is judged at 720p) | `limits.md`, `wan3-sound` |
 
 ## Full set
 

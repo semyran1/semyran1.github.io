@@ -1,7 +1,7 @@
 # What the official handbook actually does
 
 The best evidence this set has: 64 prompts written by the model's makers for their own showcase
-(`handbook-prompts.md`, verbatim, ids below refer to it). Read as a practitioner, not as a
+(`handbook-prompts.md`, ids below refer to it; "verbatim" means verbatim as archived: English machine translations of the Chinese originals, eight entries cut short). Read as a practitioner, not as a
 specification - it shows what Alibaba's team writes, not what is guaranteed. Marks as in
 `provenance.md`; everything here is `[DOC]` unless marked.
 
@@ -17,7 +17,7 @@ Audio-synced dialogue 3 · Creative fun 1 · Chinese classical 1. Of the 64, **2
 video** (edit, replace, extend, motion/camera transfer, dialogue replacement) - the handbook
 treats Wan 3 as an editor as much as a generator. Atlas counts over the 64 `[FIELD]`: style and texture 47% · consistency locks 44% ·
 camera 31% · sound 23% · reference assignment 20% · ratio 19% · one-take 14% · shot + timecode
-12% · prohibitions 6% · frame-level rhythm 3%. Median 268 Chinese characters; half are under 300.
+12% · prohibitions 6% · frame-level rhythm 3%. Median 268 Chinese characters, so half the prompts are shorter than that; the longest is 1758.
 
 ## 2. Techniques
 

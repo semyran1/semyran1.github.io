@@ -10,7 +10,7 @@ Contents: 1 Slot order - 2 Skeletons - 3 Writing the slots - 4 Word budgets - 5 
 
 The Chinese note over the 64 official prompts describes the dominant order `[FIELD]`: **style and
 tone first, then the space, then the subject and its action, and the camera movement last** (p02).
-Alibaba's own order for the structured form is `[DOC-2]`:
+Alibaba's own order for the structured form is `[DOC-2]` (as the samples are described by secondary sources):
 
 ```text
 1  Length, ratio, medium, genre          (the lock line; optional for a bare single shot)
@@ -87,11 +87,13 @@ image anchors the opening, not the clip. One user test saw the subject leave his
 walk behind him when the prompt did not forbid it `[FIELD]`.
 
 ```text
-Image 1 is the first frame.                       [CRAFT: standalone line, like Seedance]
 The man holds the pose for one second, then turns his head slowly to the left
 and lowers his eyes to the letter in his hand. The camera is fixed.
 The room, the lamp and the man's position stay as in the first frame.
 ```
+
+(The picture goes in as `start_image`; it is not an `Image 1` and needs no tag. The Seedance set's
+standalone "use X as the first frame" sentence is `[CRAFT]` there and not needed here.)
 
 ### 2e. First + last frame (FLF) `[FIELD]`
 
@@ -122,7 +124,7 @@ the Atlas rule is the same `[FIELD]`.
 **Camera.** The vocabulary lives in `wan3-film`; here the rule is one main treatment per shot,
 named, with subject and both ends; `fixed shot` is a treatment, and without it Wan moves the
 camera on its own `[FIELD]`. Alibaba ties each move to its meaning - push-in intimacy or tension,
-tracking beside the subject, orbit emphasis, fixed stillness `[DOC]`.
+tracking beside the subject, orbit emphasis, fixed stillness `[DOC]` (quoted in a search excerpt of the guide).
 
 **Light.** Source plus environment, in Alibaba's words `light source` and `lighting environment`
 (`Soft LED softbox light spills in from the right`, 003; `cold white moonlight as the dominant hard
@@ -132,11 +134,11 @@ light, high-contrast low-key lighting, side-lighting`, 011).
 
 | Clip | Words (diagnostic, not a cap) | Official orientation |
 |---|---|---|
-| Edit / swap / remove | 10-80 | 029-034, 050-057 run 11-82 English words |
+| Edit / swap / remove | 10-85 | 029-034, 050-057 run 11-82 English words |
 | Bare single shot | 45-130 | 010: 49, 012: 47, 061: 112, 001: 120 |
 | Single shot with sound / dialogue | 120-230 | 015: 127, 011: 223 |
-| 15 s multi-shot | 350-600 | 037: 393, 035: 580, 036 (sectioned): 611 |
-| 20-30 s multi-shot / one-take | 400-900 | 026: 408, 004: 543, 064: 574, 003: 919 |
+| 15 s multi-shot | 350-620 | 037: 393, 035: 580, 036 (sectioned): 611 |
+| 20-30 s multi-shot / one-take | 400-920 | 026: 408, 004: 543, 064: 574, 003: 919 |
 
 (Word counts are of the English translations in the archive; the Chinese originals are shorter -
 median 268 characters, ten prompts over 800 - so these numbers describe the upper side.)

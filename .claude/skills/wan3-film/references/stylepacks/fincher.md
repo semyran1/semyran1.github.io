@@ -1,7 +1,7 @@
 # STYLEPACK - Fincher / *Se7en* - *Mindhunter*
 
 Built to `_contract.md`. Load with `wan3-film` and `wan3-core`, and with no other pack. All
-`[CRAFT]`; rules marked (S) were bought with failed generations on Seedance 2.5 and are not yet
+`[CRAFT]`; rules marked (S) were Seedance-observed (failed generations on Seedance 2.5) and are not yet
 confirmed on Wan. Read the whole pack: the VOCABULARY changes the style block in an enclosed
 interior, and a pack applied from its style block alone reproduces the surface mimicry it exists to
 prevent.
@@ -93,6 +93,31 @@ footsteps and paper at foley precision; no score, or one sustained low note arri
 dialogue close, dry, quiet, never performed. Silence is allowed to be the loudest element.
 Paste: `Sound: only room tone, a low ventilation hum, distant rain and footsteps; no music; the
 dialogue is close, dry and quiet.`
+
+## ENCLOSED INTERIOR VARIANT (interrogation room, cabin, corridor, lift)
+
+For a room with nowhere to stand back to. Replace the lens sentence of the style block and the sound
+line; keep everything else.
+
+```text
+Short-telephoto look (85 to 135 mm): faces sharp, the back wall a soft dissolved wash; a dark
+out-of-focus table edge or doorframe fills the lower 30 percent of the frame.
+Sound: only room tone, a low electrical hum from the lamp and a faint ventilation hum; silence between
+the lines; no music.
+```
+
+- **A reference colour beats the palette.** The grade desaturates around the references: the green
+  coat stays recognisably green, only muted. Say so in one sentence rather than letting the palette
+  repaint the asset.
+- **Dialogue cuts on the listener** needs a visible listener. With an off-screen voice, the largest
+  face tends to take the line (`wan3-sound` dialogue rules 6-8): cut to the speaker, or hold a
+  two-shot where both mouths are visible.
+- **Distance is status** in a symmetric profile two-shot: the interrogator sits at the larger,
+  nearer half of the frame; the pressured side sits deeper and smaller. In a pure profile, move the
+  camera 15-20 degrees off perpendicular rather than writing a status the geometry cannot show.
+- The slow push-in after a line is one treatment with a trigger (`wan3-film` §2).
+- Self-check 1 applies with the interior wording: no physical-distance clause, short telephoto, a stated
+  foreground edge.
 
 ## SELF-CHECK
 

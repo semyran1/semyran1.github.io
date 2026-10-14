@@ -21,7 +21,7 @@ the others, treat as false.
 |---|---|---|---|
 | `duration` | 2-30 (integer), or -1 | 5 | **-1 = model chooses the length, billed as 10 s** |
 | `resolution` | `480p`, `720p`, `1080p` | 720p | no 4K |
-| `aspect_ratio` | `auto`, `16:9`, `9:16`, `1:1`, `4:3`, `3:4` | - | no 21:9, no 2.39:1; `auto` follows the media |
+| `aspect_ratio` | `auto`, `16:9`, `9:16`, `1:1`, `4:3`, `3:4` | - | no 21:9, no 2.39:1; `auto` is listed (that it follows the media is `[FIELD]`, C14) |
 | `generate_audio` | bool | true | native audio track; price unchanged in the preflight |
 | `enable_thinking` | bool | false | "reason about the prompt before generating (slower, better adherence)"; price unchanged in the preflight |
 | `seed` | - | - | **not exposed**: no way to reproduce or promote a draft |

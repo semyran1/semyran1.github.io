@@ -67,10 +67,8 @@ an object (a clock, a cup), hard cuts on music; or one handheld take written wit
 ## SOUND
 
 A looping romantic piece (strings, a slow Latin or jazz groove, a plaintive pop song) carries the
-scene; ambient street, rain and shop sound underneath; a quiet first-person voice-over lines, if
-any, spoken softly and without performance. Paste: `Sound: a slow looping string melody under
-street rain and distant traffic; a quiet reflective voice-over, soft and unhurried; no other
-dialogue.` (Voice language: `wan3-sound`, speech-language caution.)
+scene; ambient street, rain and shop sound underneath; a quiet first-person voice-over, only if the brief supplies it, spoken softly and without performance. Paste: `Sound: a slow looping string melody under
+street rain and distant traffic; no dialogue.` (Add a voice-over line only when the brief gives one.) (Voice language: `wan3-sound`, speech-language caution.)
 
 ## SELF-CHECK
 

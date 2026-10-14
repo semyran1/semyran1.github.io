@@ -37,7 +37,7 @@ from choosing the right resolution once.
 (answered question / accepted clip / wasted). Stop and re-plan after three failed generations on
 one shot or after a quarter of the budget disappears without an accepted clip.
 
-## §1 - Prices `[HF]`
+## §1 - Prices `[HF]`  (Plus plan, 2026-10-14; other plans may differ - re-measure)
 
 Credits per clip (Standard, `wan3_0`); Prime in `references/price-table.md`.
 
@@ -59,14 +59,13 @@ Traps `[HF]`:
 
 - **`duration: -1` (smart duration) is billed as 10 s.** A three-second idea costs 17.5 credits at
   720p. Always pass a number.
-- **`count: 2` preflight returned the single-clip price.** Variants multiply the bill; multiply
-  yourself and treat `count > 1` as a deliberate purchase.
+- **`count: 2` preflight returned the single-clip price** `[HF]`. Variants presumably multiply the
+  bill `[CRAFT]`; multiply yourself and treat `count > 1` as a deliberate purchase.
 - **Reference videos may add billed seconds** on some hosts (RunComfy bills output + every
   reference second) `[FIELD]`; on Higgsfield unmeasured. Run `get_cost` with the real media attached
   (calibration C13) and trim reference videos to the shortest clip that carries the motion.
-- **Upload is free; mistakes are not.** The price of a clip is paid when it is submitted, whether
-  or not it is usable; whether failed/blocked jobs are refunded is unmeasured - check
-  `transactions` after the first failure.
+- **Payment happens at submission** `[CRAFT]`, usable or not; whether failed or blocked jobs are
+  refunded and whether uploads are free are unmeasured - check `transactions` after the first failure.
 
 Where Wan sits `[HF]` (5 s, default parameters of each model, same session): Wan 3.0 720p **8.75**
 · Wan 3.0 480p **5** · Wan 2.7 720p 7.5 · Kling 3.0 8.75 · Seedance 2.5 480p 15 · Seedance 2.5
@@ -82,7 +81,7 @@ Climb only as far as the question requires.
 |---|---|---|---|
 | L0 | `get_cost`, `prompt_lint.py`, the pre-send check | 0 | arithmetic, syntax, timecodes, role lines |
 | L1 | **480p, 2-4 s**, text only (or one reference) | 2-4 | does the prompt parse: camera treatment, first beat, audio type, cut behaviour at the first boundary |
-| L2 | **480p, full length** or one beat per clip | 1 per second | pacing, order of beats, number of cuts, whether references bind, dialogue timing and presence of lip movement |
+| L2 | **480p, full length** or one beat per clip | 1 per second | pacing, order of beats, number of cuts, whether references bind, dialogue timing and that the mouth moves (sync is judged at the final tier) |
 | L3 | **720p final** | 1.75 per second | faces, hands, texture, light, grain; the take you may keep |
 | L4 | **1080p hero** | 3.5 per second | only the shots that will be seen big; check first that 720p was not enough |
 
@@ -104,8 +103,8 @@ with a clean source `[CRAFT]` and revise from the ledger.
   model to drift.
 - **A 30 s clip is a product decision.** It costs 30 / 52.5 / 105 credits and gives the model more
   chances to fail `[FIELD]`. Use it when the continuous take *is* the idea; otherwise build the
-  scene as 2-3 clips of 8-15 s joined by first/last-frame chaining (same price, independent
-  retries, a fix re-buys 10 s instead of 30).
+  scene as 2-3 clips of 8-15 s joined by start-image chaining, or cut together in an editor when the scene is hard-cut coverage
+  (same price, independent retries, a fix re-buys 10 s instead of 30).
 - **Default final tier: 720p.** `[HF]` default; the official handbook's own clips never exceed
   1080p and only a handful are exactly 1920x1080 (Atlas count `[FIELD]`). Go to 1080p for the
   shots that fill a large screen; for social delivery 720p is usually the whole story.
@@ -123,7 +122,7 @@ Expected cost of one usable clip = price of an attempt / probability an attempt 
    lock sentence is cheaper than another roll. Fix the prompt after at most **one** blind re-roll
    (a second sample shows whether the failure is variance or the prompt).
 2. **Split when p is low.** A 15 s three-beat prompt with p = 0.25 costs 105 credits per usable clip
-   at 720p; three 5 s clips at p = 0.6 cost 43.75. Split by beat, chain by frames
+   at 720p; three 5 s clips at p = 0.6 cost 43.75. Split by beat, then chain by start image or, for hard cuts, cut the REF clips together
    (`wan3-core/references/long-form.md` §10).
 3. **Repair beats re-roll when the clip is 80% right.** `wan3-edit` fixes one object, one line
    of dialogue or one lighting problem while keeping the rest; run `get_cost` with the clip attached
@@ -132,6 +131,17 @@ Expected cost of one usable clip = price of an attempt / probability an attempt 
 After each failure: classify (cut / drift / audio / motion / identity / physics / text), change
 **one** thing, say which in the ledger. Rewriting the whole prompt after a failure (Seedance
 set R2) turns a 17-credit lesson into a 17-credit lottery ticket.
+
+## §4b - When the expected cost exceeds the budget
+
+`scripts/wan3_cost.py expected|draft ... --budget N` prints whether one attempt, a draft plus a final, or a
+retry fits. If the expected cost per usable clip is above the budget (a 15 s dialogue scene with two
+references, p = 0.3, costs about 87 credits at 720p against a 40-credit budget), say so before
+spending and choose, in order: (1) shorten the clip or cut a shot; (2) spend the budget on one
+**L1 structure test** (480p, 3-4 s, same role lines and one line of dialogue) and **one final**, and
+accept that a failed final is not retried; (3) lower the final tier to 480p if the delivery allows;
+(4) ask for more budget. Never spend the remainder on a second blind roll; tell the user which
+questions the money bought.
 
 ## §5 - Prime or Standard
 
@@ -168,7 +178,7 @@ deliberately. A Wan 2.7 clip is **not** a draft of a Wan 3.0 clip.
 ```text
 Budget: 150 cr (opening balance 975) | Model: wan3_0 | Final tier: 720p
 #  tier     dur  mode  question                             cost  total  verdict
-1  480p      3   T2V   does Image 1 bind to the man?          3     3    yes (Image 1 syntax)
+1  480p      3   REF   does Image 1 bind to the man?          3     3    yes (Image 1 syntax)
 2  480p      8   T2V   one take with No cut?                  8    11    2 cuts found -> clause moved into each shot
 3  720p     10   REF   final shot 1                         17.5  28.5   accepted
 ```

@@ -45,7 +45,7 @@ Write one of them at every boundary - never leave it to the model.
 Rules `[CRAFT]` that the corpus supports: a continuous take needs its clause **every time** (the
 Seedance set learned that adding one camera move to a finished one-take without the clause
 turned it into cuts); a one-take chains moves *in written order*, each with subject and end state
-(003: pan right to the idol, pan left to the director, back and forth through every beat of the scene, `Do not cut.` after each pan);
+(003: pans alternate between the director and the idol through the whole scene, `Do not cut.` after each);
 montage is requested by saying montage, not by counting moves.
 
 ## 4. Per-shot camera clause `[FIELD]` `[DOC]`
@@ -84,7 +84,7 @@ Shot 4 [24-30s]: No cut. <landing: where the camera stops, what is in frame, fre
 **Hard-cut montage, 15 s** (037 shape):
 
 ```text
-<Length>, <ratio>, <medium>, pure jump cut editing logic, <look>. Faces locked to Girl A @Image1 and Girl B @Image2.
+<Length>, <ratio>, <medium>, pure jump cut editing logic, <look>. Faces locked to Girl A (Image 1) and Girl B (Image 2).
 Shot 1 [0-3s] (Jump Cut): <frame, subjects, light, one action>.
 Shot 2 [3-6s] (Jump Cut): ...
 Camera movement: <short list>. Colour: <2-3 named colours>.
@@ -108,7 +108,7 @@ A 30 s clip carries three or four beats, not six. One benchmark lost the entire 
 beat of a four-beat story; Atlas: "a 30-second generation gives the model more opportunities to
 fail". Put the payoff in the middle third and let the last seconds be a landing (a freeze, a pull
 back, a fade), which costs nothing if dropped. For any story longer than 30 s, plan clips of
-8-15 s joined by FLF, not a longer prompt (section 10).
+8-15 s joined by start-image chaining (or cut together in an editor), not a longer prompt (section 10).
 
 ## 9. Verify the result
 
@@ -126,6 +126,9 @@ Two routes; Alibaba's own continuation rule (input + new output <= 30 s `[DOC-2]
    seconds from the middle segment ...` / `backward by three seconds`, 061): see `wan3-edit`.
    Whether Higgsfield routes an extend instruction (the vendor Sogni says the raw API has no
    extend task) is `[OPEN]` - calibration C9.
-2. **Chain** with FLF (`modes-and-references.md` section 7): generate scene by scene, pull a clean
-   still near the end of each, use it as the next `start_image`, restate the locks, join in an
-   editor. Expect more than one run per join; budget accordingly (`wan3-budget`).
+2. **Chain** (start-image chaining, I2V; `modes-and-references.md` section 7): generate scene by
+   scene, pull a clean still near the end of each, use it as the next `start_image`, restate the
+   locks, join in an editor. Expect more than one run per join; budget accordingly (`wan3-budget`).
+3. **Hard-cut coverage needs no chaining at all.** If the scene is shot/reverse-shot or a montage,
+   generate each shot as its own REF clip (same references, same locks) and cut them together in an
+   editor; identity rides on the references, and a failed shot is re-bought alone.
