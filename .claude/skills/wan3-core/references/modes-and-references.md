@@ -131,8 +131,8 @@ same in both frames. **Chaining clips** `[FIELD]` `[CRAFT]`: take a still from n
 (not the last frame - the last frame often carries motion blur or a half-closed eye), use it as
 `start_image` of clip N+1, restate identity, location, camera, motion and sound in the continuation
 prompt ("lock identity, location, camera, motion and sound in every continuation" - Atlas), and
-expect more than one run per join. Because reference mode and frame mode are said not to combine `[OPEN]` (C10), the identity of a long
-chain rides on the quality of the chosen frames unless C10 shows `start_image` + `image_references` works: choose them from the cleanest moment, front-lit, eyes
+expect more than one run per join. Because reference mode and frame mode do not combine `[HF]` (the validator rejects `start_image` +
+`image_references`), the identity of a long chain rides on the quality of the chosen frames: choose them from the cleanest moment, front-lit, eyes
 open.
 
 ## 8. Upload hygiene (Higgsfield)

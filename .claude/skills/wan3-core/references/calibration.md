@@ -47,7 +47,9 @@ Rules of the ledger:
 
 | Date | Id | Model / params | Prompt | Verdict | Mark changed |
 |---|---|---|---|---|---|
-| - | - | - | - | no calibration run yet | - |
+| 2026-10-14 | C10 | wan3_0, 480p 3 s, `start_image` + `image_references` | submit | **rejected**: 422 "start_image/end_image cannot be combined with reference media"; nothing charged. Preflight (`get_cost`) accepted the same combination, so the preflight does not validate roles | `[HF]` confirmed |
+| 2026-10-14 | C13 | wan3_0, 480p 3 s, 2 images + 6 s `video_references` | submit | preflight 3 cr, charged 3 cr (`transactions`): reference-video seconds not billed (one measurement) | `[HF]` provisional |
+| 2026-10-14 | C1 | see below | - | pending: needs eyes on the clips | - |
 
 ## How to read a result
 

@@ -41,12 +41,14 @@ templates).
 | Videos | up to 5, 1-15 s each, 15 s in total |
 | Audio | up to 5, 15 s in total; WAV or MP3, <= 15 MB `[FIELD]` |
 | Overall | 20 assets; the handbook's omni-reference mode also names documents and web pages (API; not exposed on Higgsfield) |
-| First/last frame | one `start_image`, one `end_image`; **cannot be combined with references** `[OPEN]` |
+| First/last frame | one `start_image`, one `end_image`; **cannot be combined with reference media** `[HF]` (422 at submission, no charge) |
 | Video input for extension | input + new output <= 30 s `[DOC-2]` |
 
-Reference videos may be billed as extra seconds on some hosts (RunComfy: "counted seconds" = output +
-every reference video) `[FIELD]`. On Higgsfield this is unmeasured: **run `get_cost` with the real
-media attached**, and trim reference videos to the shortest clip that carries the motion.
+Reference videos are billed as extra seconds on some hosts (RunComfy: "counted seconds" = output +
+every reference video) `[FIELD]`. **On Higgsfield they were not**: a 3 s 480p generation with a 6 s
+reference video attached preflighted at 3 credits and was charged 3 `[HF]` (one measurement; a longer
+reference may behave differently). Still run `get_cost` with the real media attached, and trim
+reference videos to the shortest clip that carries the motion.
 
 ## What Wan 3 does well, and what it does not `[FIELD]` (vendors, directional)
 

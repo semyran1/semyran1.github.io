@@ -98,10 +98,11 @@ before writing a word. Higgsfield media roles: `start_image`, `end_image`, `imag
 
 Rules `[FIELD]` unless noted, test with `calibration.md` C10 before relying on them on Higgsfield:
 
-- **REF and first/last frame do not combine** (RunComfy, Scenario, Pixeldojo agree) `[OPEN]` on
-  Higgsfield (C10; the lint only warns). Until C10 is logged, identity across a chain of clips rides
-  on the chosen frames, not on references: pick frames that carry it. Also untested: whether a
-  single `start_image` combines with `image_references`.
+- **REF and start/end frames do not combine** `[HF]`: Higgsfield's validator rejects
+  `start_image` / `end_image` together with reference media (422 "start_image/end_image cannot be
+  combined with reference media", nothing charged; tested with `start_image` + `image_references`).
+  Identity across a chain of clips therefore rides on the chosen frames, not on references: pick
+  frames that carry it.
 - **One primary task per prompt** `[CRAFT]`: generate, edit and extend never share a prompt.
 - **When one face matters, use I2V or REF, not words.** Describing a face in prose is the weakest
   identity anchor (Atlas: "use image-to-video when one specific face matters").
@@ -243,7 +244,8 @@ Failures that still look like an acceptable clip:
 **Pre-send - every prompt.** Print only failures with their fix, or `pre-send: pass`.
 
 1. Header line present (R6); no skill in it was read before the latest compaction.
-2. Mode declared; media roles consistent with it (no REF + FLF, no edit verb on a T2V).
+2. Mode declared; media roles consistent with it (no reference media together with `start_image` or
+   `end_image`: the platform rejects it; no edit verb on a T2V).
 3. Every reference numbered per type in upload order, with a role line that says what to take
    **and** what not to take; counts stated once.
 4. Cost line present and inside the session budget; resolution is the lowest that answers the

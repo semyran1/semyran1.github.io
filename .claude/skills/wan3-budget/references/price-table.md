@@ -26,7 +26,8 @@ for Standard and 17.5/38.5 for Prime at 720p/1080p `[FIELD]`).
 | wan3_0 | 720p | 5, `enable_thinking: true` | 8.75 (unchanged) |
 | wan3_0 | 720p | 5, `count: 2` | 8.75 (single-clip price) |
 
-Not measured: any call with media attached; edit/extend routing; upscale.
+Media attached `[HF]`: two `image_references` (3 s, 480p) 3 cr; `start_image` + `end_image` 3 cr; `start_image` + `video_references` 3 cr; `video_references` alone 3 cr; two images + one 6 s video 3 cr preflight and **3 cr charged** - attached media did not change the price. `start_image` + `image_references` is rejected at submission (422), nothing charged.
+Not measured: edit/extend routing; upscale; a long (10-15 s) reference video.
 
 ## Derived rates (credits per second)
 

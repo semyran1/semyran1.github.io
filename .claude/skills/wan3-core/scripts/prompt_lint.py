@@ -228,8 +228,8 @@ def main():
             warns.append("references: no exclusion language ('only the face', 'do not use the people') - "
                          "say what NOT to take from each asset")
         if a.mode == "FLF":
-            warns.append("references: FLF mode with reference tags - reference and first/last-frame modes "
-                         "do not combine (unverified on Higgsfield: calibration C10)")
+            warns.append("references: FLF mode with reference tags - Higgsfield rejects start_image/end_image "
+                         "together with reference media (422, nothing charged; measured 2026-10-14)")
     elif a.images or a.videos or a.audios:
         warns.append("references: assets supplied but the prompt cites none of them")
     if a.mode == "EDIT" and not a.videos:

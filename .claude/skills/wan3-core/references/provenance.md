@@ -60,7 +60,7 @@ A logged `[EMPIRICAL]` result outranks all of them for this project.
 | Dialogue pattern speaker + verb + colon + quote; voice reference attached by numbered audio; "lip sync" tag | Model Studio guide via search | `[DOC-2]` |
 | References: 10 images, 5 videos (1-15 s each, 15 s total), 5 audio (15 s total); total 20 | RunComfy, Scenario, Oxen, Venice (third-party) | `[FIELD]` |
 | Handbook "omni-reference" mode takes up to 20 assets incl. documents and web pages; references are numbered per type (Image n / Video n / Audio n) | the Atlas zh note on the handbook; Alibaba guide via secondary sources | `[DOC-2]` |
-| Reference mode and first/last-frame mode cannot be combined | RunComfy, Pixeldojo, Scenario | `[OPEN]` on Higgsfield |
+| Reference mode and first/last-frame mode cannot be combined | RunComfy, Pixeldojo, Scenario; **confirmed on Higgsfield 2026-10-14**: 422 "start_image/end_image cannot be combined with reference media" at submission | `[HF]` |
 | Extension: input video + new output must total <= 30 s | Model Studio docs via search | `[DOC-2]` |
 | No negative-prompt field; exclusions go into the prompt | Model Studio guide; several guides | `[DOC-2]` |
 | `prompt_extend` default true in the API; "does not exist" per a Japanese translation of the English docs | contradictory | `[OPEN]`; Higgsfield exposes `enable_thinking` only |

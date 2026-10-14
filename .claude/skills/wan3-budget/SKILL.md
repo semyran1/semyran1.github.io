@@ -61,9 +61,15 @@ Traps `[HF]`:
   720p. Always pass a number.
 - **`count: 2` preflight returned the single-clip price** `[HF]`. Variants presumably multiply the
   bill `[CRAFT]`; multiply yourself and treat `count > 1` as a deliberate purchase.
-- **Reference videos may add billed seconds** on some hosts (RunComfy bills output + every
-  reference second) `[FIELD]`; on Higgsfield unmeasured. Run `get_cost` with the real media attached
-  (calibration C13) and trim reference videos to the shortest clip that carries the motion.
+- **Reference videos did not add billed seconds** in the one Higgsfield measurement `[HF]`: a 3 s
+  480p clip with a 6 s reference video preflighted at 3 and was charged 3 (some other hosts bill
+  output + every reference second `[FIELD]`). Still run `get_cost` with the real media attached and
+  trim reference videos to the shortest clip that carries the motion.
+- **A preset may be suggested instead of a submission** `[HF]`: `generate_video` can answer with
+  `preset_recommendation` (nothing is charged). To generate literally, repeat the call with
+  `declined_preset_id` set to the id it names.
+- **A rejected combination costs nothing** `[HF]`: the 422 for `start_image` + references came back at
+  submission with no charge.
 - **Payment happens at submission** `[CRAFT]`, usable or not; whether failed or blocked jobs are
   refunded and whether uploads are free are unmeasured - check `transactions` after the first failure.
 
