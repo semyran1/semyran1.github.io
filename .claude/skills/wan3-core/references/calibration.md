@@ -1,0 +1,61 @@
+# Calibration - turning `[OPEN]` and `[FIELD]` into `[EMPIRICAL]` for pennies
+
+This set was written without a single generation: the research channel was documentation and
+reports only. The Seedance set became reliable because failed generations were logged and turned
+into rules. This file is the shortest route to the same thing for Wan 3 - every test is designed
+to be the cheapest clip that can answer one question, at `480p` standard (**1 credit per second**
+`[HF]`) unless stated.
+
+Rules of the ledger:
+
+- One question per test, one variable per run, the rest copied byte for byte (R2).
+- Before each paid call: `get_cost` (free). After each: record the price actually charged
+  (`transactions`) - a mismatch with the preflight is itself a finding.
+- A result is logged in the table below with date, model, parameters, prompt id, verdict and the
+  rule it changes. Then the mark in the source file is upgraded `[OPEN]/[FIELD]` -> `[EMPIRICAL]`
+  (or the rule is struck).
+- No seed on Higgsfield: one run is a sample. Rules that matter are confirmed twice before they
+  are marked `[EMPIRICAL]`; a rule contradicted once is marked `[OPEN]` again.
+
+## Minimum set (about 30 credits) - run before the first serious project
+
+| Id | Question | Cheapest setup | Credits | Records | Changes |
+|---|---|---|---|---|---|
+| C10 | Do `start_image` + `image_references` get rejected together? Do `video_references` + `start_image`? | `get_cost` only, three role combinations | 0 | the tool's error or adjustment text | `SKILL.md` §1, `modes-and-references.md` §1 |
+| C13 | Are reference-video seconds billed on Higgsfield? | upload a 5 s clip; `get_cost` with and without it | 0 | both prices | `wan3-budget` price table, `limits.md` |
+| C1 | Does Higgsfield bind `Image 1` or `@Image1`? | REF, two clearly different people as images; "Image 1 hands a cup to Image 2" vs the `@Image1` form; 3 s each | 6 | who is who in each clip | `SKILL.md` §4 default syntax |
+| C5 | What audio appears when sound is not mentioned? Does "no music, no dialogue, only ambient sound" hold? | T2V, a person in a street, 3 s, twice | 6 | music? voice? ambience? | `wan3-sound` defaults |
+| C2 | Does `No cut.` plus a camera clause keep a 3-beat take one shot? | T2V, 8 s, three beats, with and without the clauses | 16 | cut times via `count_cuts.py` | `long-form.md` §3 |
+| C4 | Is Russian speech usable (intelligibility, lip-sync, accent)? | T2V, one person, one 8-word line, 4 s | 4 | listen; lip-sync verdict | `limits.md`, `wan3-sound` |
+
+## Full set
+
+| Id | Question | Setup | Credits |
+|---|---|---|---|
+| C3 | Are declared hard cuts obeyed (3 shots, `(Jump Cut)` each)? | T2V 9 s, count cuts | 9 |
+| C6 | Does `enable_thinking` change adherence on a multi-shot or multi-reference prompt, and the bill? | same prompt on/off, 6 s; compare `transactions` | 12 |
+| C7 | Does a 480p draft predict the 720p/1080p take (composition, blocking, camera, cuts)? | same prompt at 480p, 720p, 1080p, 3 s | 3 + 5.25 + 10.5 |
+| C8 | What does `-1` return for a three-beat prompt, and what is charged? | T2V, `duration: -1`, 480p | 10 |
+| C9 | Is an edit instruction routed (`Edit the video, remove ... in Video 1`) and how is it billed? Is `Extend video 1 by 3 seconds` routed? | use a clip from C2; 480p; `get_cost` first | ~6 |
+| C12 | How much does prompt length matter (45 words vs 250 words, same scene)? | T2V 5 s twice | 10 |
+| C14 | What does `aspect_ratio: auto` do with a 9:16 start image? | I2V 3 s | 3 |
+| C16 | How different are two runs of the same prompt (value of a re-roll)? | same prompt twice, 3 s | 6 |
+| C17 | Is a short sign text legible at 480p vs 720p? | T2V 3 s, a shop sign | 3 + 5.25 |
+| C18 | Fractional timecodes in a storyboard-per-frame prompt (`1.48-3s`) | REF, three images, 5 s | 5 |
+| C19 | Prime vs Standard on the same prompt: is the 1.71x worth it? | T2V 5 s at 720p, both models | 8.75 + 15 |
+
+## Log
+
+| Date | Id | Model / params | Prompt | Verdict | Mark changed |
+|---|---|---|---|---|---|
+| - | - | - | - | no calibration run yet | - |
+
+## How to read a result
+
+- **Binding tests** (C1, C18): the person who appears is judged by face, not by clothing.
+- **Cut tests** (C2, C3): run `scripts/count_cuts.py clip.mp4 --expect N`; a threshold that is too
+  sensitive reports camera whips as cuts, so also look at the first frame after each reported time.
+- **Draft predictability** (C7): compare five things only - subject placement, camera path, number
+  of cuts, action order, audio type. Texture and faces are expected to differ and prove nothing.
+- **Audio tests** (C4, C5): download the file and listen once with the picture, once without.
+- **Cost tests**: the preflight is the claim, `transactions` is the fact.
