@@ -79,8 +79,7 @@ than you assumed, an attribute-only line matches nobody and the model invents a 
 | `the @Image1 ... packaging is centrally displayed` ... `flips it to show the @Image2 back` | 039 | front and back of one package as two assets, text kept legible |
 
 Observation `[DOC]`: the handbook writes `@Image1`, `Image1` and `Image 1` for the same thing
-(18 prompts use `@Image`, 6 use a bare `Image N`). Calibration C1 decides which one Higgsfield binds; until then use
-`Image 1` (Alibaba's guide wording) and let the lint warn on mixed styles.
+(18 prompts use `@Image`, 6 use a bare `Image N`). Calibration C1: both bound correctly on Higgsfield; use `Image 1` (Alibaba's guide wording, two runs) and let the lint warn on mixed styles.
 
 ## 4. Image references
 

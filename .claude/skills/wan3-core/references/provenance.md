@@ -19,7 +19,7 @@ quotes the page", never "read on the page". Re-check `[DOC-2]` and `[OPEN]` item
 | `[FIELD]` | Third-party guides, reviews, API aggregators. Most of them sell Wan access: directional, never proof | Medium-low |
 | `[CRAFT]` | Rule carried from the Seedance 2.5 set or from film craft; untested on Wan | Hypothesis |
 | `[OPEN]` | Sources contradict each other, or one source only. Test before relying | Do not build on it |
-| `[EMPIRICAL]` | Bought with a generation in this project. **None yet** - `calibration.md` lists the cheap experiments that create them | Outranks everything once logged; never bans a documented capability |
+| `[EMPIRICAL]` | Bought with a generation in this project. Three logged so far (C1 `Image N` binding, C10, C13) - `calibration.md` lists the experiments that create more | Outranks everything once logged; never bans a documented capability |
 
 Evidence order: `[HF]` for parameters and prices > `[DOC]` > `[DOC-2]` > `[FIELD]` > `[CRAFT]`.
 A logged `[EMPIRICAL]` result outranks all of them for this project.

@@ -18,6 +18,8 @@ Rules of the ledger:
 
 ## Minimum set (about 30 credits) - run before the first serious project
 
+Status 2026-10-14: C10, C13, C1 done (see the log). Still open: C5 (default audio), C2 (no-cut), C4 (Russian speech) - they need the clips to be listened to / cut-counted by a person or a machine that can download the result.
+
 | Id | Question | Cheapest setup | Credits | Records | Changes |
 |---|---|---|---|---|---|
 | C10 | Do `start_image` + `image_references` get rejected together? Do `video_references` + `start_image`? | `get_cost` only, three role combinations | 0 | the tool's error or adjustment text | `SKILL.md` §1, `modes-and-references.md` §1 |
@@ -49,7 +51,10 @@ Rules of the ledger:
 |---|---|---|---|---|---|
 | 2026-10-14 | C10 | wan3_0, 480p 3 s, `start_image` + `image_references` | submit | **rejected**: 422 "start_image/end_image cannot be combined with reference media"; nothing charged. Preflight (`get_cost`) accepted the same combination, so the preflight does not validate roles | `[HF]` confirmed |
 | 2026-10-14 | C13 | wan3_0, 480p 3 s, 2 images + 6 s `video_references` | submit | preflight 3 cr, charged 3 cr (`transactions`): reference-video seconds not billed (one measurement) | `[HF]` provisional |
-| 2026-10-14 | C1 | see below | - | pending: needs eyes on the clips | - |
+| 2026-10-14 | C1 | wan3_0, 480p 3 s, REF, ship (Image 1) + dog (Image 2), `Image 1 / Image 2` syntax, dog large in the foreground | 2 clips (one with an extra `Video 1` camera-only reference, 6 s hands-and-watch clip) | both **bound correctly**; the video reference leaked no content (judged by the user) | `Image N` `[EMPIRICAL]` (2 runs); `Video 1` camera-only provisional |
+| 2026-10-14 | C1 | same, `@Image1 / @Image2` syntax | 1 clip | **bound correctly** | `@ImageN` provisional (1 run): both syntaxes work, `Image N` stays the default |
+
+Operational notes from the session (not rules about Wan): in a cloud sandbox with a restricted egress policy the presigned upload host and the result CDN of Higgsfield were blocked, so media went in through `media_import_url` from a public URL (the user's own published site) and results could be judged only by the user in the gallery; `scripts/count_cuts.py` needs the clip on a machine that can download it. Spent 9 credits (three 3 s clips); `start_image` + reference media was rejected before billing.
 
 ## How to read a result
 

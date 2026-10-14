@@ -14,8 +14,8 @@ Marks: `[HF]` measured on Higgsfield · `[DOC]` Alibaba text seen verbatim · `[
 a secondary source · `[FIELD]` third-party report · `[CRAFT]` ported rule, untested on Wan ·
 `[OPEN]` sources disagree · `[EMPIRICAL]` confirmed by generations here. The register, with every
 source and what could not be opened, is `references/provenance.md`. **Read it once**: the official
-pages were unreachable when this set was built, and no `[EMPIRICAL]` result exists yet
-(`references/calibration.md` lists the cheap tests that create them).
+pages were unreachable when this set was built, and the first three calibration results (C1, C10,
+C13) are logged in `references/calibration.md`, which lists the cheap tests that create the rest.
 
 **Scope.** Generating and editing video with Wan 3 on Higgsfield. Platform facts below are what the
 Higgsfield catalog exposes, not what the raw Alibaba API offers.
@@ -161,8 +161,9 @@ Caps `[FIELD]`: 10 images, 5 videos (1-15 s each, 15 s total), 5 audio clips (15
 assets overall. Naming `[DOC-2]`: **per-type numbering in upload order** - `Image 1`, `Image 2`,
 `Video 1`, `Audio 1`. The handbook writes the same thing as `@Image1`, `Image1` and `Image 1`
 interchangeably (18 prompts use `@Image`, 6 use `Image N`); mixing styles inside one prompt is
-unnecessary risk, pick one. **Which one Higgsfield binds is untested** - calibration C1, a 6-credit
-test, comes before the first serious REF prompt.
+unnecessary risk, pick one. **Both bound correctly on Higgsfield** in a 3 s test (`Image 1 / Image 2`
+in two clips, `@Image1 / @Image2` in one; calibration C1): `Image 1` is the default (two runs),
+`@Image1` is acceptable (one run). A camera-only `Video 1` reference leaked no content in the one run.
 
 Every reference gets one job and a role line that also says what **not** to take:
 
