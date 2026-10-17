@@ -25,7 +25,7 @@ The official Alibaba pages could not be opened while this set was built (the ses
 policy blocked them). What stands on solid ground: the 64 prompts of the official creator handbook
 (read in full), Higgsfield's catalog and 20+ `get_cost` readings, and the Seedance set's craft.
 What stands on third-party reports is marked `[FIELD]`; contradictions are `[OPEN]`; ported craft is
-`[CRAFT]`. Three calibration runs (9 credits) have been done: reference syntax binds, a start frame cannot be combined with references, a reference video is not billed; everything else is still untested.
+`[CRAFT]`. Seven calibration runs (33 credits) have been done: reference syntax binds, a start frame cannot be combined with references, a reference video is not billed, and four applied clips on a real ad (user-judged in the gallery, one run each) passed for `No cut.`, hard cuts and the no-music clause while an edit lost a small logo; everything else is still untested.
 `wan3-core/references/calibration.md` lists the experiments that create them: the first six cost
 about 30 credits. `wan3-core/references/provenance.md` is the full source register.
 

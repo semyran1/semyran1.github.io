@@ -63,7 +63,8 @@ Traps `[HF]`:
   bill `[CRAFT]`; multiply yourself and treat `count > 1` as a deliberate purchase.
 - **Reference videos did not add billed seconds** in the one Higgsfield measurement `[HF]`: a 3 s
   480p clip with a 6 s reference video preflighted at 3 and was charged 3 (some other hosts bill
-  output + every reference second `[FIELD]`). Still run `get_cost` with the real media attached and
+  output + every reference second `[FIELD]`). An edit with a 7 s source video (`Edit the video ... Video 1`) was charged 7 cr at 480p, i.e. the
+  output seconds only `[HF]` (one measurement). Still run `get_cost` with the real media attached and
   trim reference videos to the shortest clip that carries the motion.
 - **A preset may be suggested instead of a submission** `[HF]`: `generate_video` can answer with
   `preset_recommendation` (nothing is charged). To generate literally, repeat the call with

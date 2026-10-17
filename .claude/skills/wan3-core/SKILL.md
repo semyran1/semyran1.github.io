@@ -63,7 +63,7 @@ verified nothing.
 **R4 - Price before you press.** No paid generation without a `get_cost` line (`wan3-budget`).
 It is free and takes one call; the header carries its result. In a session without the Higgsfield
 tools write the offline figure and say so: `Cost: 26.25 cr (offline estimate; media-attached price
-unmeasured)`.
+measured once: edit = output seconds)`.
 
 **R5 - Some failures are silent** (registry in §9): the output looks acceptable and the cause
 hides. Only the checks catch them.

@@ -1,6 +1,6 @@
 ---
 name: wan3-edit
-description: "WAN 3.0 EDIT - using Wan 3.0 on an EXISTING clip: remove or add an object, replace a character or outfit, swap positions, restyle, relight, change a line of dialogue, reshape the action, transfer camera movement or an effect, extend a clip forward or backward, chain clips past 30 s. 22 of the 64 official handbook prompts carry a source video, most are edits. Use for \"убери объект\", \"замени персонажа\", \"поменяй одежду\", \"исправь деталь без перегенерации\", \"продли ролик\", \"+15 секунд\", \"перенеси камеру из референса\", \"стилизуй видео\", \"поменяй реплику\", \"edit the video\", \"Video 1\", \"extend video\", or whenever a nearly-good clip should be repaired instead of re-rolled. Requires wan3-core; run get_cost with the clip attached first (edit routing and billing on Higgsfield are unmeasured). Not for generating from scratch (wan3-core)."
+description: "WAN 3.0 EDIT - using Wan 3.0 on an EXISTING clip: remove or add an object, replace a character or outfit, swap positions, restyle, relight, change a line of dialogue, reshape the action, transfer camera movement or an effect, extend a clip forward or backward, chain clips past 30 s. 22 of the 64 official handbook prompts carry a source video, most are edits. Use for \"убери объект\", \"замени персонажа\", \"поменяй одежду\", \"исправь деталь без перегенерации\", \"продли ролик\", \"+15 секунд\", \"перенеси камеру из референса\", \"стилизуй видео\", \"поменяй реплику\", \"edit the video\", \"Video 1\", \"extend video\", or whenever a nearly-good clip should be repaired instead of re-rolled. Requires wan3-core; run get_cost with the clip attached first (first measurement: an `Edit the video ... Video 1` prompt routes as an edit and bills the output seconds only; small logos can vanish). Not for generating from scratch (wan3-core)."
 ---
 
 # WAN 3.0 EDIT
@@ -91,11 +91,18 @@ Compare, in credits, **before** deciding: one more attempt = the price of the cl
 repair = the price of the edit with the clip attached (get it with `get_cost`) / p(edit works).
 Repair wins when: one object, one line of dialogue, one lighting problem, one outfit item is
 wrong and the rest is good. Re-roll wins when: identity, motion or structure is wrong throughout,
-or the clip is short (an edit probably costs about the same as a new clip of that length - unmeasured, `[OPEN]`). Trim the source to the problem span plus
+or the clip is short (an edit of a 7 s source cost 7 cr at 480p = the price of a new 7 s clip, so no saving on short clips - one measurement `[HF]`). Trim the source to the problem span plus
 a second either side if only a part needs work, and splice back in an editor `[CRAFT]` - but the
 edit may then lose continuity at the seams, so prefer whole-clip edits for short clips.
 
-Check after an edit: the keep list really stayed (faces, hands, background text, motion path);
+**Small marks do not survive on trust** `[EMPIRICAL]` (field test D, one run): an embroidered fox
+on a black longsleeve disappeared in an add-sunglasses edit although the keep list named it
+(`the black longsleeve with the orange fox ... unchanged`). Before paying, ask whether a logo,
+badge, print or small text on the subject must survive. If yes: after the first edit look at that
+mark first; if it is gone, do not re-roll the same edit - rebuild the shot in REF mode with the mark
+as its own `Image N` (the same fox held in the REF test A), or accept the loss and add the mark in post.
+
+Check after an edit: the keep list really stayed (faces, hands, background text, logos, motion path);
 audio may be re-generated rather than preserved `[OPEN]` - listen to it.
 
 ## §5 - Pre-send items added by this skill

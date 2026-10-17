@@ -88,7 +88,7 @@ is cheap.
 | 15 s three-shot scene, p(accept)=0.3 untested | direct: 26.25 / 0.3 | ~88 expected |
 | Same, after one 480p 8 s structure draft, p=0.55 | 8 + 26.25 / 0.55 | ~56 expected |
 | Product swatch, 5 s final | 1 final | 8.75 (a draft would cost more than it saves) |
-| Video edit of a 5 s clip | `get_cost` with the clip attached first | unmeasured |
+| Video edit of a 7 s clip at 480p | `get_cost` with the clip attached first | 7 (output seconds only; one measurement) |
 | Dialogue test in Russian | 480p 4 s | 4 |
 
 Expected values use the `scripts/wan3_cost.py` formulas and guessed acceptance rates; replace the
