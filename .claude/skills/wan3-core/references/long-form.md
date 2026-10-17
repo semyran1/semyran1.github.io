@@ -129,6 +129,6 @@ Two routes; Alibaba's own continuation rule (input + new output <= 30 s `[DOC-2]
 2. **Chain** (start-image chaining, I2V; `modes-and-references.md` section 7): generate scene by
    scene, pull a clean still near the end of each, use it as the next `start_image`, restate the
    locks, join in an editor. Expect more than one run per join; budget accordingly (`wan3-budget`).
-3. **Hard-cut coverage needs no chaining at all.** If the scene is shot/reverse-shot or a montage,
+3. **Hard-cut coverage needs no chaining at all**, but every new angle needs its own background anchor: Wan kept the declared cut counts and lost the room (`wan3-film` `references/angles-and-geometry.md`). If the scene is shot/reverse-shot or a montage,
    generate each shot as its own REF clip (same references, same locks) and cut them together in an
    editor; identity rides on the references, and a failed shot is re-bought alone.

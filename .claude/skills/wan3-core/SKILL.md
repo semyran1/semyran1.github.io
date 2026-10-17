@@ -239,6 +239,7 @@ Failures that still look like an acceptable clip:
 | A 480p draft judged as the final look | no seed: the draft is not the take | `wan3-budget`: drafts test the prompt, not the take |
 | Emotion adjectives instead of visible behaviour | flat acting reads as a model limit | `acting-system`; Atlas: "'anxious' is a hope, a description of chewing and gaze is an instruction" `[FIELD]` |
 | `-1` duration | billed 10 s whatever comes out | fixed durations only |
+| A new camera angle on a known room | the clip looks fine shot by shot; the window, wall or desk is in a different place from the last angle | a View sentence per shot, a plate per angle, two to three angles per generation (`wan3-film` `references/angles-and-geometry.md`) |
 
 ## §10 - Checks `[CRAFT]`
 

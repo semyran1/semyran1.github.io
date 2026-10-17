@@ -22,6 +22,7 @@ source, lighting environment, shot size, camera angle, lens, camera movement* `[
 |---|---|
 | Camera vocabulary, movement chains, handheld, locked-off, orbit/whip/FPV, camera "reaction time" | `references/camera.md` |
 | Light registers, exposure, dark scenes, atmosphere, stock, grain, hardware lines, aspect ratio | `references/light-and-look.md` |
+| More than one camera angle on the same room; cutting between two faces; "the window moved", "the room changed" | `references/angles-and-geometry.md` |
 | Story function of a shot (establish ... resolve) | `references/dramatic-functions.md` |
 | The user asks for a named director look | exactly one file from `references/stylepacks/` (contract and index: `_contract.md`) |
 
@@ -53,9 +54,6 @@ moves on its own, and that a still camera must be requested (`fixed shot`) `[FIE
 - **A still camera is a treatment**: `fixed shot, the door frame, the table edge and the window
   stay at the same place in frame` - write what does not move, not "the last frame matches the
   first" (the model reads that as "return everything, the subject too, to the start" `[CRAFT]`).
-- **One treatment may have a trigger.** `Fixed, then a slow push-in that begins when she finishes
-  speaking` is one treatment (a start state, an end state, a trigger); a push-in *and* a pan in one
-  shot is two.
 - **One treatment may have a trigger.** `Fixed, then a slow push-in that begins when she finishes
   speaking` is one treatment (a start state, an end state, a trigger); a push-in *and* a pan in one
   shot is two.
@@ -133,6 +131,8 @@ uninformative, never a substitute for a light source and a lens.
 1. Every shot: quote its one camera treatment; a continuous take: quote the no-cut clause at each
    move.
 2. A dark shot: quote the one line naming the **one** small object that stays visible.
+
+2b. A scene with more than one angle on one space: each shot quotes its View sentence (what is behind the subject, where the light comes from), each close-up names its background (`references/angles-and-geometry.md`). `[EMPIRICAL]` provisional: Wan invents the room for any angle without a reference.
 
 **Full audit:**
 
