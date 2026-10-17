@@ -28,8 +28,9 @@ the others, treat as false.
 | `count` | 1-4 | 1 | variants of the same prompt; preflight returned the single-clip price for `count: 2` |
 | `medias[].role` | `start_image`, `end_image`, `image_references`, `video_references`, `audio_references` | - | |
 
-Output frame rate 30 fps `[FIELD]`. Prompt length up to 20,000 characters, Chinese, English and
-Japanese `[FIELD]`; Russian prompts are not documented - write the model-facing prompt in English
+Output frame rate 30 fps `[FIELD]`. Prompt length: **at most 5,000 characters on Higgsfield** `[HF]`
+(422 `string_too_long` at submit, nothing charged; the third-party figure of 20,000 is the raw API and wrong
+here; the preflight does not check it). Chinese, English and Japanese `[FIELD]`; Russian prompts are not documented - write the model-facing prompt in English
 (the handbook itself is Chinese, its English versions are translations that still work as
 templates).
 

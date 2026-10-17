@@ -69,7 +69,7 @@ A logged `[EMPIRICAL]` result outranks all of them for this project.
 | Weak spots: dialogue audio texture, in-frame text and small numbers, hands, dense crowds, lip-sync (mixed), long-scene drift, closing beat of 4-beat 30 s narratives dropped | reviews (buildfastwithai, pixmax, curiousrefuge, Atlas) | `[FIELD]` |
 | Strong spots: camera commands behave "like a parameter", physics, long reference-heavy briefs, 30 s continuity | reviews, Atlas same-seed test (49 runs) | `[FIELD]` |
 | Speech languages: not documented by the vendor; English and Mandarin most credible; Russian never named | Sentioscope, Aristotto | `[OPEN]` |
-| Prompt length up to 20,000 characters; Chinese, English, Japanese accepted | RunComfy skill, a note.com guide | `[FIELD]` |
+| Prompt length up to 20,000 characters; Chinese, English, Japanese accepted | RunComfy skill, a note.com guide | `[FIELD]` for languages; the length is **5,000 characters on Higgsfield** `[HF]` (422, 2026-10-17) |
 | Third-party prices (USD per second 480/720/1080: $0.035-0.07/0.07-0.14/0.14-0.28) | many | irrelevant here: `[HF]` credits replace them |
 
 ## Known contradictions kept visible
