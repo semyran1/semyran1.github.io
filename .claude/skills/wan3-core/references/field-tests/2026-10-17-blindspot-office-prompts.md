@@ -124,3 +124,17 @@ Speakers: Angelika (Image 2) in shots 2, 3 (off-screen) and 5; Arthur (Image 1) 
 
 Sound. Voice: Arthur a dry, level baritone, quiet; Angelika a clear, warm mid-range, unhurried. Ambience: a low hum beyond the walls, muffled telephones. No music, no subtitles.
 ```
+
+## Packages in the gallery (2 s carriers, 2026-10-17)
+
+Both carry the full prompt and every asset of their half; the user sets the duration in the interface and
+recreates in unlimited mode. Net spend of the whole session: 12 credits (8 on audio-limit probes, 4 on
+these two packages; the failed submissions were refunded automatically).
+
+| Package | Job | Set the duration to | Assets attached |
+|---|---|---|---|
+| A, shots 1-4 | `6df768d2-31a9-409e-b7e3-e396a1d8b253` | 14 s | 7 images, take 1 |
+| B, shots 5-8 | `0aa00c7b-56a0-487d-b10e-d492037cf686` | 12 s | 6 images, takes 2-4 |
+
+The 2 s outputs themselves were not judged (a 14 s and a 12 s timeline compressed into 2 s); a person has to
+look at the 14 s and 12 s recreations to judge the acting.
