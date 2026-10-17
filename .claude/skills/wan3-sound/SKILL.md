@@ -96,7 +96,7 @@ Attach the voice as `audio_references` and bind it by number to one character: `
 tone of voice references Audio1` (015) - **one reference per speaker**; the binding covers all of that
 character's lines `[DOC-2]`. By default a reference gives timbre, accent, pace and emotion; if the
 recorded take must be spoken as recorded, say so (`Audio 1 defines the man's voice and the line he
-speaks`) `[CRAFT]`. Limits `[FIELD]`: 5 clips, 15 s in total, WAV or MP3 <= 15 MB. Clean takes: no music
+speaks`) `[CRAFT]`. Limits: 5 clips `[FIELD]`; **total length about 10 s on Higgsfield** `[HF]` provisional (9.7 s alone and 7.8 s in three files passed, 12.2 s, 14.7 s and 17.5 s failed on the render with the credits refunded; the third-party figure of 15 s is wrong here), WAV or MP3 <= 15 MB `[FIELD]`. A scene with more recorded speech than that is split into clips, each carrying its own takes. Clean takes: no music
 under the voice, no reverb, no second speaker. Pad a very short line at the **tail** with the take's own
 room tone, never digital silence (a zero-padded take was rejected as if moderated on Seedance;
 Wan untested). A voice reference can also drive rhythm: `Choreograph the dance according to the
