@@ -14,8 +14,8 @@ Marks: `[HF]` measured on Higgsfield · `[DOC]` Alibaba text seen verbatim · `[
 a secondary source · `[FIELD]` third-party report · `[CRAFT]` ported rule, untested on Wan ·
 `[OPEN]` sources disagree · `[EMPIRICAL]` confirmed by generations here. The register, with every
 source and what could not be opened, is `references/provenance.md`. **Read it once**: the official
-pages were unreachable when this set was built, and the first three calibration results (C1, C10,
-C13) are logged in `references/calibration.md`, which lists the cheap tests that create the rest.
+pages were unreachable when this set was built, and the calibration results (C1-C22, one run each, provisional)
+are logged in `references/calibration.md`, which also lists the tests still open.
 
 **Scope.** Generating and editing video with Wan 3 on Higgsfield. Platform facts below are what the
 Higgsfield catalog exposes, not what the raw Alibaba API offers.

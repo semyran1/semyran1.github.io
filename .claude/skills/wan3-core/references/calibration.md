@@ -18,7 +18,7 @@ Rules of the ledger:
 
 ## Minimum set (about 30 credits) - run before the first serious project
 
-Status 2026-10-14: C10, C13, C1 done (see the log). Still open: C5 (default audio), C2 (no-cut), C4 (Russian speech) - they need the clips to be listened to / cut-counted by a person or a machine that can download the result.
+Status 2026-10-19: done (see the log): C10, C13, C1, and applied runs on real scenes - `No cut.` (C2), hard cuts (C3), the no-music clause (C5, partly), edit routing and billing (C9), Russian speech with voice-reference takes (C4, partly: recorded takes only, no TTS-from-text run), audio-reference total (C20), prompt length (C21), angle and room consistency (C22). All provisional (one run per prompt). Still open: C5 with sound not mentioned at all, C7 draft-versus-final predictability, C8 `-1`, C12 length effect, C16 re-roll variance, C17 small text, C19 Prime versus Standard, and a re-run of C22 with the view contract.
 
 | Id | Question | Cheapest setup | Credits | Records | Changes |
 |---|---|---|---|---|---|
