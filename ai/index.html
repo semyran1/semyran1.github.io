@@ -1229,9 +1229,10 @@ const AI = [
   {cover:"../assets/yd_navigator1.jpg",clip:"../assets/clip_navigator1.mp4",slides:["../assets/sl_nav1_1.jpg","../assets/sl_nav1_2.jpg","../assets/sl_nav1_3.jpg","../assets/sl_nav1_4.jpg"],href:"https://disk.yandex.ru/i/rljoNNQ3RHX4GA",t:{ru:"«Навигатор души» — Королева",en:"'Soul Navigator' — The Queen"},m:{ru:"вертикальный ai-ролик",en:"vertical ai video"}},
   {cover:"../assets/yd_navigator2.jpg",clip:"../assets/clip_navigator2.mp4",slides:["../assets/sl_nav2_1.jpg","../assets/sl_nav2_2.jpg","../assets/sl_nav2_3.jpg","../assets/sl_nav2_4.jpg"],href:"https://disk.yandex.ru/i/dgI-HYAgXd3Dyw",t:{ru:"«Навигатор души» — Генерал",en:"'Soul Navigator' — The General"},m:{ru:"вертикальный ai-ролик",en:"vertical ai video"}},
   {cover:"../assets/yd_navigator3.jpg",slides:["../assets/yd_navigator3.jpg","../assets/sl_nav3_1.jpg","../assets/sl_nav3_2.jpg","../assets/sl_nav3_3.jpg","../assets/sl_nav3_4.jpg"],clip:"../assets/clip_ai.mp4",href:"https://disk.yandex.ru/i/MrL40b7HAAmsWA",t:{ru:"«Навигатор души» — Кинг",en:"'Soul Navigator' — The King"},m:{ru:"вертикальный ai-ролик",en:"vertical ai video"}},
-  {cover:"../assets/yd_fliska1.jpg",clip:"../assets/clip_fliska1.mp4",slides:["../assets/sl_fliska1_1.jpg","../assets/sl_fliska1_2.jpg","../assets/sl_fliska1_3.jpg","../assets/sl_fliska1_4.jpg"],href:"https://disk.yandex.ru/i/Nfo91xRRiCwIDg",t:{ru:"Флиска — ролик для маркетплейсов",en:"Fleece — marketplace video"},m:{ru:"продуктовый ai-ролик",en:"product ai video"}},
-  {cover:"../assets/yd_fliska2.jpg",clip:"../assets/clip_fliska2.mp4",slides:["../assets/sl_fliska2_1.jpg","../assets/sl_fliska2_2.jpg","../assets/sl_fliska2_3.jpg","../assets/sl_fliska2_4.jpg"],href:"https://disk.yandex.ru/i/RMSk_4pcSWoRfA",t:{ru:"Флиска — продуктовый ролик № 2",en:"Fleece — product video #2"},m:{ru:"продуктовый ai-ролик",en:"product ai video"}},
-  {cover:"../assets/yd_fliska3.jpg",clip:"../assets/clip_fliska3.mp4",slides:["../assets/sl_fliska3_1.jpg","../assets/sl_fliska3_2.jpg","../assets/sl_fliska3_3.jpg","../assets/sl_fliska3_4.jpg"],href:"https://disk.yandex.ru/i/2p_nT91rU4l35g",t:{ru:"Флиска — «футболист»",en:"Fleece — 'the footballer'"},m:{ru:"продуктовый ai-ролик",en:"product ai video"}},
+  {cover:"../assets/yd_fl_msk.jpg",clip:"../assets/clip_fl_msk.mp4",slides:["../assets/sl_fl_msk_1.jpg","../assets/sl_fl_msk_2.jpg","../assets/sl_fl_msk_3.jpg","../assets/sl_fl_msk_4.jpg"],href:"../assets/fliska_moskva-siti.mp4",v:true,t:{ru:"Флиска — «Москва-Сити»",en:"Fleece — 'Moscow City'"},m:{ru:"продуктовый ai-ролик",en:"product ai video"}},
+  {cover:"../assets/yd_fl_buh.jpg",clip:"../assets/clip_fl_buh.mp4",slides:["../assets/sl_fl_buh_1.jpg","../assets/sl_fl_buh_2.jpg","../assets/sl_fl_buh_3.jpg","../assets/sl_fl_buh_4.jpg"],href:"../assets/fliska_buhanka.mp4",v:true,t:{ru:"Флиска — «Буханка»",en:"Fleece — 'The Loaf'"},m:{ru:"продуктовый ai-ролик",en:"product ai video"}},
+  {cover:"../assets/yd_fl_plov.jpg",clip:"../assets/clip_fl_plov.mp4",slides:["../assets/sl_fl_plov_1.jpg","../assets/sl_fl_plov_2.jpg","../assets/sl_fl_plov_3.jpg","../assets/sl_fl_plov_4.jpg"],href:"../assets/fliska_plovets.mp4",t:{ru:"Флиска — «Пловец»",en:"Fleece — 'The Swimmer'"},m:{ru:"продуктовый ai-ролик",en:"product ai video"}},
+  {cover:"../assets/yd_fliska3.jpg",clip:"../assets/clip_fliska3.mp4",slides:["../assets/sl_fliska3_1.jpg","../assets/sl_fliska3_2.jpg","../assets/sl_fliska3_3.jpg","../assets/sl_fliska3_4.jpg"],href:"https://disk.yandex.ru/i/2p_nT91rU4l35g",v:true,t:{ru:"Флиска — «футболист»",en:"Fleece — 'the footballer'"},m:{ru:"продуктовый ai-ролик",en:"product ai video"}},
 ];
 
 /* сцена 01: серийные AI-работы с одним героем */
@@ -1257,11 +1258,11 @@ const AI_CASES = [
    client:{ru:"производитель одежды — ролики для карточек товара, разовый заказ",en:"an apparel maker — videos for marketplace listings, one-off order"},
    role:{ru:"полный цикл: концепция · генерация · монтаж",en:"full cycle: concept · generation · edit"},
    tools:null,
-   volume:{ru:"3 продуктовых ролика",en:"3 product videos"},
+   volume:{ru:"4 продуктовых ролика",en:"4 product videos"},
    result:null, budget:null},
 ];
 
-const AI_ADS = AI.slice(3,6).map(it=>Object.assign({},it,{b:"ai",m:{ru:"ai · вертикальный ролик для маркетплейса",en:"ai · vertical marketplace video"}}));
+const AI_ADS = AI.slice(3).map(it=>Object.assign({},it,{b:"ai",m:it.v?{ru:"ai · вертикальный ролик для маркетплейса",en:"ai · vertical marketplace video"}:{ru:"ai · ролик для маркетплейса",en:"ai · marketplace video"}}));
 
 const COMM = [
   {cover:"../assets/yd_realty2.jpg",clip:"../assets/clip_realty2.mp4",slides:["../assets/sl_realty2_1.jpg","../assets/sl_realty2_2.jpg","../assets/sl_realty2_3.jpg","../assets/sl_realty2_4.jpg"],href:"https://disk.yandex.ru/i/hSWzwTwkeLP6cw",t:{ru:"Недвижимость — сторис",en:"Real estate — stories"},m:{ru:"реклама",en:"ads"}},
