@@ -1,0 +1,1643 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Калькулятор стоимости — Серафим Панюшкин</title>
+<meta name="description" content="Сколько стоит AI-ролик: реклама, кино, товар в кадре, инфографика, моушн, объяснение, история и наука. Цена по частям, состав услуги и ответ в тот же день.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#f7f5f0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+    (function(m,e,t,r,i,k,a){
+        m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();
+        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=111134962', 'ym');
+    ym(111134962, 'init', {ssr:true, webvisor:true, clickmap:true, referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/111134962" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+<script src="js/lead.js"></script>
+<script src="js/send.js"></script>
+<style>
+/* Визуальный язык портфолио semyran1.github.io и его brief.html:
+   тёплая бумага, чернила, один жёлтый акцент, рамки 1px без скруглений, жёсткие тени, Manrope + JetBrains Mono. */
+:root{
+  --bg:#f7f5f0; --plate:#fcfbf8; --ink:#141311; --soft:#3c382f; --gray:#6a6558;
+  --line:rgba(20,19,17,.14); --line2:rgba(20,19,17,.07);
+  --acc:#ffe600; --on-acc:#141311; --hl:#ffe600; --hl-fg:inherit; --red:#c8321f; --ok:#2f6b3a;
+  --mono:'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace;
+  --sans:Manrope,-apple-system,'Segoe UI',Roboto,sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0e0e0d; --plate:#171715; --ink:#f3f1ea; --soft:#d3cec1; --gray:#a29c8d;
+  --line:rgba(243,241,234,.16); --line2:rgba(243,241,234,.08);
+  --hl:transparent; --hl-fg:#ffe600; --red:#ff7f6e; --ok:#8fd19b; color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#0e0e0d; --plate:#171715; --ink:#f3f1ea; --soft:#d3cec1; --gray:#a29c8d;
+  --line:rgba(243,241,234,.16); --line2:rgba(243,241,234,.08);
+  --hl:transparent; --hl-fg:#ffe600; --red:#ff7f6e; --ok:#8fd19b; color-scheme:dark;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.wrap{max-width:1100px;margin:0 auto;padding-inline:24px}
+@media(max-width:560px){.wrap{padding-inline:16px}}
+
+/* шапка */
+header{position:sticky;top:0;z-index:6;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.hrow{display:flex;justify-content:space-between;align-items:center;height:56px;gap:16px}
+.logo{font-weight:800;font-size:17px;text-decoration:none;letter-spacing:-.02em}
+.logo i{font-style:normal;color:var(--acc);-webkit-text-stroke:1px var(--ink)}
+.hr{display:flex;gap:18px;align-items:center}
+.back,.lang{font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--gray);text-decoration:none}
+.back:hover,.lang:hover{color:var(--ink)}
+.lang{border:1px solid var(--line);padding:4px 9px}
+.lang:hover{border-color:var(--ink)}
+@media(max-width:520px){.back{display:none}}
+body.embed header,body.embed .hero,body.embed .about-top{display:none}
+
+main{padding-block:48px 120px}
+body.embed main{padding-top:16px}
+.num{font-family:var(--mono);font-size:10.5px;font-weight:700;color:var(--on-acc);background:var(--acc);padding:3px 8px;letter-spacing:.06em;display:inline-block;transform:rotate(-1deg)}
+h1{font-weight:800;font-size:clamp(28px,4.6vw,44px);line-height:1.1;letter-spacing:-.02em;margin-top:14px;text-wrap:balance}
+h2{font-weight:800;font-size:clamp(21px,2.6vw,26px);line-height:1.2;letter-spacing:-.01em;margin-top:12px;text-wrap:balance}
+u{text-decoration:none;background:linear-gradient(transparent 62%,var(--hl) 62%);color:var(--hl-fg);padding:0 .05em;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.sub{color:var(--gray);margin-top:10px;max-width:640px}
+.hero{max-width:760px}
+
+label,.lbl{display:block;font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--gray);margin-bottom:9px}
+.hint{font-family:var(--mono);font-size:11px;color:var(--gray);margin-top:10px;line-height:1.7}
+.hint b{color:var(--ink)}
+.cap{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--gray);margin:0 0 12px;display:flex;align-items:center;gap:12px;font-weight:400}
+.cap::after{content:"";flex:1;height:1px;background:var(--line)}
+
+/* кто делает: короткая карточка под заголовком */
+.about-top{margin-top:26px;border:1px solid var(--ink);background:var(--plate);padding:16px 18px;display:flex;gap:10px 22px;flex-wrap:wrap;align-items:baseline;max-width:760px}
+.about-top p{flex:1 1 380px;font-size:15.5px;color:var(--soft);min-width:0}
+.about-top p b{color:var(--ink)}
+.about-top .links{display:flex;gap:8px 18px;flex-wrap:wrap;flex-basis:100%;font-family:var(--mono);font-size:11.5px}
+.about-top .links a{text-decoration:none;border-bottom:1px solid var(--ink)}
+.about-top .links a:hover{background:var(--acc);color:var(--on-acc)}
+.proc{list-style:none;margin-top:14px;border:1px solid var(--ink);background:var(--plate)}
+.proc li{display:flex;gap:14px;padding:12px 16px;border-bottom:1px solid var(--line)}
+.proc li:last-child{border-bottom:0}
+.pn{font-family:var(--mono);font-size:11px;font-weight:700;background:var(--acc);color:var(--on-acc);width:24px;height:24px;display:grid;place-items:center;flex:none;transform:rotate(-2deg)}
+.proc b{display:block;font-weight:800;font-size:15.5px;line-height:1.3}
+.proc small{display:block;font-size:13.5px;color:var(--gray);margin-top:2px;line-height:1.45}
+.chk small{display:block;font-size:13px;color:var(--gray);margin-top:3px;line-height:1.45}
+.chk .pr{font-family:var(--mono);font-style:normal;font-size:11.5px;font-weight:700;white-space:nowrap}
+.mailline{font-family:var(--mono);font-size:11.5px;color:var(--gray);margin-top:16px}
+.mailline a{color:var(--ink);border-bottom:1px solid var(--ink);text-decoration:none}
+.facts{display:flex;gap:6px 8px;flex-wrap:wrap}
+.fact{font-family:var(--mono);font-size:11px;border:1px solid var(--line);padding:3px 9px;color:var(--ink);white-space:nowrap}
+
+.starts{margin-top:30px}
+.chips{display:flex;gap:8px 10px;flex-wrap:wrap}
+.chip{position:relative;font-family:var(--mono);font-size:12px;border:1px solid var(--ink);background:transparent;padding:9px 14px;cursor:pointer;transition:.15s;margin:0;text-transform:none;letter-spacing:0;color:var(--ink);display:block;text-align:left;line-height:1.35}
+.chip input{position:absolute;opacity:0;pointer-events:none}
+.chip:has(input:checked){background:var(--acc);color:var(--on-acc)}
+.chip:has(input:focus-visible){outline:2px solid var(--ink);outline-offset:2px}
+.chip.lite{border-color:var(--line);color:var(--gray)}
+.chip.lite:hover{border-color:var(--ink);color:var(--ink)}
+.chip small{display:block;font-size:10px;opacity:.7;margin-top:2px}
+
+.grid{display:grid;grid-template-columns:1fr;gap:34px;margin-top:34px;align-items:start}
+@media(min-width:960px){.grid{grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr);gap:48px}.result{position:sticky;top:76px;max-height:calc(100vh - 96px);overflow:auto}}
+body.embed .grid{margin-top:0}
+.step{margin-bottom:44px}
+.step>.num{margin-bottom:6px}
+.step h2{margin-top:10px}
+.step .sub{margin-bottom:18px}
+
+/* вкладки групп */
+.tabs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
+@media(max-width:520px){.tabs{grid-template-columns:1fr}}
+.tab{text-align:left;border:1px solid var(--ink);background:transparent;padding:12px 14px;transition:transform .16s,box-shadow .16s,background .16s;color:var(--gray)}
+.tab:hover{transform:translateY(-2px)}
+.tab b{display:block;font-weight:800;font-size:16.5px;line-height:1.3;color:var(--ink)}
+.tab span{display:block;font-family:var(--mono);font-size:10.5px;margin-top:5px;line-height:1.55}
+.tab[aria-selected="true"]{background:var(--acc);box-shadow:4px 4px 0 var(--ink)}
+.tab[aria-selected="true"] b,.tab[aria-selected="true"] span{color:var(--on-acc)}
+.dirpanel{margin-top:16px;border:1px solid var(--ink);background:var(--bg);padding:0 16px 16px}
+.dirpanel .ph{margin:0 -16px 14px;padding:10px 16px;background:var(--acc);color:var(--on-acc);font-family:var(--mono);font-size:11px;line-height:1.5}
+.dirpanel .ph b{font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+.dirpanel .opts{margin-top:0}
+
+/* карточки-варианты */
+.opts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:14px}
+.opts.one{grid-template-columns:1fr}
+@media(max-width:560px){.opts{grid-template-columns:1fr}}
+.opt{position:relative;display:block;text-align:left;background:var(--plate);border:1px solid var(--ink);padding:14px 16px 13px;cursor:pointer;transition:transform .16s,box-shadow .16s;margin:0;text-transform:none;letter-spacing:0;font-family:var(--sans);font-size:17px;color:var(--ink);min-width:0}
+.opt input{position:absolute;opacity:0;pointer-events:none}
+.opt:hover{transform:translateY(-2px)}
+.opt b{display:block;font-weight:800;font-size:16.5px;line-height:1.3}
+.opt .d{display:block;font-family:var(--sans);font-size:14px;color:var(--gray);margin-top:5px;line-height:1.45;font-weight:400}
+.opt .p{display:block;font-family:var(--mono);font-size:11px;color:var(--ink);margin-top:9px;font-weight:700}
+.opt:has(input:checked){box-shadow:inset 0 0 0 1px var(--ink),6px 6px 0 var(--acc)}
+.opt:has(input:checked) b::after{content:" ✓"}
+.opt:has(input:focus-visible){outline:2px solid var(--ink);outline-offset:2px}
+
+input[type=number],input[type=text],select{width:100%;background:var(--plate);border:1px solid var(--ink);padding:12px 14px;font:inherit;color:inherit;border-radius:0;outline:none}
+input[type=number]:focus,input[type=text]:focus,select:focus{box-shadow:inset 0 0 0 1px var(--ink)}
+select option{background:var(--plate);color:var(--ink)}
+input.err{border-color:var(--red)!important;box-shadow:inset 0 0 0 1px var(--red)}
+input[type=range]{width:100%;accent-color:var(--ink);margin:6px 0 0}
+.rl{display:flex;justify-content:space-between;font-family:var(--mono);font-size:10.5px;color:var(--gray);margin-top:4px}
+.big{font-weight:800;font-size:20px;letter-spacing:-.01em}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:14px 16px;align-items:end}
+@media(max-width:520px){.row2{grid-template-columns:1fr}}
+.stepper{display:flex;border:1px solid var(--ink);background:var(--plate)}
+.stepper button{width:46px;font-size:22px;line-height:1;border-right:1px solid var(--line)}
+.stepper button:last-child{border-right:0;border-left:1px solid var(--line)}
+.stepper button:hover{background:var(--acc);color:var(--on-acc)}
+.stepper input{border:0;text-align:center;font-family:var(--mono);font-size:16px;box-shadow:none!important;min-width:0}
+.sub2{margin-top:22px}
+.chk{display:flex;gap:12px;align-items:flex-start;margin:0 0 12px;font-family:var(--sans);font-size:16px;text-transform:none;letter-spacing:0;color:var(--ink);cursor:pointer}
+.chk input{margin-top:5px;width:17px;height:17px;accent-color:var(--ink);flex:none}
+.okline{border:1px dashed var(--ink);padding:12px 14px;font-size:15px;color:var(--soft);margin-top:14px}
+.okline b{color:var(--ink)}
+.qgroup{margin-top:22px}
+.qgroup:first-child{margin-top:0}
+details.more{border:1px solid var(--line);background:var(--plate)}
+details.more>summary{cursor:pointer;padding:14px 16px;font-weight:800;font-size:16px;list-style:none;display:flex;justify-content:space-between;gap:12px}
+details.more>summary::after{content:"+";font-family:var(--mono);font-weight:400}
+details.more[open]>summary::after{content:"−"}
+details.more>summary small{display:block;font-weight:400;font-family:var(--mono);font-size:11px;color:var(--gray);margin-top:3px}
+details.more .in{padding:6px 16px 18px;border-top:1px solid var(--line)}
+details.more .in>div{margin-top:18px}
+.hidden{display:none!important}
+
+/* смета */
+.sum{border:1px solid var(--ink);background:var(--plate)}
+.sum .top{padding:20px 20px 16px;border-bottom:1px solid var(--line)}
+.what{font-family:var(--mono);font-size:11px;color:var(--gray);margin-top:10px;line-height:1.7}
+.biglabel{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--gray);margin-top:12px}
+.total{font-weight:800;font-size:clamp(38px,5vw,54px);line-height:1.05;letter-spacing:-.02em;margin-top:6px}
+.per{font-family:var(--mono);font-size:11.5px;color:var(--gray);margin-top:10px;line-height:1.8}
+.per b{color:var(--ink);font-weight:700}
+.series{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.series>div{background:var(--plate);padding:14px 20px}
+.series .k{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--gray)}
+.series .n{font-weight:800;font-size:22px;letter-spacing:-.01em;margin-top:4px}
+.series .s{font-family:var(--mono);font-size:10.5px;color:var(--gray);margin-top:2px}
+.series .all{grid-column:1/-1;font-size:14px;color:var(--soft)}
+.series .all b{color:var(--ink)}
+.bar{display:flex;height:10px;margin:16px 0 0;border:1px solid var(--ink)}
+.bar span{display:block;height:100%;min-width:0}
+.bar span+span{border-left:1px solid var(--ink)}
+.grp{padding:14px 20px 4px;border-bottom:1px solid var(--line)}
+.grp:last-of-type{border-bottom:0}
+.gh{display:flex;justify-content:space-between;gap:12px;align-items:baseline;font-weight:800;font-size:15px}
+.gh i{display:inline-block;width:10px;height:10px;border:1px solid var(--ink);margin-right:9px}
+.gh b{font-family:var(--mono);font-size:11px;font-weight:400;color:var(--gray);white-space:nowrap}
+.gsub{font-size:13px;color:var(--gray);margin-top:2px;line-height:1.45}
+.item{display:flex;justify-content:space-between;gap:16px;padding:10px 0;border-top:1px solid var(--line2);align-items:baseline;margin-top:8px}
+.item:first-of-type{margin-top:10px}
+.item .il{min-width:0;font-size:14.5px;line-height:1.4}
+.item .il small{display:block;font-size:12.5px;color:var(--gray);margin-top:2px;line-height:1.45}
+.item .v{font-family:var(--mono);font-size:12px;white-space:nowrap;font-weight:700}
+.item.neg .v{background:linear-gradient(transparent 55%,var(--hl) 55%);color:var(--hl-fg)}
+.owner{margin:0;padding:14px 20px 16px;border-top:1px dashed var(--ink);font-family:var(--mono);font-size:11px;line-height:1.8}
+.owner h3{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:var(--gray);margin-bottom:4px}
+.owner .st{font-weight:700;font-size:12px}
+.owner .st.bad{color:var(--red)}
+.owner .st.ok{color:var(--ok)}
+.owner dl{display:grid;grid-template-columns:1fr auto;gap:2px 14px;margin-top:6px;color:var(--gray)}
+.owner dd{text-align:right;color:var(--ink)}
+.owner hr{border:0;border-top:1px solid var(--line);margin:10px 0}
+.btn{display:inline-block;font-weight:800;font-size:15px;padding:13px 24px;border:1px solid var(--ink);background:transparent;cursor:pointer;text-decoration:none;color:inherit;transition:transform .16s;text-align:left}
+.btn:hover{transform:rotate(-1deg)}
+.btn.solid{background:var(--acc);border-color:var(--acc);color:var(--on-acc);box-shadow:4px 4px 0 var(--ink)}
+.btn.ghost{border-color:transparent;color:var(--gray);padding-left:0}
+.btn.ghost:hover{color:var(--ink);transform:none}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.cta{padding:18px 20px;border-top:1px solid var(--ink)}
+.note{font-family:var(--mono);font-size:10.5px;color:var(--gray);line-height:1.8}
+
+/* ниже: состав услуги, о себе, заявка */
+.below{display:grid;grid-template-columns:1fr;gap:34px;margin-top:20px;padding-top:44px;border-top:1px solid var(--line)}
+@media(min-width:900px){.below{grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr);gap:48px}}
+.inc{list-style:none;margin-top:14px;border:1px solid var(--ink);background:var(--plate)}
+.inc li{display:flex;gap:12px;padding:11px 16px;border-bottom:1px solid var(--line);font-size:15.5px;line-height:1.45}
+.inc li:last-child{border-bottom:0}
+.inc li::before{content:"✓";font-family:var(--mono);font-weight:700;color:var(--ok);flex:none}
+.inc.no li::before{content:"×";color:var(--gray)}
+.inc.no li{color:var(--soft);font-size:14.5px}
+.incs{margin-top:22px;font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--gray)}
+.out{margin-top:10px;font-size:15.5px;color:var(--soft)}
+.send{margin-top:44px;border-top:1px solid var(--line);padding-top:44px;max-width:700px}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+@media(max-width:520px){.pair{grid-template-columns:1fr}}
+.nav{display:flex;gap:14px;align-items:center;margin-top:22px;flex-wrap:wrap}
+details.how{margin-top:34px;font-size:15px;color:var(--gray)}
+details.how summary{cursor:pointer;color:var(--ink);font-family:var(--mono);font-size:11px;letter-spacing:.04em}
+details.how p{margin-top:10px;max-width:700px}
+.done{text-align:center;padding:30px 0}
+.done .mark{font-size:60px;line-height:1;color:var(--acc);-webkit-text-stroke:2px var(--ink)}
+
+/* плашка с ценой на телефоне */
+.pricebar{position:fixed;left:0;right:0;bottom:0;z-index:7;background:var(--plate);border-top:1px solid var(--ink);padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px));display:none;align-items:center;justify-content:space-between;gap:12px}
+.pricebar .pb{font-family:var(--mono);font-size:10.5px;color:var(--gray);line-height:1.4}
+.pricebar .pv{font-weight:800;font-size:22px;line-height:1.1;letter-spacing:-.01em}
+.pricebar .btn{padding:10px 16px;font-size:14px;box-shadow:3px 3px 0 var(--ink)}
+@media(max-width:959px){.pricebar.on{display:flex}}
+body.embed .pricebar{display:none!important}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+/* ——— мастер: три шага ——— */
+.wsteps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin-top:30px;border:1px solid var(--ink);background:var(--plate)}
+.ws{display:flex;gap:10px;align-items:center;text-align:left;padding:12px 14px;border-right:1px solid var(--line);color:var(--gray);cursor:default;min-width:0}
+.ws:last-child{border-right:0}
+.ws .n{font-family:var(--mono);font-size:11px;font-weight:700;width:24px;height:24px;display:grid;place-items:center;border:1px solid currentColor;flex:none}
+.ws b{display:block;font-weight:800;font-size:15px;line-height:1.25;color:inherit}
+.ws small{display:block;font-family:var(--mono);font-size:10px;margin-top:2px;line-height:1.4}
+.ws.done{color:var(--ink);cursor:pointer}
+.ws.done .n{background:var(--acc);color:var(--on-acc);border-color:var(--ink)}
+.ws.done:hover{background:color-mix(in srgb,var(--acc) 14%,var(--plate))}
+.ws.cur{background:var(--acc);color:var(--on-acc)}
+.ws.cur .n{border-color:var(--on-acc)}
+@media(max-width:620px){.ws small{display:none}.ws{padding:10px 8px;gap:7px}.ws b{font-size:12.5px}}
+.wiz{display:grid;grid-template-columns:1fr;gap:34px;margin-top:30px;align-items:start}
+@media(min-width:960px){.wiz{grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:48px}.rail{position:sticky;top:76px;max-height:calc(100vh - 96px);overflow:auto}}
+.stp h2{margin-top:6px}
+.blk{margin-top:34px}
+.navrow{display:flex;gap:14px;align-items:center;margin-top:36px;flex-wrap:wrap}
+.navrow .hidden{display:none}
+.tabs{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media(max-width:720px){.tabs{grid-template-columns:1fr}}
+.explain{margin-top:30px;border:1px dashed var(--ink);padding:16px 18px}
+.explain h3{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:var(--gray)}
+.explain p{font-size:15px;color:var(--soft);margin-top:8px;line-height:1.55}
+.explain ul{list-style:none;margin-top:8px;font-size:15px;color:var(--soft)}
+.explain li{display:flex;justify-content:space-between;gap:12px;padding:5px 0;border-top:1px solid var(--line2)}
+.explain li:first-child{border-top:0}
+.explain li b{font-family:var(--mono);font-size:12px;white-space:nowrap;color:var(--ink)}
+.explain b{color:var(--ink)}
+.freelink{margin-top:26px;font-family:var(--mono);font-size:11.5px;color:var(--gray)}
+.freelink button{border-bottom:1px solid var(--gray);color:var(--ink);padding:0;font:inherit}
+.freelink button:hover{background:var(--acc);color:var(--on-acc);border-color:var(--ink)}
+.mixbox{margin-top:20px}
+.mixbox .chips{margin-top:8px}
+textarea{width:100%;background:var(--plate);border:1px solid var(--ink);padding:12px 14px;font:inherit;color:inherit;border-radius:0;outline:none;min-height:96px;resize:vertical}
+textarea:focus{box-shadow:inset 0 0 0 1px var(--ink)}
+textarea.err{border-color:var(--red);box-shadow:inset 0 0 0 1px var(--red)}
+.rail .rows{padding:4px 20px 6px;margin:0}
+.rrow{display:grid;grid-template-columns:minmax(0,92px) 1fr;gap:4px 14px;padding:9px 0;border-bottom:1px solid var(--line2);font-size:14.5px;align-items:baseline}
+.rrow:last-child{border-bottom:0}
+.rrow dt{font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--gray)}
+.rrow dd{font-weight:700;line-height:1.35;margin:0}
+.rrow dd small{display:block;font-weight:400;color:var(--gray);font-size:12.5px}
+.rempty{padding:18px 20px;font-size:15px;color:var(--gray)}
+.send{margin-top:44px;border-top:1px solid var(--line);padding-top:40px;max-width:none}
+#stFree .send{margin-top:26px;border-top:0;padding-top:0}
+.sum #groups .grp:last-of-type{border-bottom:0}
+
+/* первый шаг: выбранный элемент сжимается, на его месте появляется новая информация */
+.tab span,.tab{transition:max-height .28s ease,opacity .2s,margin .28s,padding .28s,transform .16s,box-shadow .16s,background .16s}
+.tab span{max-height:7em;overflow:hidden}
+.tabs.compact .tab{padding-block:9px}
+.tabs.compact .tab span{max-height:0;opacity:0;margin-top:0}
+.dirpanel .opts.pick{align-items:start}
+.dirpanel .opts.pick .opt{transition:padding .28s ease,transform .16s,box-shadow .16s}
+.dirpanel .opts.pick .opt .d{max-height:9em;overflow:hidden;transition:max-height .28s ease,opacity .2s,margin .28s}
+.dirpanel.has .opts.pick .opt:not(:has(input:checked)){padding:9px 14px}
+.dirpanel.has .opts.pick .opt:not(:has(input:checked)) .d{max-height:0;opacity:0;margin-top:0}
+.dirpanel.has .opts.pick .opt:not(:has(input:checked)) .p{margin-top:3px}
+.dirpanel.hasp .opts.pick .opt:has(input:checked) .d{max-height:0;opacity:0;margin-top:0}
+.dirpanel.hasp .opts.pick .opt:has(input:checked){padding:9px 14px}
+.dirpanel.hasp .opts.pick .opt:has(input:checked) .p{margin-top:3px}
+.dirpanel .opts.pick .opt.wide{grid-column:1/-1}
+.mixtune{margin-top:22px;padding-top:16px;border-top:1px dashed var(--ink)}
+.mixtune .opts .opt{padding:10px 14px}
+.mixtune .opts .opt .d{display:none}
+.mixtune .opts .opt .p{margin-top:3px}
+.mixtune .tsub{font-size:14px;color:var(--gray);margin:-4px 0 12px}
+@keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.pickcard:not(.hidden),.mixtune:not(.hidden){animation:rise .3s ease both}
+.pickcard{margin-top:22px;border:1px solid var(--ink);border-left:6px solid var(--acc);background:var(--plate);padding:16px 18px}
+.pickcard h3{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:var(--gray)}
+.pickcard .pt{display:block;font-weight:800;font-size:20px;line-height:1.25;margin-top:6px}
+.pickcard p{font-size:15px;color:var(--soft);margin-top:6px;line-height:1.55}
+.pickcard dl{margin:10px 0 0;border-top:1px solid var(--line2)}
+.pickcard dl>div{display:grid;grid-template-columns:minmax(0,96px) 1fr;gap:4px 14px;padding:8px 0;border-bottom:1px solid var(--line2);font-size:14.5px}
+.pickcard dt{font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--gray);padding-top:3px}
+.pickcard dd{margin:0;font-weight:600;line-height:1.4}
+.pickcard .nx{font-family:var(--mono);font-size:11px;color:var(--gray);margin-top:12px;line-height:1.6}
+details.explain>summary{cursor:pointer;list-style:none;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:var(--gray);display:flex;justify-content:space-between;gap:12px}
+details.explain>summary::-webkit-details-marker{display:none}
+details.explain>summary::after{content:"+";font-size:14px;line-height:1}
+details.explain[open]>summary::after{content:"−"}
+details.explain[open]>summary{margin-bottom:2px}
+/* «кто делает» живёт справа: сначала полная карточка, после выбора сжимается */
+.rail .about-top{display:block;margin-top:16px;max-width:none;padding:16px 18px}
+.rail .about-top .cap{margin-bottom:8px}
+.rail .about-top p{font-size:15px}
+.rail .about-top .facts{margin-top:12px;max-height:14em;overflow:hidden;transition:max-height .28s ease,opacity .2s,margin .28s}
+.rail .about-top .links{margin-top:12px}
+.rail .about-top.compact .facts{max-height:0;opacity:0;margin-top:0}
+@media (prefers-reduced-motion:reduce){.pickcard,.mixtune{animation:none!important}}
+.softexit{margin-top:26px;padding-top:16px;border-top:1px dashed var(--line);font-family:var(--mono);font-size:11.5px;line-height:1.7;color:var(--gray)}
+.softexit a{color:var(--ink);border-bottom:1px solid var(--ink);text-decoration:none}
+.softexit a:hover{background:var(--acc);color:var(--on-acc)}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap hrow">
+    <a class="logo" id="logo" href="index.html">semyran<i>.</i></a>
+    <div class="hr">
+      <a class="back" id="back-link" href="index.html"></a>
+      <a class="lang" id="langbtn" href="#" title="switch language / переключить язык">EN</a>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="hero" id="hero">
+    <span class="num" id="t-num"></span>
+    <h1 id="t-h1"></h1>
+    <p class="sub" id="t-sub"></p>
+  </section>
+
+
+  <nav class="wsteps" id="wsteps" aria-label="steps">
+    <button type="button" class="ws" data-go="1"><span class="n">1</span><span><b id="ws1"></b><small id="ws1s"></small></span></button>
+    <button type="button" class="ws" data-go="2"><span class="n">2</span><span><b id="ws2"></b><small id="ws2s"></small></span></button>
+    <button type="button" class="ws" data-go="3"><span class="n">3</span><span><b id="ws3"></b><small id="ws3s"></small></span></button>
+  </nav>
+
+  <div class="wiz">
+    <form id="form" onsubmit="return false" novalidate>
+
+      <!-- шаг 1: что снимаем -->
+      <section class="stp" id="st1">
+        <div style="margin-top:0">
+          <span class="num" id="t-s1"></span>
+          <h2 id="t-s1h"></h2>
+          <p class="sub" id="t-s1sub"></p>
+          <div class="tabs" role="tablist" id="tabBox"></div>
+          <div class="dirpanel" id="dirBox"></div>
+        </div>
+        <div class="pickcard hidden" id="pick1"></div>
+        <details class="explain" id="explain1"></details>
+        <div style="margin-top:30px" id="presetWrap">
+          <div class="cap" id="t-presets"></div>
+          <div class="chips" id="presetBox"></div>
+        </div>
+        <div class="freelink"><span id="t-freeq"></span> <button type="button" id="freeLink"></button></div>
+        <div class="starts" id="marketBox" style="margin-top:30px">
+          <label class="lbl" id="t-market"></label>
+          <div class="chips">
+            <label class="chip"><input type="radio" name="grid" value="RU" checked><span id="t-mruh"></span></label>
+            <label class="chip"><input type="radio" name="grid" value="WEST"><span id="t-mwest"></span></label>
+          </div>
+        </div>
+      </section>
+
+      <!-- шаг 2: какой ролик -->
+      <section class="stp hidden" id="st2">
+        <span class="num" id="t-s2"></span>
+        <h2 id="t-s2h"></h2>
+        <p class="sub" id="t-s2sub"></p>
+
+        <div class="blk">
+          <div class="cap" id="t-capLen"></div>
+          <label class="lbl" for="dur" id="t-len"></label>
+          <input type="range" id="dur">
+          <div class="rl"><span id="rlMin"></span><span id="rlMax"></span></div>
+          <div class="hint" id="t-lenhint"></div>
+          <div class="sub2">
+            <label class="lbl" id="t-mode"></label>
+            <div class="chips" id="modeBox"></div>
+            <div class="hint" id="modeHint"></div>
+          </div>
+          <div class="sub2" id="singleBox">
+            <label class="lbl" for="count" id="countLbl"></label>
+            <div class="stepper"><button type="button" data-step="count" data-d="-1" aria-label="−">−</button><input type="number" id="count" min="1" max="500" value="1" inputmode="numeric"><button type="button" data-step="count" data-d="1" aria-label="+">+</button></div>
+            <div class="hint" id="volHint"></div>
+          </div>
+          <div class="sub2 hidden" id="seriesBox">
+            <div class="row2">
+              <div><label class="lbl" for="perMonth" id="t-permonth"></label>
+                <div class="stepper"><button type="button" data-step="perMonth" data-d="-1" aria-label="−">−</button><input type="number" id="perMonth" min="1" max="100" value="8" inputmode="numeric"><button type="button" data-step="perMonth" data-d="1" aria-label="+">+</button></div></div>
+              <div><label class="lbl" for="contractTotal" id="t-contract"></label>
+                <div class="stepper"><button type="button" data-step="contractTotal" data-d="-1" aria-label="−">−</button><input type="number" id="contractTotal" min="1" max="1000" value="24" inputmode="numeric"><button type="button" data-step="contractTotal" data-d="1" aria-label="+">+</button></div></div>
+            </div>
+            <div class="hint" id="serHint"></div>
+          </div>
+        </div>
+
+        <div class="blk">
+          <div class="cap" id="t-capQ"></div>
+          <div id="qBox"></div>
+        </div>
+
+        <div class="blk">
+          <div class="cap" id="t-capRush"></div>
+          <div class="chips" id="rushBox"></div>
+        </div>
+
+        <div class="explain" id="explain2"></div>
+      </section>
+
+      <!-- шаг 3: смета и заявка -->
+      <section class="stp hidden" id="st3">
+        <span class="num" id="t-s3"></span>
+        <h2 id="t-s3h"></h2>
+        <p class="sub" id="t-s3sub"></p>
+
+        <div class="explain" id="mixParts" style="margin-top:22px"></div>
+        <div class="sum" id="breakdown" style="margin-top:22px">
+          <div class="series hidden" id="series"></div>
+          <div id="groups"></div>
+        </div>
+
+        <div class="blk">
+          <div class="cap" id="t-incCap"></div>
+          <p class="out" id="outLine"></p>
+          <ul class="inc" id="incList"></ul>
+          <div class="incs" id="t-notInc"></div>
+          <ul class="inc no" id="notList"></ul>
+        </div>
+
+        <div class="blk">
+          <details class="more" id="moreBox">
+            <summary><span><span id="t-more"></span><small id="t-moresub"></small></span></summary>
+            <div class="in">
+              <div><label class="lbl" for="rights" id="t-rights"></label><select id="rights"></select></div>
+              <div class="row2">
+                <div><label class="lbl" for="revs" id="t-revs"></label>
+                  <div class="stepper"><button type="button" data-step="revs" data-d="-1" aria-label="−">−</button><input type="number" id="revs" min="0" max="5" value="0" inputmode="numeric"><button type="button" data-step="revs" data-d="1" aria-label="+">+</button></div></div>
+                <div><label class="lbl" for="vers" id="t-vers"></label>
+                  <div class="stepper"><button type="button" data-step="vers" data-d="-1" aria-label="−">−</button><input type="number" id="vers" min="0" max="10" value="0" inputmode="numeric"><button type="button" data-step="vers" data-d="1" aria-label="+">+</button></div></div>
+              </div>
+              <div><label class="chk"><input type="checkbox" id="expert"><span id="t-expert"></span></label></div>
+              <div><label class="lbl" id="t-promo"></label><div id="promoBox"></div></div>
+              <div id="specialBox" class="hidden"><label class="lbl" for="special">Особая скидка, % (только владелец)</label><input type="number" id="special" min="0" max="90" value="0" inputmode="numeric"><div class="hint">Отдельной строкой в смете: заказчик видит реальную цену и свою скидку.</div></div>
+            </div>
+          </details>
+        </div>
+
+        <div class="blk">
+          <label class="lbl" for="comment" id="t-commentLbl"></label>
+          <textarea id="comment"></textarea>
+        </div>
+
+        <div class="send" id="send">
+          <span class="num" id="t-sendNum"></span>
+          <h2 id="t-sendH"></h2>
+          <p class="sub" id="t-sendSub"></p>
+          <div id="leadFields" class="hidden">
+            <div style="margin-top:18px"><label class="lbl" id="t-how2"></label><div class="chips" id="howBox"></div></div>
+            <div class="pair">
+              <div><label class="lbl" for="f-contact" id="t-contactlbl"></label><input type="text" id="f-contact" autocomplete="off"></div>
+              <div><label class="lbl" for="f-name" id="t-namelbl"></label><input type="text" id="f-name" autocomplete="name"></div>
+            </div>
+          </div>
+          <div class="nav">
+            <button class="btn solid" type="button" id="send-tg"></button>
+            <button class="btn" type="button" id="send-copy"></button>
+            <button class="btn" type="button" id="send-mail"></button>
+            <button class="btn" type="button" id="send-pdf"></button>
+            <button class="btn hidden" type="button" id="send-share"></button>
+          </div>
+          <div class="hint" id="sendhint"></div>
+          <div class="mailline" id="mailLine"></div>
+        </div>
+
+        <div class="blk" id="procBlk">
+          <div class="cap" id="t-procCap"></div>
+          <ol class="proc" id="procList"></ol>
+        </div>
+
+        <details class="how">
+          <summary id="t-how"></summary>
+          <p id="how"></p>
+        </details>
+      </section>
+
+      <!-- заявка без сметы -->
+      <section class="stp hidden" id="stFree">
+        <span class="num" id="t-fnum"></span>
+        <h2 id="t-fh"></h2>
+        <p class="sub" id="t-fsub"></p>
+        <div style="margin-top:20px">
+          <label class="lbl" for="freeText" id="t-flbl"></label>
+          <textarea id="freeText"></textarea>
+        </div>
+        <div id="freeHost"></div>
+      </section>
+
+      <div class="navrow" id="navrow">
+        <button class="btn ghost" type="button" id="btnBack"></button>
+        <button class="btn solid" type="button" id="btnNext"></button>
+      </div>
+      <div class="softexit hidden" id="softExit"><span id="t-softq"></span> <a href="#" id="softLink"></a></div>
+    </form>
+
+    <aside class="rail" id="rail">
+      <div class="sum" id="sum">
+        <div id="railTop" class="top hidden">
+          <span class="num" id="t-est"></span>
+          <div class="what" id="what"></div>
+          <div class="biglabel" id="bigLabel"></div>
+          <div class="total" id="total"></div>
+          <div class="per" id="per"></div>
+          <div class="bar" id="bar" aria-hidden="true"></div>
+        </div>
+        <div class="rempty" id="railEmpty"></div>
+        <dl class="rows" id="railRows"></dl>
+        <div id="owner" class="owner hidden"></div>
+        <div class="note" id="disc" style="padding:0 20px 18px"></div>
+      </div>
+      <div class="about-top" id="aboutTop">
+        <div class="cap" id="t-aboutCap"></div>
+        <p id="aboutTopText"></p>
+        <div class="facts" id="aboutFacts"></div>
+        <div class="links" id="aboutLinks"></div>
+      </div>
+    </aside>
+  </div>
+</main>
+
+<div class="pricebar" id="pricebar">
+  <div><div class="pb" id="pbLabel"></div><div class="pv" id="pbValue"></div></div>
+  <a class="btn solid" href="#" id="pbBtn"></a>
+</div>
+
+<script>
+var CONFIG = {"meta":{"version":"0.9-draft","date":"2026-10-01"},"fx":{"rub_per_usd":83.56},"generation":{"markup":0,"base_usd_per_min":115.19999999999999},"rush":[{"id":"normal","label":"Обычные сроки","mult":1,"label_en":"Normal timing"},{"id":"fast","label":"До 7 дней","mult":1.25,"label_en":"Within 7 days"},{"id":"asap","label":"До 72 часов","mult":1.5,"label_en":"Within 72 hours"}],"volume":{"trial_videos":4,"tiers":[{"from":1,"discount":0},{"from":5,"discount":0.1},{"from":20,"discount":0.15},{"from":50,"discount":0.2}],"applies_to":"сценарий и раскадровку, производство, озвучку и монтаж. Не режет генерации, пре-продакшн проекта и продвижение."},"promo":{"strategy_plan":{"label":"Стратегия и контент-план (разово)","label_en":"Strategy and content plan (one-off)","rub":70000,"usd":1260,"desc":{"ru":"Анализ конкурентов и аудитории, рубрики и план публикаций на 1–3 месяца.","en":"Competitor and audience analysis, content rubrics and a publishing plan for 1–3 months."},"unit":"once"},"packaging":{"label":"Упаковка ролика (за ролик)","label_en":"Video packaging (per video)","rub":5000,"usd":90,"desc":{"ru":"Два варианта обложки, заголовок, описание и теги для каждого ролика.","en":"Two cover options, a title, a description and tags for each video."},"unit":"per_video"},"publishing":{"label":"Публикации и ведение канала (в месяц)","label_en":"Publishing and channel management (per month)","rub":35000,"usd":630,"desc":{"ru":"Публикую ролики по плану, отвечаю на комментарии, веду календарь. Съёмка и производство ролика отдельно.","en":"I publish by plan, reply to comments and keep the calendar. Production is separate."},"unit":"per_month"},"ad_setup":{"label":"Запуск рекламы (разово)","label_en":"Ad launch (one-off)","rub":60000,"usd":1080,"desc":{"ru":"Настройка кампаний, аудиторий, креативов и отслеживания на выбранных площадках. Рекламный бюджет платится отдельно напрямую площадке.","en":"Setting up campaigns, audiences, creatives and tracking on the chosen platforms. The ad budget is paid separately, directly to the platform."},"unit":"once"},"report":{"label":"Отчёт по результатам (в месяц)","label_en":"Results report (per month)","rub":10000,"usd":180,"desc":{"ru":"Просмотры, переходы, стоимость результата и выводы, что делать дальше.","en":"Views, clicks, cost per result and conclusions on what to do next."},"unit":"per_month"}},"grids":{"RU":{"currency":"RUB","setup":10000,"min_billable_sec":20,"min_post":2000,"brackets":[{"upto_sec":30,"prod_per_min":20000,"post_per_min":8000},{"upto_sec":60,"prod_per_min":16000,"post_per_min":6000},{"upto_sec":300,"prod_per_min":12000,"post_per_min":5000},{"upto_sec":1200,"prod_per_min":7000,"post_per_min":3500},{"upto_sec":7200,"prod_per_min":6000,"post_per_min":3000}],"prep":{"base":2000,"per_min":1500,"cap":30000}},"WEST":{"currency":"USD","setup":120,"min_billable_sec":20,"min_post":25,"brackets":[{"upto_sec":30,"prod_per_min":240,"post_per_min":95},{"upto_sec":60,"prod_per_min":190,"post_per_min":70},{"upto_sec":300,"prod_per_min":145,"post_per_min":60},{"upto_sec":1200,"prod_per_min":85,"post_per_min":40},{"upto_sec":7200,"prod_per_min":70,"post_per_min":35}],"prep":{"base":25,"per_min":20,"cap":360}}},"ui":{"title":"Калькулятор стоимости AI-видео","cta_label":"Обсудить проект","cta_url":"","disclaimer":"Ориентировочная оценка. Точную цену называю после брифа: она зависит от задачи, референсов и сроков.","how":"Цена складывается из четырёх слоёв: пре-продакшн проекта (разово: библия персонажей, локации, стиль), производство (режиссура и сборка по минутам хронометража), озвучка/музыка/монтаж и генерации (себестоимость нейросетей плюс запас на брак). Продвижение подключается модулями. Чем длиннее ролик и больше серия, тем ниже цена за минуту: пре-продакшн платится один раз."},"catalog":{"groups":[{"id":"real","ru":"Реалистичные","en":"Photoreal"},{"id":"content","ru":"Контентные и моушн","en":"Content & motion"}],"directions":[{"id":"ad","group":"real","sec":{"min":10,"max":120,"def":30},"rate":1.4,"setup":1.1,"gen":1,"look":{"show":true,"def":"real"},"hero":{"show":true,"def":false},"research":"none","t":{"ru":"Реклама","en":"Advertising"},"d":{"ru":"Рекламный ролик под вашу задачу: идея, сценарий, готовый ролик для рекламы, сайта и соцсетей. 15–120 секунд.","en":"An ad video built for your task: an idea, a script and a finished video for ads, your site and social media. 15–120 seconds."},"out":{"ru":"Готовый рекламный ролик под вашу задачу.","en":"A finished ad video for your task."},"hide_gen":false,"west_k":1.75},{"id":"reels","group":"real","sec":{"min":15,"max":90,"def":30},"rate":0.5,"setup":0.4,"gen":0.8,"look":{"show":true,"def":"real"},"hero":{"show":true,"def":false},"research":"none","t":{"ru":"Reels и Shorts","en":"Reels and Shorts"},"d":{"ru":"Вертикальные ролики для Reels, Shorts и TikTok. Один стиль и шаблон на всю серию, поэтому за ролик дешевле. 15–90 секунд.","en":"Vertical videos for Reels, Shorts and TikTok. One style and template for the whole series, so each video costs less. 15–90 seconds."},"out":{"ru":"Серия вертикальных роликов 9:16 в одном стиле.","en":"A series of vertical 9:16 videos in one style."},"west_k":1.5},{"id":"brand","group":"real","sec":{"min":60,"max":300,"def":120},"rate":0.85,"setup":0.8,"gen":1,"look":{"show":true,"def":"real"},"hero":{"show":true,"def":false},"research":"optional","t":{"ru":"Бренд-фильм","en":"Brand film"},"d":{"ru":"Рассказ о компании, человеке или продукте. 1–5 минут.","en":"A story about a company, a person or a product. 1–5 minutes."},"out":{"ru":"Имиджевый фильм со сценарием, голосом и музыкой.","en":"A brand film with a script, voice-over and music."},"hide_gen":false,"west_k":1.75},{"id":"film","group":"real","sec":{"min":300,"max":3600,"def":1200},"rate":2.2,"setup":1,"gen":1,"look":{"show":true,"def":"real"},"hero":{"show":true,"def":true},"research":"optional","t":{"ru":"Кино","en":"Film"},"d":{"ru":"Короткометражка, трейлер, фильм по реальной истории. 5–60 минут.","en":"A short film, a trailer, a film based on a true story. 5–60 minutes."},"out":{"ru":"Фильм с драматургией, актёрами-нейросетями, музыкой и звуком.","en":"A film with drama, AI-generated actors, music and sound."},"hide_gen":false,"west_k":1},{"id":"product","group":"real","sec":{"min":10,"max":45,"def":20},"rate":0.6,"setup":0.4,"gen":1.3,"look":{"show":true,"def":"real"},"hero":{"show":false,"def":false},"research":"none","t":{"ru":"Товар в кадре","en":"Product shot"},"d":{"ru":"Ролик с вашим товаром для карточки на маркетплейсе или сайта. 10–45 секунд.","en":"A video of your product for a marketplace listing or a site. 10–45 seconds."},"out":{"ru":"Ролик, где товар в центре кадра.","en":"A video with the product at the centre of the frame."},"hide_gen":false,"west_k":1.75},{"id":"ugc","group":"real","sec":{"min":15,"max":90,"def":30},"rate":0.35,"setup":0.4,"gen":0.4,"look":{"show":false,"def":"real"},"hero":{"show":false,"def":false},"research":"none","t":{"ru":"Говорящий герой","en":"Talking character"},"d":{"ru":"Отзыв, обращение эксперта, цифровой двойник. 15–90 секунд.","en":"A testimonial, an expert address, a digital double. 15–90 seconds."},"out":{"ru":"Ролик, где герой говорит с камерой вашим текстом.","en":"A video where a character speaks to the camera with your text."},"hide_gen":false,"west_k":1.75},{"id":"infographic","group":"content","sec":{"min":30,"max":600,"def":90},"rate":1.35,"setup":0.8,"gen":0.05,"look":{"show":false,"def":"real"},"hero":{"show":false,"def":false},"research":"optional","code":true,"t":{"ru":"Инфографика","en":"Infographics"},"d":{"ru":"Анимированные цифры, схемы, карты, таймлайны. 30 секунд – 10 минут.","en":"Animated numbers, diagrams, maps, timelines. 30 seconds – 10 minutes."},"out":{"ru":"Анимированная графика с дикторским текстом.","en":"Animated graphics with voice-over."},"hide_gen":true,"west_k":2},{"id":"motion","group":"content","sec":{"min":15,"max":180,"def":45},"rate":1.35,"setup":0.8,"gen":0.05,"look":{"show":false,"def":"real"},"hero":{"show":false,"def":false},"research":"none","code":true,"t":{"ru":"Моушн-дизайн","en":"Motion design"},"d":{"ru":"Промо приложения или сервиса, титры, анимированный логотип. 15–180 секунд.","en":"An app or service promo, titles, an animated logo. 15–180 seconds."},"out":{"ru":"Анимированный ролик в вашем фирменном стиле.","en":"An animated video in your brand style."},"hide_gen":true,"west_k":2},{"id":"explainer","group":"content","sec":{"min":45,"max":300,"def":120},"rate":1.35,"setup":0.8,"gen":0.4,"look":{"show":false,"def":"styled"},"hero":{"show":false,"def":false},"research":"optional","t":{"ru":"Объясняющий ролик","en":"Explainer"},"d":{"ru":"Диктор и анимация объясняют сложное простыми словами. 1–5 минут.","en":"A voice-over and animation explain something complex in plain words. 1–5 minutes."},"out":{"ru":"Ролик, после которого зритель понимает, как это работает.","en":"A video after which the viewer understands how it works."},"hide_gen":true,"west_k":2},{"id":"edu","group":"content","sec":{"min":180,"max":1200,"def":480},"rate":0.7,"setup":0.8,"gen":0.6,"look":{"show":true,"def":"real"},"hero":{"show":false,"def":false},"research":"included","t":{"ru":"История и наука","en":"History & science"},"d":{"ru":"Научпоп и образовательные ролики для YouTube. Ресерч и проверка фактов входят. 3–20 минут.","en":"Science and educational videos for YouTube. Research and fact-checking are included. 3–20 minutes."},"out":{"ru":"Ролик с проверенными фактами и списком источников.","en":"A video with checked facts and a list of sources."},"hide_gen":false,"west_k":1.1},{"id":"cartoon","group":"content","sec":{"min":30,"max":300,"def":90},"rate":1,"setup":0.8,"gen":1,"look":{"show":false,"def":"styled"},"hero":{"show":false,"def":true},"research":"none","t":{"ru":"Мультфильм","en":"Animation"},"d":{"ru":"Анимация с постоянными героями, отдельные серии. 30 секунд – 5 минут.","en":"Animation with recurring characters, single episodes. 30 seconds – 5 minutes."},"out":{"ru":"Мультипликационный ролик с узнаваемыми героями.","en":"A cartoon with recognisable characters."},"hide_gen":false,"west_k":1.5}],"mix":{"note":"Смешанный ролик: цена = (1 − доля) × цена реалистичной основы + доля × цена графики той же длины. Кино в смесь не входит: это отдельный реалистичный формат.","bases":["ad","brand","product","ugc"],"graphics":["infographic","motion"],"share":{"min":10,"max":70,"def":30},"groupLabel":{"ru":"Смешанный ролик","en":"Mixed video"},"groupDesc":{"ru":"реалистичные кадры и графика в одном ролике","en":"photoreal shots and graphics in one video"},"templates":[{"id":"company","base":"brand","gfx":"infographic","share":30,"durSec":120,"t":{"ru":"Презентация компании","en":"Company presentation"},"d":{"ru":"Реалистичные кадры о людях и месте, а цифры, схемы и достижения подаются графикой.","en":"Photoreal shots of people and place, while numbers, diagrams and achievements are shown as graphics."}},{"id":"host","base":"ugc","gfx":"infographic","share":40,"durSec":60,"t":{"ru":"Говорящий герой + инфографика","en":"Talking host + infographics"},"d":{"ru":"Ведущий говорит в кадре, а пояснения и данные появляются графикой рядом с ним.","en":"A host speaks on camera while explanations and data appear as graphics beside them."}},{"id":"adfacts","base":"ad","gfx":"motion","share":20,"durSec":45,"t":{"ru":"Реклама с графикой","en":"Ad with motion graphics"},"d":{"ru":"Рекламный ролик с живыми кадрами и анимированными акцентами: выгоды, цена, призыв.","en":"An ad with live-looking shots and animated accents: benefits, price, call to action."}},{"id":"product","base":"product","gfx":"motion","share":30,"durSec":30,"t":{"ru":"Товар + анимация","en":"Product + animation"},"d":{"ru":"Товар в кадре как на съёмке, плюс анимация характеристик, схемы устройства или состава.","en":"The product on screen as if shot, plus animated specs, structure or ingredients."}}]},"teaser_max_sec":300},"addons":{"rights":[{"id":"base","pct":0,"ru":"Права передаются заказчику после оплаты","en":"Rights pass to the client after payment"},{"id":"paid","pct":0.3,"ru":"Использование в платной рекламе (+30%)","en":"Use in paid advertising (+30%)"},{"id":"exclusive","pct":0.6,"ru":"Эксклюзивность, без повторного использования (+60%)","en":"Exclusivity, no reuse (+60%)"}],"revision_pct":0.15,"version_pct":0.2,"expert":{"rub":25000,"usd":450}},"factors":{"look":{"real":{"prod":1,"setup":1,"gen":1},"styled":{"prod":0.8,"setup":0.7,"gen":0.5}},"hero":{"no":{"prod":1,"setup":1,"gen":1},"yes":{"prod":1.25,"setup":1.4,"gen":1.5}},"research":{"rub":{"base":6000,"per_min":2000},"usd":{"base":72,"per_min":25}}},"presets":[{"id":"ad","ru":"Реклама, 30 сек","en":"Ad, 30 sec","set":{"direction":"ad","durSec":30,"count":1,"mode":"single"}},{"id":"reels","ru":"Серия Reels, 8 в месяц","en":"A Reels series, 8 a month","set":{"direction":"reels","durSec":30,"count":8,"mode":"series","contractTotal":24,"perMonth":8}},{"id":"explainer","ru":"Объясняющий ролик, 2 мин","en":"Explainer, 2 min","set":{"direction":"explainer","durSec":120,"count":1,"mode":"single"}},{"id":"edu","ru":"Научпоп, 8 мин","en":"Science video, 8 min","set":{"direction":"edu","durSec":480,"count":1,"mode":"single"}},{"id":"brand","ru":"Фильм о компании, 3 мин","en":"Company film, 3 min","set":{"direction":"brand","durSec":180,"count":1,"mode":"single"}},{"id":"film","ru":"Короткометражный фильм, 10 мин","en":"Short film, 10 min","set":{"direction":"film","durSec":600,"count":1,"mode":"single"}},{"id":"turnkey","ru":"Проект под ключ","en":"Turnkey project","set":{"direction":"brand","durSec":180,"count":1,"mode":"single","hero":true,"rights":"paid","versions":2,"modules":{"strategy":true,"adSetup":true}}}],"includes":{"common":[{"ru":"Сценарий и раскадровка","en":"Script and storyboard"},{"ru":"Озвучка ИИ-голосом (ElevenLabs). Свою запись можно прислать, я её смонтирую","en":"AI voice-over (ElevenLabs). You can send your own recording and I will edit it in"},{"ru":"Музыка и звук","en":"Music and sound design"},{"ru":"Монтаж и цветокоррекция","en":"Editing and colour grading"},{"ru":"Два раунда правок","en":"Two rounds of revisions"},{"ru":"Мастер-файл и форматы под площадки. Права на ролик ваши после оплаты","en":"Master file and platform formats. You own the rights after payment"}],"ai":[{"ru":"Генерация видео нейросетями (Seedance, Kling, Veo)","en":"Video generation with neural nets (Seedance, Kling, Veo)"},{"ru":"Тестовый кадр: вы видите стиль до запуска всего ролика","en":"A test frame: you see the style before the whole video starts"}],"code":[{"ru":"Графика и анимация, собранные кодом под ваш фирменный стиль","en":"Graphics and animation built in code to match your brand style"}],"research":[{"ru":"Ресерч, проверка фактов и список источников","en":"Research, fact-checking and a list of sources"}],"excluded":[{"ru":"Живой диктор: озвучиваю нейросетью или монтирую вашу запись","en":"A live narrator: I use an AI voice or edit your recording"},{"ru":"Съёмка живых людей","en":"Filming real people"},{"ru":"Размещение, ведение каналов и запуск рекламы: подключается в разделе «Дополнительные услуги»","en":"Publishing, channel management and ad launch: add them under Extras"},{"ru":"Рекламный бюджет: платится отдельно напрямую площадке","en":"The ad budget: paid separately, directly to the platform"}]},"process":[{"t":{"ru":"Бриф","en":"Brief"},"d":{"ru":"Задача, длина, референсы, срок. Отвечаю в тот же день.","en":"The task, length, references, deadline. I reply the same day."}},{"t":{"ru":"Концепция и раскадровка","en":"Concept and storyboard"},"d":{"ru":"Драматургия, план кадров, мудборд.","en":"Drama, the shot plan, a moodboard."}},{"t":{"ru":"Тестовый кадр","en":"Test frame"},"d":{"ru":"Лист героя и один принятый кадр сцены. Здесь ещё можно всё повернуть.","en":"A character sheet and one approved frame of a scene. You can still change course here."}},{"t":{"ru":"Производство","en":"Production"},"d":{"ru":"Генерация по сценам, озвучка, музыка, звук.","en":"Generation scene by scene, voice-over, music, sound."}},{"t":{"ru":"Правки","en":"Revisions"},"d":{"ru":"Два раунда включены в цену.","en":"Two rounds are included in the price."}},{"t":{"ru":"Сдача","en":"Delivery"},"d":{"ru":"Мастер-файл, форматы под площадки, исходники и права.","en":"The master file, platform formats, source files and rights."}}]};
+var CALC_FIX = {"lang":"ru","grid":"RU","brief":"brief.html"};
+</script>
+<script>
+// Модель цены AI-креатора v0.3. Один источник логики для калькулятора и таблиц.
+// Работает в Node (module.exports) и в браузере (window.PricingModel).
+(function (root) {
+  "use strict";
+
+  function tierDiscount(cfg, total) {
+    var d = 0;
+    cfg.volume.tiers.forEach(function (t) { if (total >= t.from) d = t.discount; });
+    return d;
+  }
+
+  function dayRateRub(cfg) {
+    var o = cfg.owner;
+    return (o.net_target_month_rub + o.fixed_month_rub) / (1 - o.tax_rate) / o.billable_days_month;
+  }
+
+  function direction(cfg, id) {
+    return cfg.catalog.directions.filter(function (d) { return d.id === id; })[0];
+  }
+
+  // Прогрессивная шкала: каждая минута считается по ставке своего диапазона длины.
+  function bracketed(grid, minutes) {
+    var prod = 0, post = 0, lo = 0;
+    grid.brackets.forEach(function (b) {
+      var hi = b.upto_sec / 60;
+      var inB = Math.max(0, Math.min(minutes, hi) - lo);
+      prod += inB * b.prod_per_min;
+      post += inB * b.post_per_min;
+      lo = hi;
+    });
+    return { prod: prod, post: post };
+  }
+
+  // input: { grid, direction, durSec, count, look, hero, research, rush, contractTotal, trialDone,
+  //          rights, extraRevisions, versions, expert, modules, specialDiscountPct }
+  function quote(cfg, input) {
+    var grid = cfg.grids[input.grid];
+    var isRub = grid.currency === "RUB";
+    var fx = cfg.fx.rub_per_usd;
+    var step = isRub ? 100 : 5;
+    var r = function (x) { return Math.round(x / step) * step; };
+
+    var dir = direction(cfg, input.direction);
+    // Переключатели, которые у направления не показываются, всегда берут значение по умолчанию.
+    var look = dir.look.show && input.look ? input.look : dir.look.def;
+    var heroOn = dir.hero.show && input.hero != null ? !!input.hero : dir.hero.def;
+    var researchOn = dir.research === "included" || (dir.research === "optional" && !!input.research);
+    var lf = cfg.factors.look[look];
+    var hf = cfg.factors.hero[heroOn ? "yes" : "no"];
+
+    var durSec = Math.min(Math.max(input.durSec, dir.sec.min), dir.sec.max);
+    var count = Math.max(1, Math.round(input.count || 1));
+    var minutes = Math.max(durSec, grid.min_billable_sec) / 60;
+    var mods = input.modules || {};
+    var rushMult = (cfg.rush.filter(function (x) { return x.id === (input.rush || "normal"); })[0] || { mult: 1 }).mult;
+    // Международная сетка = российская / курс × K по типам работ: K задан у направления (west_k).
+    var wk = isRub ? 1 : (dir.west_k || 1);
+    var rate = dir.rate * wk;
+
+    var genUsdPerMin = cfg.generation.base_usd_per_min * dir.gen * lf.gen * hf.gen;
+    var genCostPerMin = isRub ? genUsdPerMin * fx : genUsdPerMin;
+
+    var br = bracketed(grid, minutes);
+    var pp = grid.prep;
+    var perVideo = {
+      prep: Math.min(pp.base + pp.per_min * minutes, pp.cap) * rate,
+      prod: br.prod * lf.prod * hf.prod * rate,
+      post: Math.max(br.post, grid.min_post) * rate,
+      gen: minutes * genCostPerMin * (1 + cfg.generation.markup)
+    };
+    var discountable = perVideo.prep + perVideo.prod + perVideo.post;
+
+    var trialDone = !!input.trialDone;
+    var setup = trialDone ? 0 : grid.setup * lf.setup * hf.setup * dir.setup * wk;
+    var rs = isRub ? cfg.factors.research.rub : cfg.factors.research.usd;
+    var researchFee = researchOn ? count * (rs.base + rs.per_min * minutes) * wk : 0;
+    var contractTotal = Math.max(count, input.contractTotal || count);
+    var disc = tierDiscount(cfg, contractTotal);
+    var fullCount = trialDone ? 0 : Math.min(count, cfg.volume.trial_videos);
+    var discCount = count - fullCount;
+    var discountAmount = discCount * discountable * disc;
+
+    var laborAfterDisc = setup + count * discountable + researchFee - discountAmount;
+
+    // Надбавки считаются от работы, не от генераций
+    var ad = cfg.addons;
+    var rightsPct = (ad.rights.filter(function (x) { return x.id === (input.rights || "base"); })[0] || { pct: 0 }).pct;
+    var extraRev = Math.max(0, Math.round(input.extraRevisions || 0));
+    var versions = Math.max(0, Math.round(input.versions || 0));
+    var rightsAmount = laborAfterDisc * rightsPct;
+    var revAmount = laborAfterDisc * ad.revision_pct * extraRev;
+    var verAmount = count * (perVideo.prod + perVideo.post) * ad.version_pct * versions;
+    var rushBase = laborAfterDisc + rightsAmount + revAmount + verAmount;
+    var rushAmount = rushBase * (rushMult - 1);
+    var expertAmount = input.expert ? (isRub ? ad.expert.rub : ad.expert.usd) : 0;
+    var specialPct = Math.min(Math.max(input.specialDiscountPct || 0, 0), 100) / 100;
+    var specialAmount = (rushBase + rushAmount + expertAmount) * specialPct;
+    var gen = count * perVideo.gen;
+
+    var key = isRub ? "rub" : "usd", p = cfg.promo;
+    var promoLines = [];
+    if (mods.strategy)         promoLines.push({ id: "p_strategy", value: p.strategy_plan[key] });
+    if (mods.packaging)        promoLines.push({ id: "p_packaging", n: count, value: p.packaging[key] * count });
+    if (mods.publishingMonths) promoLines.push({ id: "p_publishing", n: mods.publishingMonths, value: p.publishing[key] * mods.publishingMonths });
+    if (mods.adSetup)          promoLines.push({ id: "p_ad", value: p.ad_setup[key] });
+    if (mods.reportMonths)     promoLines.push({ id: "p_report", n: mods.reportMonths, value: p.report[key] * mods.reportMonths });
+
+    var L = [];
+    var add = function (id, group, value, extra) { L.push(Object.assign({ id: id, group: group, value: r(value) }, extra || {})); };
+    add("setup", "fingers", setup);
+    add("prep", "fingers", count * perVideo.prep, { n: count });
+    add("research", "fingers", researchFee, { n: count });
+    // У направлений без видеогенерации (инфографика, моушн, объяснение) сумма за вычисления входит в строку производства:
+    // отдельная строка «Нейросети» с копейками вызывает у клиента лишние вопросы.
+    var foldGen = !!dir.hide_gen;
+    add("prod", "fingers", count * perVideo.prod + (foldGen ? gen : 0), { min: count * minutes });
+    add("post", "fingers", count * perVideo.post);
+    if (!foldGen) add("gen", "clay", gen);
+    if (discountAmount > 0) add("volume", "fingers", -discountAmount, { pct: Math.round(disc * 100), n: discCount });
+    if (rightsAmount > 0)   add("rights", "fingers", rightsAmount, { rights: input.rights });
+    if (revAmount > 0)      add("revisions", "fingers", revAmount, { n: extraRev });
+    if (verAmount > 0)      add("versions", "fingers", verAmount, { n: versions });
+    if (rushAmount > 0)     add("rush", "fingers", rushAmount, { mult: rushMult });
+    if (expertAmount > 0)   add("expert", "fingers", expertAmount);
+    if (specialAmount > 0)  add("special", "fingers", -specialAmount, { pct: Math.round(specialPct * 100) });
+    promoLines.forEach(function (l) { add(l.id, "promo", l.value, l.n ? { n: l.n } : {}); });
+
+    var total = L.reduce(function (s, l) { return s + l.value; }, 0);
+    var sum = function (g) { return L.filter(function (l) { return l.group === g; }).reduce(function (s, l) { return s + l.value; }, 0); };
+
+    var res = {
+      grid: input.grid, currency: grid.currency, direction: dir.id, look: look, hero: heroOn, research: researchOn,
+      count: count, durSec: durSec, minutes: minutes, totalMinutes: count * minutes, lines: L,
+      groups: { clay: sum("clay"), fingers: sum("fingers"), promo: sum("promo") },
+      total: total, perVideo: total / count, perMinute: total / (count * minutes),
+      discountRate: disc, rushMult: rushMult,
+      floor: null, margin: null, belowFloor: false, days: null, dayRate: null, monthLoad: null, netPerDay: null, netMonthFull: null
+    };
+
+    // Пол: рабочие дни × ставка дня (чистый доход + постоянные + налог) + генерации по себестоимости.
+    // В клиентской сборке блок owner вырезан, пол не считается.
+    if (cfg.owner && cfg.norms) {
+      var nm = cfg.norms;
+      var prodDays = nm.prod_days_per_min * lf.days * hf.days;
+      var setupDays = nm.setup_days * lf.setup_days * hf.setup_days;
+      var days = ((trialDone ? 0 : setupDays) + count * (Math.min(pp.days_base + pp.days_per_min * minutes, pp.days_cap) + minutes * (prodDays + nm.post_days_per_min))) * dir.days;
+      if (researchOn) days += count * (cfg.factors.research.days.base + cfg.factors.research.days.per_min * minutes);
+      var dayRate = dayRateRub(cfg) / (isRub ? 1 : fx);
+      var genCostTotal = count * minutes * genCostPerMin;
+      var floor = days * dayRate + genCostTotal;
+      var totalNoPromo = total - sum("promo");
+      res.floor = r(floor);
+      res.margin = totalNoPromo - r(floor);
+      res.belowFloor = totalNoPromo < floor;
+      res.days = days;
+      res.dayRate = dayRate;
+      res.monthLoad = days / cfg.owner.billable_days_month;
+      // Сколько получилось бы чистыми в месяц, если весь месяц занят такими заказами
+      var netRub = totalNoPromo * (isRub ? 1 : fx) * (1 - cfg.owner.tax_rate) - genCostTotal * (isRub ? 1 : fx);
+      res.netPerDay = days > 0 ? netRub / days : null;
+      res.netMonthFull = days > 0 ? netRub / days * cfg.owner.billable_days_month - cfg.owner.fixed_month_rub : null;
+    }
+    return res;
+  }
+
+  // Смешанный ролик (реалистичные кадры + графика): цена = (1 − доля) × цена основы + доля × цена графики той же длины.
+  // input.mixDir (направление графики) и input.mixShare (0..0.9). Результат того же вида, что у quote, плюс поле mix.
+  function quoteMix(cfg, input) {
+    var s = Math.min(Math.max(input.mixShare || 0, 0), 0.9);
+    var q1 = quote(cfg, input);
+    if (!input.mixDir || s <= 0) return q1;
+    var in2 = Object.assign({}, input, { direction: input.mixDir, look: undefined, hero: undefined, research: false });
+    var q2 = quote(cfg, in2);
+    // у графики своя предельная длина: если ролик длиннее, цена графики масштабируется на всю длину
+    var k2 = q2.durSec > 0 ? q1.durSec / q2.durSec : 1;
+    var step = q1.currency === "RUB" ? 100 : 5;
+    var r = function (x) { return Math.round(x / step) * step; };
+    var byId = {}, ids = [];
+    q1.lines.forEach(function (l) { byId[l.id] = { a: l, v1: l.value, v2: 0 }; ids.push(l.id); });
+    q2.lines.forEach(function (l) {
+      if (!byId[l.id]) { byId[l.id] = { a: l, v1: 0, v2: 0 }; ids.push(l.id); }
+      byId[l.id].v2 = l.value * k2;
+    });
+    var lines = ids.map(function (id) { var o = byId[id], b = Object.assign({}, o.a); b.value = r((1 - s) * o.v1 + s * o.v2); return b; });
+    var sum = function (g) { return lines.filter(function (l) { return l.group === g; }).reduce(function (a, l) { return a + l.value; }, 0); };
+    var total = lines.reduce(function (a, l) { return a + l.value; }, 0);
+    var w = function (a, b) { return a === null || b === null ? null : (1 - s) * a + s * b * k2; };
+    var out = Object.assign({}, q1, {
+      lines: lines, groups: { clay: sum("clay"), fingers: sum("fingers"), promo: sum("promo") },
+      total: total, perVideo: total / q1.count, perMinute: total / (q1.count * q1.minutes),
+      floor: q1.floor === null ? null : r(w(q1.floor, q2.floor)), days: w(q1.days, q2.days),
+      monthLoad: w(q1.monthLoad, q2.monthLoad), netPerDay: w(q1.netPerDay, q2.netPerDay), netMonthFull: w(q1.netMonthFull, q2.netMonthFull),
+      mix: { dir: input.mixDir, share: s, base: q1.total, gfx: q2.total * k2 }
+    });
+    if (out.floor !== null) { out.margin = (total - out.groups.promo) - out.floor; out.belowFloor = out.margin < 0; }
+    return out;
+  }
+
+  var api = { quote: quote, quoteMix: quoteMix, tierDiscount: tierDiscount, dayRateRub: dayRateRub, direction: direction, bracketed: bracketed };
+  if (typeof module !== "undefined" && module.exports) module.exports = api;
+  else root.PricingModel = api;
+})(typeof window !== "undefined" ? window : globalThis);
+
+</script>
+<script>
+(function () {
+  "use strict";
+  var cfg = CONFIG, M = window.PricingModel;
+  var qs = new URLSearchParams(location.search);
+  var OWNER = qs.get("mode") === "owner" && !!cfg.owner;
+  if (qs.get("embed") === "1") document.body.classList.add("embed");
+  if (qs.get("theme") === "light" || qs.get("theme") === "dark") document.documentElement.setAttribute("data-theme", qs.get("theme"));
+  function $(id) { return document.getElementById(id); }
+  /* откуда пришли: ссылка «вернуться» ведёт на ту версию портфолио, с которой открыли страницу (как в брифе) */
+  if (qs.get("from") === "ai") { $("back-link").setAttribute("href", "ai/index.html"); $("logo").setAttribute("href", "ai/index.html"); }
+  var MIX = cfg.catalog.mix;
+  var lang = "ru", how = "Telegram";
+  /* состояние мастера: шаг, самый дальний достигнутый шаг, вкладка типа, выбранное направление, графика для смеси и её доля */
+  var S = { step: 1, maxStep: 1, grp: "real", dir: null, dir2: MIX.graphics[0], share: MIX.share.def, tpl: null, free: false };
+  var goal = function (n) { try { if (window.funnelGoal) window.funnelGoal(n); else if (typeof window.ym === "function") window.ym(111134962, "reachGoal", n); } catch (e) {} };
+
+  var T = {
+    ru: {
+      title: "Калькулятор стоимости — Серафим Панюшкин", back: "← вернуться в портфолио",
+      num: "калькулятор · оценка", h1: "Сколько стоит <u>ролик</u>",
+      sub: "Выберите, что нужно снять. Цена считается сразу и разложена по частям, чтобы было видно, за что вы платите и что входит.",
+      aboutTop: "<b>Серафим Панюшкин.</b> 10 лет в маркетинге, 3 года режиссуры YouTube. Сценарий, генерацию, озвучку и монтаж делаю сам, поэтому вы говорите напрямую со мной.",
+      f1: "в ИИ-видео с 2022 года", f2: "10+ млн просмотров на YouTube", f3: "«Слепое пятно»: два фестиваля", f4: "ИП: договор и закрывающие документы",
+      presets: "Начните с примера или выберите сами", market: "рынок и валюта", mruh: "Россия · ₽", mwest: "Международный · $",
+      s1: "шаг 1 · что снимаем", s1h: "Какой нужен ролик?", s1sub: "Сначала выберите тип. Реалистичные ролики выглядят как съёмка. Графика и обучение это анимация, инфографика и объяснение. Потом выберите вид ролика.",
+      "g.real": "Реалистичные ролики", "g.real.d": "выглядят как съёмка: люди, места, товар", "g.content": "Графика и обучение", "g.content.d": "анимация, инфографика, объяснение, история и наука",
+      s2: "шаг 2 · длина и количество", s2h: "Сколько и какой длины?",
+      len: "длина одного ролика", lenhint: "Первые секунды дороже: подготовка одна и та же и для короткого, и для длинного ролика.",
+      mode: "как заказываете", "mode.single": "Один заказ", "mode.series": "Серия роликов",
+      "hint.single": "Подготовка проекта (стиль, герои, референсы) оплачивается один раз.",
+      "hint.series": "Первые {n} {u} идут по полной цене: это пилот, вы проверяете качество. Дальше ролики дешевле: подготовка уже оплачена и действует скидка за объём договора.",
+      "count.single": "сколько роликов", permonth: "роликов в месяц", contract: "всего в договоре",
+      s3: "шаг 3 · какой нужен ролик", s3h: "Что важно для вашего ролика?",
+      none: "Для этого направления выбирать больше нечего: всё нужное уже входит в цену.",
+      "q.look": "картинка", "look.real": "Как на съёмке", "look.real.d": "Реалистичные люди, места и предметы.", "look.styled": "Стилизованная", "look.styled.d": "Иллюстрация, 3D или графика. Дешевле: нейросети нужно меньше повторов.",
+      "q.hero": "постоянный герой", "hero.no": "Не нужен", "hero.no.d": "Герои разные или их нет в кадре.", "hero.yes": "Нужен один герой во всех кадрах", "hero.yes.d": "Один и тот же человек или персонаж во всех кадрах и роликах, например врач. Нужно больше проверок и повторов, поэтому немного дороже.",
+      "q.research": "ресерч", "research.opt": "Нужен ресерч и проверка фактов", "research.opt.d": "Тема из истории, науки, медицины или права, или нужны проверенные данные. Я собираю факты, сверяю источники и даю их список.",
+      "research.inc": "<b>Ресерч и проверка фактов входят в цену.</b> Я собираю факты, сверяю источники и прикладываю их список.",
+      s4: "шаг 4 · сроки", s4h: "Когда нужно?",
+      more: "Дополнительные услуги", moresub: "права на использование, правки, версии, продвижение",
+      rights: "права на использование", revs: "дополнительные раунды правок (два уже входят)", vers: "дополнительные версии: хуки, языки",
+      expert: "Согласование с экспертом или юристом (клиника, финансы, право)", promo: "продвижение",
+      from: "от",
+      est: "ваша смета", what1: "{n} × {d} · {m} хронометража · {t}", what2: "Серия · {d} каждый · {t}",
+      bigLabel1: "стоимость", bigLabel2: "пилот: первые {n} {u}",
+      perv: "за ролик", perm: "за минуту",
+      sPilot: "Пилот", sMonth: "Каждый следующий месяц", sAll: "Весь договор на {n} {u}: <b>{p}</b>", sPer: "{n} {u}, {p} за ролик",
+      "g.clay": "Нейросети", "g.clay.d": "Оплата вычислений для генерации видео и картинок. В цене есть запас на неудачные попытки.",
+      "g.fingers": "Моя работа", "g.fingers.d": "Подготовка, сценарий, режиссура, озвучка и монтаж.", "g.promo": "Продвижение", "g.promo.d": "Чтобы ролик увидели.",
+      "l.setup": "Подготовка проекта", "d.setup": "Один раз на проект: стиль, референсы, герои, основа для всех роликов. В серии платится один раз.",
+      "l.prep": "Сценарий и раскадровка × {n}", "d.prep": "Текст, структура и план кадров каждого ролика.",
+      "l.research": "Ресерч и проверка фактов × {n}", "d.research": "Сбор фактов, сверка источников, список источников.",
+      "l.prod": "Режиссура и сборка: {min} мин", "d.prod": "Постановка сцен, отбор лучших дублей, сборка ролика.",
+      "l.prodc": "Дизайн и анимация: {min} мин", "d.prodc": "Графика, иллюстрации и анимация под ваш стиль, сборка ролика. Вычисления и материалы включены.",
+      "l.post": "Озвучка, музыка, монтаж", "d.post": "ИИ-голос, музыка, звук, цвет и финальный монтаж.",
+      "l.gen": "Генерации нейросетей", "d.gen": "Видео и картинки, которые делает нейросеть. Себестоимость плюс запас на брак.",
+      "l.volume": "Скидка за объём {pct}%", "d.volume": "На {n} роликов после пилота.",
+      "l.revisions": "Дополнительные раунды правок × {n}", "l.versions": "Дополнительные версии × {n}",
+      "l.rush": "Срочность ×{mult}", "l.expert": "Согласование с экспертом или юристом", "l.special": "Особая скидка {pct}%",
+      "rush.normal": "Обычные сроки", "rush.fast": "До 7 дней", "rush.asap": "До 72 часов",
+      incCap: "состав услуги", incH: "Что входит в цену", out: "Вы получите", notInc: "что не входит",
+      sendNum: "последний шаг", sendH: "Получить точную цену", sendSub: "Отвечу в тот же день: срок, смета и ближайшие примеры под вашу задачу. Ничего не уходит без вашего нажатия.",
+      how2: "куда прислать расчёт", contactlbl: "{how} *", namelbl: "как вас зовут", ph: { Telegram: "@ник или ссылка", "Почта": "адрес почты", "Телефон": "+7 …" },
+      howT: { Telegram: "Telegram", "Почта": "Почта", "Телефон": "Телефон" },
+      "t.how": "как мы это считаем",
+      how: "Цена складывается из частей: подготовка проекта (один раз), сценарий, режиссура и сборка по минутам хронометража, озвучка, музыка и монтаж, генерации нейросетей (себестоимость и запас на брак) и, если нужно, ресерч. Минуты считаются по убывающей шкале: чем длиннее ролик и больше серия, тем ниже цена за минуту, потому что подготовка оплачивается один раз.",
+      disc: "Это ориентировочная оценка. Точную цену называю после брифа: она зависит от задачи, референсов и сроков.",
+      tgSend: "Отправить смету в Telegram", tgDirect: "Отправить заявку", copy: "Скопировать смету", copiedOnly: "Смета скопирована.", sendSubTg: "Нажмите кнопку: смета скопируется, откроется мой Telegram, останется вставить её в чат и отправить. Отвечу в тот же день.", mailLine: "Или напишите на {mail}", monthsSfx: ", месяцев",
+      sending: "отправляю…", copied: "оценка <b>скопирована</b>, вставьте её в открывшийся чат", nocopy: "скопируйте текст оценки и вставьте в чат",
+      doneT: "Заявка ушла", doneS: "Отвечу в тот же день: срок, смета, ближайшие примеры под вашу задачу.",
+      procCap: "как проходит работа", procH: "От брифа до сдачи", aboutL1: "смотреть работы →", aboutL2: "смотреть фильм →",
+      pbLabel: "ваша смета", pbBtn: "смотреть",
+      "send.h": "Заявка на расчёт — калькулятор, сайт Серафима Панюшкина", "send.dir": "Направление", "send.len": "Длина", "send.look": "Картинка", "send.hero": "Постоянный герой", "send.research": "Ресерч", "send.mode": "Как заказывают", "send.total": "Итого", "send.market": "Рынок", "send.name": "Имя", "send.contact": "Контакт", yes: "да", no: "нет",
+      "o.h": "только для вас", "o.ok": "Выше пола: цель выполняется", "o.bad": "Ниже пола: целевой доход не получается", "o.floor": "Пол (дни × ставка дня + генерации)", "o.margin": "Запас над полом", "o.days": "Дней работы", "o.net": "Чистыми в месяц при полной загрузке такими заказами", "o.target": "Цель в месяц", "o.perday": "Чистыми за рабочий день", "o.rate": "Ставка дня для цели (в ₽)", "o.month": "Следующий месяц серии",
+      sec: "сек", mn: "мин"
+    },
+    en: {
+      title: "Price calculator — Serafim Panyushkin", back: "← back to portfolio",
+      num: "calculator · estimate", h1: "What does a <u>video</u> cost",
+      sub: "Pick what you need to shoot. The price updates instantly and is split into parts, so you can see what you pay for and what is included.",
+      aboutTop: "<b>Serafim Panyushkin.</b> 10 years in marketing, 3 years directing YouTube. I write, generate, voice and edit everything myself, so you talk to me directly.",
+      f1: "in AI video since 2022", f2: "10M+ views on YouTube", f3: "\"Blinding Spot\": two festivals", f4: "sole proprietor: contract and documents",
+      presets: "Start from an example or choose yourself", market: "market and currency", mruh: "Russia · ₽", mwest: "International · $",
+      s1: "step 1 · what we shoot", s1h: "What kind of video do you need?", s1sub: "First pick the type. Photoreal videos look like a shoot. Graphics and education means animation, infographics and explainers. Then pick the kind of video.",
+      "g.real": "Photoreal videos", "g.real.d": "look like a shoot: people, places, products", "g.content": "Graphics and education", "g.content.d": "animation, infographics, explainers, history and science",
+      s2: "step 2 · length and quantity", s2h: "How many, and how long?",
+      len: "length of one video", lenhint: "The first seconds cost more: preparation is the same for a short and a long video.",
+      mode: "how you order", "mode.single": "One order", "mode.series": "A series of videos",
+      "hint.single": "Project preparation (style, characters, references) is paid once.",
+      "hint.series": "The first {n} {u} are at full price: that is the pilot, where you check the quality. After that videos cost less: preparation is paid and the contract volume discount applies.",
+      "count.single": "how many videos", permonth: "videos per month", contract: "total in the contract",
+      s3: "step 3 · what the video needs", s3h: "What matters for your video?",
+      none: "Nothing more to choose for this direction: everything needed is already in the price.",
+      "q.look": "look", "look.real": "Like a real shoot", "look.real.d": "Photoreal people, places and objects.", "look.styled": "Stylized", "look.styled.d": "Illustration, 3D or graphics. Cheaper: the neural net needs fewer retries.",
+      "q.hero": "recurring character", "hero.no": "Not needed", "hero.no.d": "Characters differ or there are none on screen.", "hero.yes": "One character in every shot", "hero.yes.d": "The same person or character in every shot and every video, for example a doctor. It needs more checks and retries, so it costs a bit more.",
+      "q.research": "research", "research.opt": "I need research and fact-checking", "research.opt.d": "The topic is history, science, medicine or law, or you need verified data. I collect facts, check sources and give you the list.",
+      "research.inc": "<b>Research and fact-checking are included.</b> I collect facts, check sources and attach the list.",
+      s4: "step 4 · timing", s4h: "When do you need it?",
+      more: "Extras", moresub: "usage rights, revisions, versions, promotion",
+      rights: "usage rights", revs: "extra revision rounds (two are included)", vers: "extra versions: hooks, languages",
+      expert: "Expert or legal review (clinic, finance, law)", promo: "promotion",
+      from: "from",
+      est: "your estimate", what1: "{n} × {d} · {m} of runtime · {t}", what2: "Series · {d} each · {t}",
+      bigLabel1: "price", bigLabel2: "pilot: the first {n} {u}",
+      perv: "per video", perm: "per minute",
+      sPilot: "Pilot", sMonth: "Every following month", sAll: "Whole contract of {n} {u}: <b>{p}</b>", sPer: "{n} {u}, {p} each",
+      "g.clay": "Neural nets", "g.clay.d": "Compute for generating video and images. The price includes a reserve for failed attempts.",
+      "g.fingers": "My work", "g.fingers.d": "Preparation, script, direction, voice-over and editing.", "g.promo": "Promotion", "g.promo.d": "So that people see the video.",
+      "l.setup": "Project preparation", "d.setup": "Once per project: style, references, characters, the base for all videos. Paid once in a series.",
+      "l.prep": "Script and storyboard × {n}", "d.prep": "The text, structure and shot plan of each video.",
+      "l.research": "Research and fact-checking × {n}", "d.research": "Collecting facts, checking sources, a list of sources.",
+      "l.prod": "Direction and assembly: {min} min", "d.prod": "Staging scenes, picking the best takes, assembling the video.",
+      "l.prodc": "Design and animation: {min} min", "d.prodc": "Graphics, illustrations and animation in your style, assembly of the video. Compute and materials are included.",
+      "l.post": "Voice-over, music, editing", "d.post": "AI voice, music, sound, colour and final edit.",
+      "l.gen": "Neural-net generations", "d.gen": "Video and images made by the neural net. Cost plus a reject allowance.",
+      "l.volume": "Volume discount {pct}%", "d.volume": "On {n} videos after the pilot.",
+      "l.revisions": "Extra revision rounds × {n}", "l.versions": "Extra versions × {n}",
+      "l.rush": "Rush ×{mult}", "l.expert": "Expert or legal review", "l.special": "Special discount {pct}%",
+      "rush.normal": "Normal timing", "rush.fast": "Within 7 days", "rush.asap": "Within 72 hours",
+      incCap: "what you get", incH: "What is included in the price", out: "You get", notInc: "not included",
+      sendNum: "last step", sendH: "Get the exact price", sendSub: "I reply the same day: timeline, quote and the closest examples for your task. Nothing is sent until you press the button.",
+      how2: "where to send the estimate", contactlbl: "{how} *", namelbl: "your name", ph: { Telegram: "@handle or link", "Почта": "email address", "Телефон": "+1 …" },
+      howT: { Telegram: "Telegram", "Почта": "Email", "Телефон": "Phone" },
+      "t.how": "how we calculate",
+      how: "The price is built from parts: project preparation (once), script, direction and assembly by minutes of runtime, voice-over, music and editing, neural-net generations (cost plus a reject allowance) and, if needed, research. Minutes follow a descending scale: the longer the video and the bigger the series, the lower the price per minute, because preparation is paid once.",
+      disc: "A rough estimate. I name the exact price after the brief: it depends on the task, references and timing.",
+      tgSend: "Send the estimate on Telegram", tgDirect: "Send the request", copy: "Copy the estimate", copiedOnly: "Estimate copied.", sendSubTg: "Press the button: the estimate is copied, my Telegram opens, and you only paste it into the chat and send. I reply the same day.", mailLine: "Or write to {mail}", monthsSfx: ", months",
+      sending: "sending…", copied: "estimate <b>copied</b>, paste it into the chat that opens", nocopy: "copy the estimate text and paste it into the chat",
+      doneT: "Request sent", doneS: "I reply the same day: timeline, quote and the closest examples for your task.",
+      procCap: "how the work goes", procH: "From brief to delivery", aboutL1: "see the work →", aboutL2: "watch the film →",
+      pbLabel: "your estimate", pbBtn: "view",
+      "send.h": "Quote request — calculator, Serafim Panyushkin's site", "send.dir": "Direction", "send.len": "Length", "send.look": "Look", "send.hero": "Recurring character", "send.research": "Research", "send.mode": "Order type", "send.total": "Total", "send.market": "Market", "send.name": "Name", "send.contact": "Contact", yes: "yes", no: "no",
+      "o.h": "owner only", "o.ok": "Above the floor: target met", "o.bad": "Below the floor: target income is missed", "o.floor": "Floor (days × day rate + generations)", "o.margin": "Margin over the floor", "o.days": "Working days", "o.net": "Net per month if the month is full of such orders", "o.target": "Monthly target", "o.perday": "Net per working day", "o.rate": "Day rate for the target (in ₽)", "o.month": "Next month of the series",
+      sec: "sec", mn: "min"
+    }
+  };
+  Object.assign(T.ru, {
+    wsT1: "Что снимаем", wsS1: "тип и направление", wsT2: "Какой ролик", wsS2: "длина и особенности", wsT3: "Смета и заявка", wsS3: "цена и отправка",
+    back: "← Назад", next1: "Дальше: параметры ролика →", next2: "Дальше: смета и заявка →", backCalc: "← Вернуться к калькулятору",
+    "g.mix": "Смешанный ролик", "g.mix.d": "реалистичные кадры и графика в одном ролике",
+    mixBase: "основа ролика: реалистичные кадры", mixGfx: "какая графика внутри", mixShareLbl: "доля графики в ролике: {p}%",
+    mixShareHint: "Например, ролик-презентация компании: часть кадров сгенерирована как съёмка, часть это инфографика и анимация.",
+    mixNote: "Цена смешанного ролика: {a}% цены реалистичного ролика плюс {b}% цены графики той же длины.", mixPartsH: "Как считается смесь",
+    mixRow1: "Реалистичные кадры, {a}% × цена такого ролика {p}", mixRow2: "{g}, {b}% × цена такого ролика {p}", rMixSub: "{a}% реалистичные кадры, {b}% графика",
+    freeq: "Не нашли подходящее?", freeLink: "Опишите задачу своими словами →", fnum: "заявка без сметы", fh: "Опишите задачу своими словами",
+    fsub: "Двух-трёх предложений достаточно: что за ролик, для кого, где будет показан, к какому сроку. Цену назову после ответа, в тот же день.",
+    flbl: "ваша задача", fph: "Например: нужен ролик-презентация компании на 3 минуты, часть кадров реалистичные, часть инфографика…", sendNumFree: "отправить заявку",
+    tgSendFree: "Отправить заявку в Telegram", copyFree: "Скопировать заявку", sendSubTgFree: "Нажмите кнопку: заявка скопируется, откроется мой Telegram, останется вставить её в чат и отправить. Отвечу в тот же день.",
+    railNone: "Выберите, что снимаем, и здесь появится цена.", rType: "тип", rDir: "направление", rLen: "длина", rQty: "количество", rSeries: "{pm} в месяц, в договоре {n} {u}",
+    rLook: "картинка", rHero: "герой", "hero.yes.s": "один во всех кадрах", rResearch: "ресерч", rIncluded: "входит в цену", rRush: "сроки", priceNow: "предварительная цена",
+    s2n: "шаг 2 · параметры ролика", s2nh: "Длина, количество и особенности", s2sub: "Здесь всё, от чего зависит цена. Справа цена меняется сразу, а ниже объяснено, откуда берутся цифры.",
+    capLen: "длина и количество", capQ: "особенности ролика",
+    s3n: "шаг 3 · смета и заявка", s3nh: "Вот из чего складывается цена", s3nsub: "Каждая строка объяснена. Ниже можно добавить услуги, оставить комментарий и отправить заявку.",
+    commentLbl: "что ещё важно (по желанию)", commentPh: "Референсы, сроки, детали: всё, что не уместилось в калькулятор.",
+    x1h: "Как выбор влияет на цену", x1p1: "У каждого направления своя ставка. Реалистичные ролики делают нейросети, и их генерации заметная часть цены. В графике, инфографике и обучении вы платите за дизайн, сценарий и время.",
+    x1p2: "Цена «от» на карточке посчитана за короткую версию, её длина указана рядом (не больше 5 минут). Чем длиннее ролик, тем выше цена: точную вы увидите на втором шаге.",
+    x2teaser: "На первом шаге цена была показана за {a}: {p}. Вы выбрали {b}, поэтому цена выше: каждая следующая минута считается по ставке своей ступени.",
+    x1mix: "Смешанный ролик считается как смесь двух цен: реалистичной основы и графики. Долю графики задаёте вы.",
+    x2h: "Откуда берётся цена", x2len: "Работа за минуту хронометража. Ставка падает с длиной: чем длиннее ролик, тем дешевле каждая следующая минута.",
+    x2setup: "Подготовка проекта (стиль, герои, референсы) платится один раз: {p}. В серии она не повторяется.",
+    x2gen: "Нейросети: около {p} за минуту готового видео. В цене есть запас на неудачные попытки.",
+    x2fold: "Графика собирается под ваш стиль, вычисления и материалы уже входят в работу.", x2tier: "от {from} роликов {pct}%",
+    x2series: "Серия: первые {n} {u} идут по полной цене (пилот), дальше действует скидка за объём договора: {tiers}.",
+    x2look: "Стилизованная картинка дешевле реалистичной примерно на {p}%.", x2hero: "Постоянный герой добавляет около {p}% к работе.",
+    x2mix: "Смесь: ставки считаются отдельно для основы и для графики, потом объединяются по доле.",
+    "send.type": "Тип", "send.comment": "Комментарий", "send.free": "Заявка без сметы — калькулятор, сайт Серафима Панюшкина", "send.task": "Задача"
+  });
+  Object.assign(T.en, {
+    wsT1: "What we shoot", wsS1: "type and direction", wsT2: "The video", wsS2: "length and details", wsT3: "Estimate and request", wsS3: "price and sending",
+    back: "← Back", next1: "Next: video details →", next2: "Next: estimate and request →", backCalc: "← Back to the calculator",
+    "g.mix": "Mixed video", "g.mix.d": "photoreal shots and graphics in one video",
+    mixBase: "the base: photoreal shots", mixGfx: "which graphics inside", mixShareLbl: "share of graphics in the video: {p}%",
+    mixShareHint: "For example a company presentation: some shots are generated like a shoot, some are infographics and animation.",
+    mixNote: "The price of a mixed video: {a}% of the photoreal video price plus {b}% of the graphics price for the same length.", mixPartsH: "How the mix is calculated",
+    mixRow1: "Photoreal shots, {a}% × price of such a video {p}", mixRow2: "{g}, {b}% × price of such a video {p}", rMixSub: "{a}% photoreal shots, {b}% graphics",
+    freeq: "Cannot find what you need?", freeLink: "Describe the task in your own words →", fnum: "request without an estimate", fh: "Describe the task in your own words",
+    fsub: "Two or three sentences are enough: what the video is, who it is for, where it will run, by when. I name the price in my reply, the same day.",
+    flbl: "your task", fph: "For example: I need a 3-minute company presentation video, some shots photoreal, some infographics…", sendNumFree: "send the request",
+    tgSendFree: "Send the request on Telegram", copyFree: "Copy the request", sendSubTgFree: "Press the button: the request is copied, my Telegram opens, and you only paste it into the chat and send. I reply the same day.",
+    railNone: "Pick what we shoot and the price appears here.", rType: "type", rDir: "direction", rLen: "length", rQty: "quantity", rSeries: "{pm} a month, {n} {u} in the contract",
+    rLook: "look", rHero: "character", "hero.yes.s": "one in every shot", rResearch: "research", rIncluded: "included in the price", rRush: "timing", priceNow: "preliminary price",
+    s2n: "step 2 · video details", s2nh: "Length, quantity and details", s2sub: "Everything the price depends on is here. The price on the right updates instantly, and below it is explained where the numbers come from.",
+    capLen: "length and quantity", capQ: "details of the video",
+    s3n: "step 3 · estimate and request", s3nh: "This is what the price is made of", s3nsub: "Every line is explained. Below you can add services, leave a comment and send the request.",
+    commentLbl: "anything else (optional)", commentPh: "References, deadlines, details: anything that did not fit the calculator.",
+    x1h: "How your choice affects the price", x1p1: "Every direction has its own rate. Photoreal videos are made by neural nets, and their generations are a noticeable part of the price. In graphics, infographics and education you pay for design, script and time.",
+    x1p2: "The \"from\" price on a card is for a short version, and its length is shown next to it (5 minutes at most). The longer the video, the higher the price: you see the exact one in step 2.",
+    x2teaser: "In step 1 the price was shown for {a}: {p}. You chose {b}, so the price is higher: every next minute is priced at the rate of its bracket.",
+    x1mix: "A mixed video is priced as a mix of two prices: the photoreal base and the graphics. You set the share of graphics.",
+    x2h: "Where the price comes from", x2len: "Work per minute of runtime. The rate falls with length: the longer the video, the cheaper each next minute.",
+    x2setup: "Project preparation (style, characters, references) is paid once: {p}. It does not repeat in a series.",
+    x2gen: "Neural nets: about {p} per minute of finished video. The price includes a reserve for failed attempts.",
+    x2fold: "Graphics are built in your style, and compute and materials are already part of the work.", x2tier: "from {from} videos {pct}%",
+    x2series: "A series: the first {n} {u} are at full price (the pilot), then a volume discount applies to the contract: {tiers}.",
+    x2look: "A stylized look is cheaper than a photoreal one by about {p}%.", x2hero: "A recurring character adds about {p}% to the work.",
+    x2mix: "A mix: rates are calculated separately for the base and for the graphics, then combined by share.",
+    "send.type": "Type", "send.comment": "Comment", "send.free": "Request without an estimate — calculator, Serafim Panyushkin's site", "send.task": "Task"
+  });
+
+
+  Object.assign(T.ru, {
+    aboutCap: "кто делает",
+    softq: "Цифры пугают или не хочется разбираться?", softLinkBrief: "Ответьте на 6 коротких вопросов, цену посчитаю сам →", softLinkFree: "Опишите задачу в двух словах, цену назову сам →",
+    mixStart: "Начните с готового примера", mixCustom: "Собрать самому", mixCustomD: "Ни один пример не подходит: выберу основу, графику и долю графики сам.",
+    mixTune: "Настройте под себя", mixTuneSub: "Основа, графика и доля графики. Цена справа пересчитывается сразу.",
+    pickH: "Что вы получите", pickOut: "на выходе", pickLen: "длина", pickLenV: "обычно {d}, возможно от {a} до {b}", pickGfx: "графика", pickGfxV: "{p}% ролика: {g}",
+    pickNext: "На следующем шаге выберете длину, количество и особенности ролика."
+  });
+  Object.assign(T.en, {
+    aboutCap: "who makes it",
+    softq: "Numbers look scary or too much to figure out?", softLinkBrief: "Answer 6 short questions and I will price it myself →", softLinkFree: "Describe the task in a few words and I will price it myself →",
+    mixStart: "Start from a ready example", mixCustom: "Build my own", mixCustomD: "No example fits: I will choose the base, the graphics and the share myself.",
+    mixTune: "Adjust it", mixTuneSub: "The base, the graphics and the share of graphics. The price on the right updates instantly.",
+    pickH: "What you get", pickOut: "output", pickLen: "length", pickLenV: "usually {d}, from {a} to {b}", pickGfx: "graphics", pickGfxV: "{p}% of the video: {g}",
+    pickNext: "In the next step you set the length, the quantity and the details of the video."
+  });
+
+  Object.assign(T.ru, {
+    mailBtn: "На почту", mailHint: "откроется ваша почта с готовым письмом: останется нажать «отправить». Не открылось: создайте письмо в Gmail или Яндекс.Почте по ссылкам ниже, или скопируйте текст",
+    pdfBtn: "Скачать PDF", pdfHint: "в окне печати выберите «Сохранить как PDF», потом отправьте файл на {mail} или в Telegram", shareBtn: "Поделиться…",
+    mailLine2: "Нет почтовой программы? Создайте письмо в {g}{y}, или напишите на {mail}", pdfHead: "Смета на ролик", pdfFile: "Смета на ролик — Серафим Панюшкин",
+    pdfHeadFree: "Заявка без сметы", pdfFileFree: "Заявка — Серафим Панюшкин"
+  });
+  Object.assign(T.en, {
+    mailBtn: "By email", mailHint: "your mail app opens with the email ready: you only press send. If nothing opens, create the email in Gmail with the link below, or copy the text",
+    pdfBtn: "Download PDF", pdfHint: "in the print window choose \"Save as PDF\", then send the file to {mail} or on Telegram", shareBtn: "Share…",
+    mailLine2: "No mail app? Create the email in {g}{y}, or write to {mail}", pdfHead: "Video estimate", pdfFile: "Video estimate — Serafim Panyushkin",
+    pdfHeadFree: "Request without an estimate", pdfFileFree: "Request — Serafim Panyushkin"
+  });
+
+  function t(key, p) {
+    var s = (T[lang][key] != null ? T[lang][key] : T.ru[key]);
+    if (s == null) s = key;
+    if (p && typeof s === "string") Object.keys(p).forEach(function (k) { s = s.split("{" + k + "}").join(p[k]); });
+    return s;
+  }
+  function unit(n) { if (lang === "en") return n === 1 ? "video" : "videos"; var a = n % 10, b = n % 100; return a === 1 && b !== 11 ? "ролик" : (a >= 2 && a <= 4 && (b < 12 || b > 14) ? "ролика" : "роликов"); }
+  var pick = function (o) { return o ? (o[lang] || o.ru) : ""; };
+  var fmtRub = new Intl.NumberFormat("ru-RU", { style: "currency", currency: "RUB", maximumFractionDigits: 0 });
+  var fmtUsd = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 });
+  var money = function (g, v) { return (g === "RU" ? fmtRub : fmtUsd).format(v).replace(/ /g, " "); };
+  var rubOnly = function (v) { return fmtRub.format(v).replace(/ /g, " "); };
+  var dec = function (x) { var s = (Math.round(x * 10) / 10).toString(); return lang === "ru" ? s.replace(".", ",") : s; };
+  var durText = function (s) { return s < 60 ? s + " " + t("sec") : (s % 60 === 0 ? s / 60 : dec(s / 60)) + " " + t("mn"); };
+  var escH = function (s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); };
+  function val(name) { var e = document.querySelector('input[name="' + name + '"]:checked'); return e ? e.value : null; }
+  function curDir() { return S.dir ? M.direction(cfg, S.dir) : null; }
+  function num(id, def) { var v = Math.round(+$(id).value); return isFinite(v) && v > 0 ? v : def; }
+  function isMix() { return S.grp === "mix"; }
+
+  /* ——— шаг 1: тип и направление ——— */
+  /* длина, за которую показываем «от»: типичная, но не длиннее 5 минут, чтобы цена на первом экране не пугала */
+  function teaser(d) {
+    var cap = cfg.catalog.teaser_max_sec || 300;
+    return Math.min(Math.max(d.sec.def, d.sec.min), Math.max(cap, d.sec.min));
+  }
+  function hintQuote(d) {
+    var o = { grid: val("grid") || "RU", direction: d.id, durSec: teaser(d), count: 1 };
+    if (isMix()) { o.mixDir = S.dir2; o.mixShare = S.share / 100; }
+    return M.quoteMix(cfg, o);
+  }
+  function dirHint(d) { var q = hintQuote(d); return durText(q.durSec) + " · " + t("from") + " " + money(q.grid, q.total); }
+  function groupNames(gid) { return cfg.catalog.directions.filter(function (d) { return d.group === gid; }).map(function (d) { return pick(d.t); }).join(", "); }
+  function buildTabs() {
+    var groups = cfg.catalog.groups.map(function (g) { return { id: g.id, title: t("g." + g.id), sub: groupNames(g.id) }; });
+    groups.push({ id: "mix", title: t("g.mix"), sub: t("g.mix.d") });
+    $("tabBox").innerHTML = groups.map(function (g) {
+      return '<button type="button" class="tab" role="tab" data-grp="' + g.id + '" aria-selected="' + (g.id === S.grp) + '"><b>' + escH(g.title) + "</b><span>" + escH(g.sub) + "</span></button>";
+    }).join("");
+  }
+  function dirCard(d) {
+    return '<label class="opt"><input type="radio" name="dir" value="' + d.id + '"' + (d.id === S.dir ? " checked" : "") + "><b>" + escH(pick(d.t)) + '</b><span class="d">' + escH(pick(d.d)) + '</span><span class="p">' + escH(dirHint(d)) + "</span></label>";
+  }
+  function buildDirections() {
+    if (isMix()) {
+      var bases = MIX.bases.map(function (id) { return M.direction(cfg, id); });
+      var gfx = MIX.graphics.map(function (id) { return M.direction(cfg, id); });
+      var tplCard = function (tp) {
+        var q = M.quoteMix(cfg, { grid: val("grid") || "RU", direction: tp.base, durSec: tp.durSec, count: 1, mixDir: tp.gfx, mixShare: tp.share / 100 });
+        return '<label class="opt"><input type="radio" name="tpl" value="' + tp.id + '"' + (S.tpl === tp.id ? " checked" : "") + "><b>" + escH(pick(tp.t)) + '</b><span class="d">' + escH(pick(tp.d)) + '</span><span class="p">' + escH(durText(tp.durSec) + " · " + t("from") + " " + money(q.grid, q.total)) + "</span></label>";
+      };
+      var customCard = '<label class="opt wide"><input type="radio" name="tpl" value="custom"' + (S.tpl === "custom" ? " checked" : "") + "><b>" + escH(t("mixCustom")) + '</b><span class="d">' + escH(t("mixCustomD")) + "</span></label>";
+      $("dirBox").innerHTML = '<div class="ph"><b>' + escH(t("g.mix")) + "</b> · " + escH(t("g.mix.d")) + "</div>" +
+        '<label class="lbl">' + t("mixStart") + '</label><div class="opts pick">' + MIX.templates.map(tplCard).join("") + customCard + "</div>" +
+        '<div class="mixtune' + (S.tpl ? "" : " hidden") + '" id="mixTune"><div class="cap">' + escH(t("mixTune")) + '</div><p class="tsub">' + escH(t("mixTuneSub")) + '</p>' +
+        '<label class="lbl">' + t("mixBase") + '</label><div class="opts">' + bases.map(dirCard).join("") + "</div>" +
+        '<div class="mixbox"><label class="lbl">' + t("mixGfx") + '</label><div class="chips">' + gfx.map(function (d) {
+          return '<label class="chip"><input type="radio" name="dir2" value="' + d.id + '"' + (d.id === S.dir2 ? " checked" : "") + "><span>" + escH(pick(d.t)) + "</span></label>";
+        }).join("") + '</div><label class="lbl" id="mixShareLbl" for="mixShare" style="margin-top:18px">' + t("mixShareLbl", { p: S.share }) + '</label><input type="range" id="mixShare" min="' + MIX.share.min + '" max="' + MIX.share.max + '" step="5" value="' + S.share + '"><div class="hint">' + t("mixShareHint") + "</div></div></div>";
+      return;
+    }
+    var list = cfg.catalog.directions.filter(function (d) { return d.group === S.grp; });
+    $("dirBox").innerHTML = '<div class="ph"><b>' + escH(t("g." + S.grp)) + "</b> · " + escH(t("g." + S.grp + ".d")) + '</div><div class="opts pick">' + list.map(dirCard).join("") + "</div>";
+  }
+  function updateExplain1() {
+    $("explain1").innerHTML = "<summary>" + escH(t("x1h")) + "</summary><p>" + escH(t("x1p1")) + "</p><p>" + escH(t("x1p2")) + "</p>" + (isMix() ? "<p>" + escH(t("x1mix")) + "</p>" : "");
+  }
+  /* карточка «что вы получите» занимает место, которое освободилось после выбора */
+  function updatePick1() {
+    var d = curDir(), el = $("pick1");
+    el.classList.toggle("hidden", !d || isMix());
+    if (!d || isMix()) { el.innerHTML = ""; return; }
+    var row = function (k, v) { return "<div><dt>" + escH(k) + "</dt><dd>" + escH(v) + "</dd></div>"; };
+    var g2 = isMix() ? M.direction(cfg, S.dir2) : null;
+    var rows = row(t("pickOut"), pick(d.out)) + row(t("pickLen"), t("pickLenV", { d: durText(teaser(d)), a: durText(d.sec.min), b: durText(d.sec.max) }));
+    if (g2) rows += row(t("pickGfx"), t("pickGfxV", { p: S.share, g: pick(g2.t) }));
+    el.innerHTML = "<h3>" + escH(t("pickH")) + '</h3><b class="pt">' + escH(pick(d.t) + (g2 ? " + " + pick(g2.t) : "")) + "</b><p>" + escH(pick(d.d)) + "</p><dl>" + rows + '</dl><div class="nx">' + escH(t("pickNext")) + "</div>";
+  }
+  /* цены на карточках смеси зависят от графики и доли */
+  function refreshMixHints() {
+    Array.prototype.forEach.call(document.querySelectorAll("#mixTune .opts .opt"), function (o) {
+      var inp = o.querySelector("input"), p = o.querySelector(".p");
+      if (inp && p) p.textContent = dirHint(M.direction(cfg, inp.value));
+    });
+  }
+  function setCustomTpl() {
+    if (S.tpl === "custom") return;
+    S.tpl = "custom";
+    var r = document.querySelector('input[name="tpl"][value="custom"]'); if (r) r.checked = true;
+  }
+  function applyMixTpl(id) {
+    S.tpl = id;
+    if (id !== "custom") {
+      var tp = MIX.templates.filter(function (x) { return x.id === id; })[0];
+      S.dir = tp.base; S.dir2 = tp.gfx; S.share = tp.share;
+      var set = function (name, v) { var r = document.querySelector('input[name="' + name + '"][value="' + v + '"]'); if (r) r.checked = true; };
+      set("dir", tp.base); set("dir2", tp.gfx);
+      $("mixShare").value = tp.share; $("mixShareLbl").textContent = t("mixShareLbl", { p: tp.share });
+      buildQuestions(true); syncDuration(true);
+      var el = $("dur"); el.value = Math.min(Math.max(tp.durSec, +el.min), +el.max);
+    }
+    $("mixTune").classList.remove("hidden");
+    refreshMixHints(); refreshStep();
+  }
+
+  /* ——— шаг 2: параметры ——— */
+  function qCard(name, id, checked, title, desc) {
+    return '<label class="opt"><input type="radio" name="' + name + '" value="' + id + '"' + (checked ? " checked" : "") + "><b>" + escH(title) + '</b><span class="d">' + escH(desc) + "</span></label>";
+  }
+  function buildQuestions(reset) {
+    var d = curDir(), html = "";
+    if (!d) { $("qBox").innerHTML = ""; return; }
+    var look = !reset && val("look") ? val("look") : d.look.def;
+    var hero = !reset && val("hero") ? val("hero") : (d.hero.def ? "yes" : "no");
+    var res = !reset && $("research") ? $("research").checked : false;
+    if (d.look.show) html += '<div class="qgroup"><label class="lbl">' + t("q.look") + '</label><div class="opts">' + qCard("look", "real", look === "real", t("look.real"), t("look.real.d")) + qCard("look", "styled", look === "styled", t("look.styled"), t("look.styled.d")) + "</div></div>";
+    if (d.hero.show) html += '<div class="qgroup"><label class="lbl">' + t("q.hero") + '</label><div class="opts">' + qCard("hero", "no", hero === "no", t("hero.no"), t("hero.no.d")) + qCard("hero", "yes", hero === "yes", t("hero.yes"), t("hero.yes.d")) + "</div></div>";
+    if (d.research === "optional") html += '<div class="qgroup"><label class="lbl">' + t("q.research") + '</label><label class="opt"><input type="checkbox" id="research"' + (res ? " checked" : "") + "><b>" + escH(t("research.opt")) + '</b><span class="d">' + escH(t("research.opt.d")) + "</span></label></div>";
+    if (d.research === "included") html += '<div class="okline">' + t("research.inc") + "</div>";
+    if (!html) html = '<div class="okline">' + escH(t("none")) + "</div>";
+    $("qBox").innerHTML = html;
+  }
+  function buildModes() {
+    var cur = val("mode") || "single";
+    $("modeBox").innerHTML = ["single", "series"].map(function (m) {
+      return '<label class="chip"><input type="radio" name="mode" value="' + m + '"' + (m === cur ? " checked" : "") + "><span>" + t("mode." + m) + "</span></label>";
+    }).join("");
+  }
+  function buildRush() {
+    var cur = val("rush") || "normal";
+    $("rushBox").innerHTML = cfg.rush.map(function (r) {
+      return '<label class="chip"><input type="radio" name="rush" value="' + r.id + '"' + (r.id === cur ? " checked" : "") + "><span>" + t("rush." + r.id) + (r.mult > 1 ? " (+" + Math.round((r.mult - 1) * 100) + "%)" : "") + "</span></label>";
+    }).join("");
+  }
+  function syncDuration(reset) {
+    var d = curDir(), el = $("dur");
+    if (!d) return;
+    var step = d.sec.max <= 120 ? 5 : (d.sec.max <= 600 ? 15 : 60);
+    var lo = Math.ceil(d.sec.min / step) * step;
+    var hi = lo + Math.floor((d.sec.max - lo) / step) * step;
+    el.min = lo; el.max = hi; el.step = step;
+    if (reset) el.value = Math.min(Math.max(teaser(d), lo), hi);
+    else if (+el.value < lo || +el.value > hi) el.value = lo;
+    $("rlMin").textContent = durText(lo); $("rlMax").textContent = durText(hi);
+  }
+  function syncMode() {
+    var m = val("mode");
+    $("singleBox").classList.toggle("hidden", m !== "single");
+    $("seriesBox").classList.toggle("hidden", m !== "series");
+    $("modeHint").textContent = t("hint." + m, { n: cfg.volume.trial_videos, u: unit(cfg.volume.trial_videos) });
+    $("serHint").textContent = "";
+  }
+
+  /* ——— шаг 3: добавки, заявка ——— */
+  function buildSelects() {
+    var ri = $("rights").value || "base";
+    $("rights").innerHTML = cfg.addons.rights.map(function (x) { return '<option value="' + x.id + '">' + escH(pick(x)) + "</option>"; }).join("");
+    $("rights").value = ri;
+  }
+  function buildPromo() {
+    var g = val("grid") || "RU", P = cfg.promo, key = g === "RU" ? "rub" : "usd", keep = {};
+    ["m_strategy", "m_packaging", "m_ad_setup"].forEach(function (id) { if ($(id)) keep[id] = $(id).checked; });
+    ["m_publishing", "m_report"].forEach(function (id) { if ($(id)) keep[id] = $(id).value; });
+    var lab = function (k) { return lang === "en" ? P[k].label_en : P[k].label; };
+    var chkRow = function (id, k) { return '<label class="chk"><input type="checkbox" id="' + id + '"' + (keep[id] ? " checked" : "") + "><span><b>" + escH(lab(k)) + '</b> <em class="pr">' + money(g, P[k][key]) + "</em><small>" + escH(pick(P[k].desc)) + "</small></span></label>"; };
+    var monRow = function (id, k) { return '<div><label class="lbl" for="' + id + '">' + escH(lab(k).replace(/ \((в месяц|per month)\)/, "") + t("monthsSfx")) + '</label><input type="number" id="' + id + '" min="0" max="24" value="' + (keep[id] || 0) + '" inputmode="numeric"><div class="hint">' + money(g, P[k][key]) + " · " + escH(pick(P[k].desc)) + "</div></div>"; };
+    $("promoBox").innerHTML = chkRow("m_strategy", "strategy_plan") + chkRow("m_packaging", "packaging") + chkRow("m_ad_setup", "ad_setup") + '<div class="row2" style="margin-top:14px">' + monRow("m_publishing", "publishing") + monRow("m_report", "report") + "</div>";
+  }
+  function buildHow() {
+    $("howBox").innerHTML = ["Telegram", "Почта", "Телефон"].map(function (h) {
+      return '<label class="chip"><input type="radio" name="how" value="' + h + '"' + (h === how ? " checked" : "") + "><span>" + T[lang].howT[h] + "</span></label>";
+    }).join("");
+    $("t-contactlbl").textContent = t("contactlbl", { how: T[lang].howT[how] });
+    $("f-contact").placeholder = T[lang].ph[how];
+  }
+  function showSendMode() {
+    var direct = hasEndpoints(), mail = (window.LEAD && window.LEAD.MAIL) || "semyran1@gmail.com";
+    $("leadFields").classList.toggle("hidden", !direct);
+    $("t-sendSub").textContent = t(direct ? "sendSub" : (S.free ? "sendSubTgFree" : "sendSubTg"));
+    $("send-tg").textContent = t(direct ? "tgDirect" : (S.free ? "tgSendFree" : "tgSend"));
+    $("send-copy").textContent = t(S.free ? "copyFree" : "copy");
+    $("send-mail").textContent = t("mailBtn"); $("send-pdf").textContent = t("pdfBtn"); $("send-share").textContent = t("shareBtn");
+    var kit = window.SendKit;
+    ["send-mail", "send-pdf"].forEach(function (id) { $(id).classList.toggle("hidden", !kit); });
+    $("send-share").classList.toggle("hidden", !(kit && kit.canShare()));
+    if (kit) {
+      var lp0 = leadParts(), subj = t(S.free ? "send.free" : "send.h"), ruSite = lang === "ru";
+      $("mailLine").innerHTML = t("mailLine2", { mail: '<a href="mailto:' + mail + '">' + mail + "</a>",
+        g: '<a href="' + kit.gmail(subj, lp0.text) + '" target="_blank" rel="noopener">Gmail</a>',
+        y: ruSite ? ' ' + (lang === "ru" ? "или" : "or") + ' <a href="' + kit.yandex(subj, lp0.text) + '" target="_blank" rel="noopener">Яндекс.Почте</a>' : "" });
+    } else $("mailLine").innerHTML = t("mailLine", { mail: '<a href="mailto:' + mail + '">' + mail + "</a>" });
+  }
+  function buildFacts() {
+    $("aboutTopText").innerHTML = t("aboutTop");
+    $("aboutFacts").innerHTML = ["f1", "f2", "f3", "f4"].map(function (k) { return '<span class="fact">' + escH(t(k)) + "</span>"; }).join("");
+    $("aboutLinks").innerHTML = '<a href="index.html">' + escH(t("aboutL1")) + '</a><a href="https://youtu.be/n5Id2DzHuJk" target="_blank" rel="noopener">' + escH(t("aboutL2")) + "</a>";
+  }
+  function buildProcess() {
+    $("procList").innerHTML = cfg.process.map(function (st, i) { return '<li><span class="pn">' + (i + 1) + "</span><div><b>" + escH(pick(st.t)) + "</b><small>" + escH(pick(st.d)) + "</small></div></li>"; }).join("");
+  }
+  function buildPresets() {
+    $("presetBox").innerHTML = cfg.presets.map(function (p) { return '<button type="button" class="chip lite" data-preset="' + p.id + '">' + escH(pick(p)) + "</button>"; }).join("");
+  }
+
+  function applyLang() {
+    document.documentElement.lang = lang;
+    document.title = t("title");
+    var map = { "back-link": "back", "t-num": "num", "t-sub": "sub", "t-presets": "presets", "t-market": "market", "t-mruh": "mruh", "t-mwest": "mwest",
+      "t-s1": "s1", "t-s1h": "s1h", "t-s1sub": "s1sub", "t-aboutCap": "aboutCap", "t-softq": "softq", "t-freeq": "freeq", "freeLink": "freeLink",
+      "t-s2": "s2n", "t-s2h": "s2nh", "t-s2sub": "s2sub", "t-capLen": "capLen", "t-len": "len", "t-lenhint": "lenhint", "t-mode": "mode", "t-permonth": "permonth", "t-contract": "contract", "t-capQ": "capQ", "t-capRush": "rush",
+      "t-s3": "s3n", "t-s3h": "s3nh", "t-s3sub": "s3nsub", "t-incCap": "incCap", "t-notInc": "notInc", "t-more": "more", "t-moresub": "moresub", "t-rights": "rights", "t-revs": "revs", "t-vers": "vers", "t-expert": "expert", "t-promo": "promo", "t-commentLbl": "commentLbl",
+      "t-sendNum": "sendNum", "t-sendH": "sendH", "t-how2": "how2", "t-namelbl": "namelbl", "t-procCap": "procCap", "t-how": "t.how", "how": "how", "disc": "disc", "t-est": "est",
+      "ws1": "wsT1", "ws1s": "wsS1", "ws2": "wsT2", "ws2s": "wsS2", "ws3": "wsT3", "ws3s": "wsS3", "t-fnum": "fnum", "t-fh": "fh", "t-fsub": "fsub", "t-flbl": "flbl", "pbLabel": "pbLabel", "pbBtn": "pbBtn", "railEmpty": "railNone" };
+    Object.keys(map).forEach(function (id) { $(id).textContent = t(map[id]); });
+    $("t-h1").innerHTML = t("h1");
+    $("comment").setAttribute("placeholder", t("commentPh")); $("freeText").setAttribute("placeholder", t("fph"));
+    $("langbtn").textContent = lang === "en" ? "RU" : "EN";
+    buildFacts(); buildProcess(); buildPresets(); buildTabs(); buildDirections(); buildQuestions(false); buildModes(); buildRush(); buildSelects(); buildPromo(); buildHow(); syncMode(); showSendMode();
+    try { localStorage.setItem("calcLang", lang); } catch (e) {}
+  }
+
+  /* ——— подписи строк сметы ——— */
+  function lineLabel(l, hide) {
+    var p = { n: l.n, pct: l.pct, mult: l.mult, min: l.min != null ? dec(l.min) : "" };
+    if (l.id === "rights") return pick(cfg.addons.rights.filter(function (x) { return x.id === l.rights; })[0]);
+    if (l.id.indexOf("p_") === 0) {
+      var key = { p_strategy: "strategy_plan", p_packaging: "packaging", p_publishing: "publishing", p_ad: "ad_setup", p_report: "report" }[l.id];
+      var lab = lang === "en" ? cfg.promo[key].label_en : cfg.promo[key].label;
+      return l.n ? lab + " × " + l.n : lab;
+    }
+    if (hide && l.id === "prod") return t("l.prodc", p);
+    return t("l." + l.id, p);
+  }
+  function lineDesc(l, hide) {
+    if (hide && l.id === "prod") return t("d.prodc");
+    var k = "d." + l.id; var s = T[lang][k] != null ? T[lang][k] : T.ru[k];
+    return s ? t(k, { n: l.n }) : "";
+  }
+
+  /* ——— расчёт ——— */
+  function inp(extra) {
+    var d = curDir();
+    var b = {
+      grid: val("grid"), direction: d.id, durSec: +$("dur").value, look: val("look"), hero: val("hero") ? val("hero") === "yes" : undefined,
+      research: $("research") ? $("research").checked : false, rush: val("rush"), rights: $("rights").value,
+      extraRevisions: +$("revs").value || 0, versions: +$("vers").value || 0, expert: $("expert").checked,
+      modules: { strategy: $("m_strategy").checked, packaging: $("m_packaging").checked, adSetup: $("m_ad_setup").checked,
+        publishingMonths: Math.max(0, Math.round(+$("m_publishing").value || 0)), reportMonths: Math.max(0, Math.round(+$("m_report").value || 0)) },
+      specialDiscountPct: OWNER ? +$("special").value || 0 : 0
+    };
+    if (isMix()) { b.mixDir = S.dir2; b.mixShare = S.share / 100; }
+    return Object.assign(b, extra || {});
+  }
+  function Q(extra) { return M.quoteMix(cfg, inp(extra)); }
+
+  function ownerBlock(q, g, title, isMain) {
+    if (q.floor === null) return "";
+    var bad = q.belowFloor;
+    var h = "<h3>" + escH(title) + "</h3>";
+    h += '<div class="st ' + (bad ? "bad" : "ok") + '">' + escH(t(bad ? "o.bad" : "o.ok")) + "</div><dl>";
+    h += "<dt>" + t("o.floor") + "</dt><dd>" + money(g, q.floor) + "</dd><dt>" + t("o.margin") + "</dt><dd>" + money(g, q.margin) + "</dd>";
+    h += "<dt>" + t("o.days") + "</dt><dd>" + dec(q.days) + "</dd>";
+    h += "<dt>" + t("o.perday") + "</dt><dd>" + rubOnly(q.netPerDay) + "</dd>";
+    h += "<dt>" + t("o.net") + "</dt><dd><b>" + rubOnly(q.netMonthFull) + "</b></dd>";
+    if (isMain) h += "<dt>" + t("o.target") + "</dt><dd>" + rubOnly(cfg.owner.net_target_month_rub) + "</dd><dt>" + t("o.rate") + "</dt><dd>" + rubOnly(M.dayRateRub(cfg)) + "</dd>";
+    return h + "</dl>";
+  }
+
+  function explain2(q, d, g) {
+    var grid = cfg.grids[g], isR = g === "RU", wk = isR ? 1 : (d.west_k || 1), fx = cfg.fx.rub_per_usd;
+    var lf = cfg.factors.look[q.look], hf = cfg.factors.hero[q.hero ? "yes" : "no"], st = isR ? 100 : 5;
+    var rows = "", lo = 0;
+    grid.brackets.forEach(function (b) {
+      if (lo >= d.sec.max) return;
+      var hi = Math.min(b.upto_sec, d.sec.max);
+      var v = (b.prod_per_min * lf.prod * hf.prod + b.post_per_min) * d.rate * wk;
+      rows += "<li><span>" + durText(lo) + " – " + durText(hi) + "</span><b>" + money(g, Math.round(v / st) * st) + " / " + t("mn") + "</b></li>";
+      lo = b.upto_sec;
+    });
+    var setup = grid.setup * lf.setup * hf.setup * d.setup * wk;
+    var h = "<h3>" + escH(t("x2h")) + "</h3><p>" + escH(t("x2len")) + "</p><ul>" + rows + "</ul>";
+    h += "<p>" + t("x2setup", { p: "<b>" + money(g, Math.round(setup / st) * st) + "</b>" }) + "</p>";
+    if (q.durSec > teaser(d)) h += "<p>" + t("x2teaser", { a: durText(teaser(d)), b: durText(q.durSec), p: "<b>" + money(g, hintQuote(d).total) + "</b>" }) + "</p>";
+    if (!d.hide_gen) {
+      var gen = cfg.generation.base_usd_per_min * d.gen * lf.gen * hf.gen * (1 + cfg.generation.markup) * (isR ? fx : 1);
+      h += "<p>" + t("x2gen", { p: "<b>" + money(g, Math.round(gen / st) * st) + "</b>" }) + "</p>";
+    } else h += "<p>" + escH(t("x2fold")) + "</p>";
+    var tiers = cfg.volume.tiers.filter(function (x) { return x.discount > 0; }).map(function (x) { return t("x2tier", { from: x.from, pct: Math.round(x.discount * 100) }); }).join(", ");
+    h += "<p>" + t("x2series", { n: cfg.volume.trial_videos, u: unit(cfg.volume.trial_videos), tiers: tiers }) + "</p>";
+    if (d.look.show) h += "<p>" + t("x2look", { p: Math.round((1 - cfg.factors.look.styled.prod) * 100) }) + "</p>";
+    if (d.hero.show) h += "<p>" + t("x2hero", { p: Math.round((cfg.factors.hero.yes.prod - 1) * 100) }) + "</p>";
+    if (q.mix) h += "<p>" + escH(t("x2mix")) + "</p>";
+    $("explain2").innerHTML = h;
+  }
+
+  function railRows(q, d, g, m, cnt, N, pm) {
+    var rows = [];
+    rows.push([t("rType"), isMix() ? t("g.mix") : t("g." + S.grp), ""]);
+    rows.push([t("rDir"), pick(d.t) + (q.mix ? " + " + pick(M.direction(cfg, S.dir2).t) : ""), q.mix ? t("rMixSub", { a: 100 - Math.round(q.mix.share * 100), b: Math.round(q.mix.share * 100) }) : ""]);
+    if (S.maxStep >= 2) {
+      rows.push([t("rLen"), durText(q.durSec), ""]);
+      rows.push([t("rQty"), m === "single" ? cnt + " " + unit(cnt) : t("rSeries", { pm: pm, n: N, u: unit(N) }), ""]);
+      if (d.look.show) rows.push([t("rLook"), q.look === "real" ? t("look.real") : t("look.styled"), ""]);
+      if (d.hero.show) rows.push([t("rHero"), q.hero ? t("hero.yes.s") : t("hero.no"), ""]);
+      if (q.research) rows.push([t("rResearch"), d.research === "included" ? t("rIncluded") : t("yes"), ""]);
+      rows.push([t("rRush"), t("rush." + (val("rush") || "normal")), ""]);
+    }
+    return rows.map(function (r) { return '<div class="rrow"><dt>' + escH(r[0]) + "</dt><dd>" + escH(r[1]) + (r[2] ? "<small>" + escH(r[2]) + "</small>" : "") + "</dd></div>"; }).join("");
+  }
+
+  var lastBreak = [], lastText = "", lastFields = {}, lastQ = null, hasPrice = false, railSeen = false;
+  function updatePricebar() { $("pricebar").classList.toggle("on", hasPrice && !railSeen); }
+  function render() {
+    var d = curDir(), g = val("grid") || "RU";
+    hasPrice = !!d;
+    $("railTop").classList.toggle("hidden", !d);
+    $("railEmpty").classList.toggle("hidden", !!d);
+    updateExplain1(); updatePick1();
+    if (!d) { $("railRows").innerHTML = ""; $("owner").innerHTML = ""; updatePricebar(); window.__lastQuote = null; return; }
+    var m = val("mode"), N = num("contractTotal", 24), pm = num("perMonth", 8), cnt = num("count", 1), trial = cfg.volume.trial_videos;
+    var q, mq = null, all = null;
+    if (m === "single") q = Q({ count: cnt, contractTotal: cnt });
+    else {
+      N = Math.max(N, pm);
+      q = Q({ count: Math.min(trial, N), contractTotal: N });
+      mq = Q({ count: pm, contractTotal: N, trialDone: true });
+      all = Q({ count: N, contractTotal: N });
+    }
+    lastQ = { q: q, mq: mq, all: all };
+    var lookLab = q.look === "real" ? t("look.real") : t("look.styled");
+    var heroLab = q.hero ? t("yes") : t("no");
+
+    $("t-len").textContent = t("len") + ": " + durText(q.durSec);
+    $("what").textContent = (m === "single" ? t("what1", { n: cnt, d: durText(q.durSec), m: dec(q.totalMinutes) + " " + t("mn"), t: pick(d.t) }) : t("what2", { d: durText(q.durSec), t: pick(d.t) }));
+    $("bigLabel").textContent = S.maxStep < 2 ? t("priceNow") : (m === "single" ? t("bigLabel1") : t("bigLabel2", { n: Math.min(trial, N), u: unit(Math.min(trial, N)) }));
+    $("total").innerHTML = "<u>" + money(g, q.total) + "</u>";
+    $("per").innerHTML = "<b>" + money(g, q.perVideo) + "</b> " + t("perv") + " · <b>" + money(g, q.perMinute) + "</b> " + t("perm");
+    $("railRows").innerHTML = railRows(q, d, g, m, cnt, N, pm);
+
+    var S2 = $("series");
+    if (mq) {
+      S2.classList.remove("hidden");
+      S2.innerHTML = '<div><div class="k">' + t("sPilot") + '</div><div class="n">' + money(g, q.total) + '</div><div class="s">' + t("sPer", { n: q.count, u: unit(q.count), p: money(g, q.perVideo) }) + "</div></div>" +
+        '<div><div class="k">' + t("sMonth") + '</div><div class="n">' + money(g, mq.total) + '</div><div class="s">' + t("sPer", { n: mq.count, u: unit(mq.count), p: money(g, mq.perVideo) }) + "</div></div>" +
+        '<div class="all">' + t("sAll", { n: N, u: unit(N), p: money(g, all.total) }) + "</div>";
+    } else S2.classList.add("hidden");
+
+    var G = q.groups, sum = G.clay + G.fingers + G.promo;
+    var meta = [["clay", "var(--acc)"], ["fingers", "var(--ink)"], ["promo", "var(--gray)"]];
+    $("bar").innerHTML = meta.filter(function (x) { return G[x[0]] > 0; }).map(function (x) { return '<span style="width:' + (G[x[0]] / sum * 100).toFixed(2) + "%;background:" + x[1] + '"></span>'; }).join("");
+    var shown = q.lines.filter(function (l) { return l.value !== 0; });
+    $("groups").innerHTML = meta.filter(function (x) { return G[x[0]] > 0; }).map(function (x) {
+      var items = shown.filter(function (l) { return l.group === x[0]; }).map(function (l) {
+        var ds = lineDesc(l, d.hide_gen);
+        return '<div class="item' + (l.value < 0 ? " neg" : "") + '"><div class="il">' + escH(lineLabel(l, d.hide_gen)) + (ds ? "<small>" + escH(ds) + "</small>" : "") + '</div><span class="v">' + (l.value < 0 ? "−" : "") + money(g, Math.abs(l.value)) + "</span></div>";
+      }).join("");
+      return '<div class="grp"><div class="gh"><span><i style="background:' + x[1] + '"></i>' + escH(t("g." + x[0])) + "</span><b>" + money(g, G[x[0]]) + " · " + Math.round(G[x[0]] / sum * 100) + '%</b></div><div class="gsub">' + escH(t("g." + x[0] + ".d")) + "</div>" + items + "</div>";
+    }).join("");
+
+    var mp = $("mixParts");
+    if (q.mix) {
+      var sh = Math.round(q.mix.share * 100), step = g === "RU" ? 100 : 5, rr = function (x) { return Math.round(x / step) * step; };
+      mp.classList.remove("hidden");
+      mp.innerHTML = "<h3>" + escH(t("mixPartsH")) + "</h3><ul><li><span>" + escH(t("mixRow1", { a: 100 - sh, p: money(g, q.mix.base) })) + "</span><b>" + money(g, rr((1 - q.mix.share) * q.mix.base)) + "</b></li><li><span>" +
+        escH(t("mixRow2", { g: pick(M.direction(cfg, S.dir2).t), b: sh, p: money(g, q.mix.gfx) })) + "</span><b>" + money(g, rr(q.mix.share * q.mix.gfx)) + "</b></li></ul><p>" + escH(t("mixNote", { a: 100 - sh, b: sh })) + "</p>";
+    } else mp.classList.add("hidden");
+
+    var ow = $("owner");
+    if (OWNER && q.floor !== null) {
+      ow.classList.remove("hidden");
+      ow.innerHTML = "<h3>" + t("o.h") + "</h3>" + ownerBlock(q, g, m === "single" ? "" : t("sPilot"), true).replace(/^<h3><\/h3>/, "") + (mq ? "<hr>" + ownerBlock(mq, g, t("o.month"), false) : "");
+    }
+
+    var inc = cfg.includes, list = [inc.common[0]];
+    if (q.research) list = list.concat(inc.research);
+    list = list.concat(d.code ? inc.code : inc.ai, inc.common.slice(1));
+    var outTxt = pick(d.out);
+    $("outLine").textContent = t("out") + ": " + outTxt.charAt(0).toLowerCase() + outTxt.slice(1);
+    $("incList").innerHTML = list.map(function (x) { return "<li>" + escH(pick(x)) + "</li>"; }).join("");
+    $("notList").innerHTML = inc.excluded.map(function (x) { return "<li>" + escH(pick(x)) + "</li>"; }).join("");
+    $("volHint").textContent = "";
+    explain2(q, d, g);
+    $("pbValue").textContent = money(g, q.total);
+    updatePricebar();
+
+    lastFields = {};
+    lastFields[t("send.market")] = g === "RU" ? t("mruh") : t("mwest");
+    lastFields[t("send.type")] = isMix() ? t("g.mix") : t("g." + S.grp);
+    lastFields[t("send.dir")] = pick(d.t) + (q.mix ? " + " + pick(M.direction(cfg, S.dir2).t) + " (" + Math.round(q.mix.share * 100) + "%)" : "");
+    lastFields[t("send.len")] = m === "single" ? cnt + " × " + durText(q.durSec) : durText(q.durSec);
+    if (d.look.show) lastFields[t("send.look")] = lookLab;
+    if (d.hero.show) lastFields[t("send.hero")] = heroLab;
+    if (q.research) lastFields[t("send.research")] = t("yes");
+    lastFields[t("send.mode")] = t("mode." + m);
+    if (m === "single") lastFields[t("send.total")] = money(g, q.total) + " (" + money(g, q.perVideo) + " " + t("perv") + ")";
+    else {
+      lastFields[t("sPilot")] = money(g, q.total) + " (" + q.count + ")";
+      lastFields[t("sMonth")] = money(g, mq.total) + " (" + mq.count + ")";
+      lastFields[t("send.total")] = money(g, all.total) + " (" + N + ")";
+    }
+    lastBreak = shown.map(function (l) { return "— " + lineLabel(l, d.hide_gen) + ": " + (l.value < 0 ? "−" : "") + money(g, Math.abs(l.value)); });
+    lastText = [t("send.h"), ""].concat(Object.keys(lastFields).map(function (k) { return k + ": " + lastFields[k]; }), [""], lastBreak).join("\n");
+
+    if (S.maxStep >= 2) { try { localStorage.setItem("calcLast", JSON.stringify({ t: Date.now(), short: lastFields[t("send.dir")] + ", " + lastFields[t("send.len")] + ": " + (m === "single" ? money(g, q.total) : t("send.total") + " " + lastFields[t("send.total")]), text: lastText })); } catch (e) {} }
+    try { window.parent.postMessage({ type: "pricing-calc-height", height: document.documentElement.scrollHeight }, "*"); } catch (e) {}
+    window.__lastQuote = q; window.__lastSeries = lastQ;
+  }
+
+  /* ——— навигация по шагам ——— */
+  function refreshStep() {
+    ["1", "2", "3"].forEach(function (k) { $("st" + k).classList.toggle("hidden", !(S.step === +k && !S.free)); });
+    $("stFree").classList.toggle("hidden", !S.free);
+    $("hero").classList.toggle("hidden", S.step !== 1 || S.free);
+    $("aboutTop").classList.toggle("hidden", S.step !== 1 || S.free);
+    var picked = isMix() ? !!S.tpl : !!S.dir;
+    $("aboutTop").classList.toggle("compact", !!S.dir);
+    $("dirBox").classList.toggle("has", picked);
+    $("dirBox").classList.toggle("hasp", picked && !isMix());
+    $("tabBox").classList.toggle("compact", picked);
+    $("presetWrap").classList.toggle("hidden", picked);
+    $("softExit").classList.toggle("hidden", S.free);
+    $("softLink").textContent = t(BRIEF() ? "softLinkBrief" : "softLinkFree");
+    $("softLink").setAttribute("href", BRIEF() || "#");
+    $("wsteps").classList.toggle("hidden", S.free);
+    Array.prototype.forEach.call(document.querySelectorAll(".ws"), function (b) {
+      var n = +b.dataset.go;
+      b.classList.toggle("cur", n === S.step);
+      b.classList.toggle("done", n !== S.step && n <= S.maxStep && (n === 1 || !!S.dir));
+      if (n === S.step) b.setAttribute("aria-current", "step"); else b.removeAttribute("aria-current");
+    });
+    var back = $("btnBack"), next = $("btnNext");
+    if (S.free) { back.classList.remove("hidden"); back.textContent = t("backCalc"); next.classList.add("hidden"); }
+    else {
+      back.classList.toggle("hidden", S.step === 1); back.textContent = t("back");
+      next.classList.toggle("hidden", S.step === 3);
+      next.textContent = t(S.step === 1 ? "next1" : "next2");
+      next.disabled = S.step === 1 && !S.dir;
+    }
+    // блок отправки живёт на шаге 3, а в режиме «опишите задачу» переезжает под поле текста
+    var send = $("send");
+    if (S.free) $("freeHost").appendChild(send); else $("st3").insertBefore(send, $("procBlk"));
+    $("t-sendNum").textContent = t(S.free ? "sendNumFree" : "sendNum");
+    showSendMode();
+    render();
+  }
+  function go(n, quiet) {
+    if (n === 2 && !S.dir) n = 1;
+    if (n === 3 && (!S.dir || S.maxStep < 2)) n = S.dir ? 2 : 1;
+    S.free = false; S.step = n; S.maxStep = Math.max(S.maxStep, n);
+    refreshStep();
+    if (!quiet) { try { history.pushState({ s: n }, "", "#step" + n); } catch (e) {} window.scrollTo({ top: Math.max(0, $("wsteps").getBoundingClientRect().top + window.scrollY - 76), behavior: "smooth" }); goal("calc_step" + n); }
+  }
+  function openFree() {
+    S.free = true; refreshStep(); goal("calc_free");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+  function applyPreset(p) {
+    var s = p.set, d = M.direction(cfg, s.direction);
+    S.grp = d.group; S.dir = d.id; S.tpl = null;
+    buildTabs(); buildDirections(); buildQuestions(true); syncDuration(true);
+    $("dur").value = s.durSec;
+    buildModes(); document.querySelector('input[name="mode"][value="' + (s.mode === "series" ? "series" : "single") + '"]').checked = true;
+    if (s.mode === "series") { $("perMonth").value = s.perMonth; $("contractTotal").value = s.contractTotal; } else $("count").value = s.count;
+    syncMode();
+    /* состав «под ключ»: герой, права, версии, правки, ресерч и модули продвижения; у остальных пресетов всё это сбрасывается */
+    var pick1 = function (name, v) { var r = document.querySelector('input[name="' + name + '"][value="' + v + '"]'); if (r) r.checked = true; };
+    if (s.hero != null) pick1("hero", s.hero ? "yes" : "no");
+    if (s.look) pick1("look", s.look);
+    if ($("research")) $("research").checked = !!s.research;
+    var md = s.modules || {};
+    $("rights").value = s.rights || "base"; $("vers").value = s.versions || 0; $("revs").value = s.revs || 0;
+    $("m_strategy").checked = !!md.strategy; $("m_packaging").checked = !!md.packaging; $("m_ad_setup").checked = !!md.adSetup;
+    $("m_publishing").value = md.publishingMonths || 0; $("m_report").value = md.reportMonths || 0;
+    $("moreBox").open = !!(s.rights || s.versions || s.revs || Object.keys(md).length);
+    S.maxStep = Math.max(S.maxStep, 2); go(2); goal("calc_preset");
+  }
+  function pickTab(id) {
+    if (id === S.grp) return;
+    S.grp = id; S.tpl = null;
+    var allowed = id === "mix" ? [] : cfg.catalog.directions.filter(function (d) { return d.group === id; }).map(function (d) { return d.id; });
+    if (S.dir && allowed.indexOf(S.dir) < 0) S.dir = null;
+    buildTabs(); buildDirections();
+    if (S.dir) { buildQuestions(true); syncDuration(true); } else $("qBox").innerHTML = "";
+    refreshStep();
+  }
+
+  /* ——— события ——— */
+  $("form").addEventListener("input", function (e) {
+    var n = e.target.name, id = e.target.id;
+    if (n === "tpl") { applyMixTpl(e.target.value); return; }
+    if (n === "dir") { S.dir = e.target.value; if (isMix()) setCustomTpl(); buildQuestions(true); syncDuration(true); refreshStep(); return; }
+    if (n === "dir2") { S.dir2 = e.target.value; setCustomTpl(); refreshMixHints(); refreshStep(); return; }
+    if (id === "mixShare") { S.share = +e.target.value; $("mixShareLbl").textContent = t("mixShareLbl", { p: S.share }); setCustomTpl(); refreshMixHints(); render(); return; }
+    if (n === "mode") syncMode();
+    if (n === "grid") { buildDirections(); buildPromo(); }
+    if (id === "comment" || id === "freeText") return;
+    render();
+  });
+  $("form").addEventListener("click", function (e) {
+    var tb = e.target.closest(".tab");
+    if (tb) { pickTab(tb.dataset.grp); return; }
+    var st = e.target.closest("[data-step]");
+    if (st) { var el = $(st.dataset.step); var v = (+el.value || 0) + (+st.dataset.d); var mn = +el.min || 0, mx = +el.max || 9999; el.value = Math.min(Math.max(v, mn), mx); render(); return; }
+  });
+  $("presetBox").addEventListener("click", function (e) {
+    var pr = e.target.closest("[data-preset]");
+    if (pr) applyPreset(cfg.presets.filter(function (p) { return p.id === pr.dataset.preset; })[0]);
+  });
+  $("wsteps").addEventListener("click", function (e) { var b = e.target.closest(".ws.done"); if (b) go(+b.dataset.go); });
+  $("btnNext").addEventListener("click", function () { if (S.step === 1 && !S.dir) return; go(S.step + 1); });
+  $("btnBack").addEventListener("click", function () { if (S.free) { S.free = false; refreshStep(); window.scrollTo({ top: 0, behavior: "smooth" }); } else go(S.step - 1); });
+  $("freeLink").addEventListener("click", openFree);
+  /* адрес брифа задаёт сборка для русского сайта; без него ссылка открывает заявку своими словами */
+  function BRIEF() { var b = (typeof CALC_FIX !== "undefined" && CALC_FIX && CALC_FIX.brief) || ""; return b ? b + "?src=calc" + (qs.get("from") === "ai" ? "&from=ai" : "") : ""; }
+  $("softLink").addEventListener("click", function (e) { goal(BRIEF() ? "calc_to_brief" : "calc_free"); if (!BRIEF()) { e.preventDefault(); openFree(); } });
+  $("pbBtn").addEventListener("click", function (e) { e.preventDefault(); $("rail").scrollIntoView({ behavior: "smooth" }); });
+  window.addEventListener("popstate", function () { var m = /#step(\d)/.exec(location.hash); go(m ? +m[1] : 1, true); });
+  $("send").addEventListener("input", function (e) {
+    if (e.target.name === "how") { how = e.target.value; buildHow(); }
+    $("f-contact").classList.remove("err");
+  });
+  $("langbtn").addEventListener("click", function (e) { e.preventDefault(); lang = lang === "en" ? "ru" : "en"; applyLang(); syncDuration(false); refreshStep(); });
+
+  /* ——— заявка ——— */
+  function leadParts() {
+    var contact = $("f-contact").value.trim(), name = $("f-name").value.trim();
+    var f = {}, text;
+    if (S.free) {
+      var task = $("freeText").value.trim();
+      f[t("send.task")] = task;
+      text = t("send.free") + "\n\n" + t("send.task") + ": " + task;
+    } else {
+      f = Object.assign({}, lastFields);
+      var cm = $("comment").value.trim();
+      if (cm) f[t("send.comment")] = cm;
+      text = lastText + (cm ? "\n\n" + t("send.comment") + ": " + cm : "");
+    }
+    if (name) f[t("send.name")] = name;
+    if (contact) f[t("send.contact")] = T[lang].howT[how] + ": " + contact;
+    text += (name || contact ? "\n\n" + (name ? t("send.name") + ": " + name + "\n" : "") + (contact ? t("send.contact") + ": " + T[lang].howT[how] + " " + contact : "") : "") + "\n\n" + location.href;
+    return { fields: f, text: text, contact: contact };
+  }
+  var hasEndpoints = function () { return !!(window.LEAD && (window.LEAD.TG_ENDPOINT || window.LEAD.FORM_ENDPOINT) && typeof window.sendLead === "function"); };
+  function freeOk() { if (S.free && !$("freeText").value.trim()) { var ta = $("freeText"); ta.classList.add("err"); ta.focus(); return false; } return true; }
+  $("freeText").addEventListener("input", function () { $("freeText").classList.remove("err"); });
+  $("send-tg").addEventListener("click", async function () {
+    var btn = $("send-tg"), hint = $("sendhint");
+    if (!freeOk()) return;
+    var lp = leadParts();
+    goal("calc_submit");
+    if (hasEndpoints()) {
+      if (!lp.contact) { var c = $("f-contact"); c.classList.add("err"); c.focus(); return; }
+      btn.disabled = true; hint.textContent = t("sending");
+      var res = { sent: [] };
+      try { res = await window.sendLead(lp.fields, lp.text); } catch (e) {}
+      if (res.sent && res.sent.length) {
+        $("send").innerHTML = '<div class="done"><div class="mark">✓</div><h2>' + escH(t("doneT")) + '</h2><p class="sub" style="margin:12px auto 0">' + escH(t("doneS")) + "</p></div>";
+        return;
+      }
+      btn.disabled = false;
+    }
+    var copied = false;
+    try { await navigator.clipboard.writeText(lp.text); copied = true; } catch (e) {}
+    hint.innerHTML = copied ? t("copied") : t("nocopy");
+    window.open((window.LEAD && window.LEAD.TG_CHAT) || "https://t.me/semyran", "_blank", "noopener");
+  });
+  /* ссылки Gmail и Яндекс.Почты собираются заново в момент нажатия: к тому времени человек мог добавить услуги и комментарий */
+  $("mailLine").addEventListener("click", function (e) {
+    var a = e.target.closest("a"), kit = window.SendKit; if (!a || !kit) return;
+    var lp = leadParts(), subj = t(S.free ? "send.free" : "send.h");
+    if (/mail.google/.test(a.href)) a.href = kit.gmail(subj, lp.text); else if (/mail.yandex/.test(a.href)) a.href = kit.yandex(subj, lp.text);
+  });
+  /* почта, PDF, «поделиться»: без сервера (js/send.js). brief_submit-аналог для калькулятора это calc_submit, считаем любую попытку */
+  function viaGoal(ch) { goal("calc_submit"); goal("calc_via_" + ch); }
+  $("send-mail").addEventListener("click", function () {
+    if (!freeOk()) return;
+    var lp = leadParts(), kit = window.SendKit; viaGoal("mail");
+    location.href = kit.mailto(t(S.free ? "send.free" : "send.h"), lp.text);
+    $("sendhint").textContent = t("mailHint");
+  });
+  $("send-pdf").addEventListener("click", function () {
+    if (!freeOk()) return;
+    var kit = window.SendKit; viaGoal("pdf");
+    if (S.free) kit.pdf({ heading: t("pdfHeadFree"), filename: t("pdfFileFree"), locale: lang === "en" ? "en-US" : "ru-RU", author: lang === "en" ? "Serafim Panyushkin" : "Серафим Панюшкин", rows: [[t("send.task"), $("freeText").value.trim()]] });
+    else {
+      var rows = Object.keys(lastFields).map(function (k) { return [k, lastFields[k]]; }), cm = $("comment").value.trim();
+      if (cm) rows.push([t("send.comment"), cm]);
+      kit.pdf({ heading: t("pdfHead"), filename: t("pdfFile"), locale: lang === "en" ? "en-US" : "ru-RU", author: lang === "en" ? "Serafim Panyushkin" : "Серафим Панюшкин", rows: rows, text: lastBreak.join("\n") });
+    }
+    $("sendhint").textContent = t("pdfHint", { mail: kit.mail });
+  });
+  $("send-share").addEventListener("click", async function () {
+    if (!freeOk()) return;
+    var lp = leadParts(); viaGoal("share"); await window.SendKit.share(t(S.free ? "send.free" : "send.h"), lp.text);
+  });
+  $("send-copy").addEventListener("click", async function () {
+    if (!freeOk()) return;
+    var lp = leadParts(); goal("calc_copy");
+    try { await navigator.clipboard.writeText(lp.text); $("sendhint").textContent = t("copiedOnly"); } catch (e) { $("sendhint").textContent = t("nocopy"); }
+  });
+
+  /* плашка с ценой на телефоне: прячем, когда правая колонка на экране */
+  try {
+    var io = new IntersectionObserver(function (es) { railSeen = es[0].isIntersecting; updatePricebar(); }, { threshold: 0.15 });
+    io.observe($("sum"));
+  } catch (e) {}
+
+  if (OWNER) { $("specialBox").classList.remove("hidden"); $("owner").classList.remove("hidden"); }
+  var FIX = (typeof CALC_FIX !== "undefined" && CALC_FIX) || {};
+  var gp = qs.get("grid"), stored = null; try { stored = localStorage.getItem("calcLang"); } catch (e) {}
+  lang = qs.get("lang") === "en" || qs.get("lang") === "ru" ? qs.get("lang") : (stored === "en" ? "en" : "ru");
+  if (gp === "RU" || gp === "WEST") document.querySelector('input[name="grid"][value="' + gp + '"]').checked = true;
+  else if (lang === "en") document.querySelector('input[name="grid"][value="WEST"]').checked = true;
+  /* отдельный калькулятор для русского или английского сайта: язык и рынок зафиксированы, переключателей нет */
+  if (FIX.lang) { lang = FIX.lang; $("langbtn").classList.add("hidden"); }
+  if (FIX.grid) { document.querySelector('input[name="grid"][value="' + FIX.grid + '"]').checked = true; $("marketBox").classList.add("hidden"); }
+  var pd = qs.get("dir"); if (pd && M.direction(cfg, pd)) { S.dir = pd; S.grp = M.direction(cfg, pd).group; }
+  try { if (/#step/.test(location.hash)) history.replaceState(null, "", location.pathname + location.search); } catch (e) {}
+  applyLang(); syncDuration(true); refreshStep();
+  goal("calc_open");
+  window.addEventListener("resize", function () { render(); });
+})();
+</script>
+</body>
+</html>
